@@ -5,6 +5,7 @@ const path = require("path");
 const Campground = require("./models/campgrounds");
 const methodOverride = require("method-override");
 const campgrounds = require("./models/campgrounds");
+const ejsMate = require("ejs-mate");
 
 async function main() {
   try {
@@ -21,6 +22,7 @@ app.listen(3000, () => {
   console.log("Server Started at port: 3000");
 });
 
+app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 app.use(methodOverride("_method"));
