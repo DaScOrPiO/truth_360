@@ -5,11 +5,15 @@ const path = require("path");
 
 const Campground = require("./models/campgrounds");
 const methodOverride = require("method-override");
-const campgrounds = require("./models/campgrounds");
 const ejsMate = require("ejs-mate");
+const Review = require("./models/review");
+const {
+  validateReviews,
+  validateCampgrounds,
+} = require("./utils/validationFunctions/validate");
 
 const ErrorMessage = require("./utils/validation/ErrorMessage");
-const { campgroundSchema } = require("./utils/validation/SchemaValidator");
+const review = require("./models/review");
 
 async function main() {
   try {
@@ -44,20 +48,9 @@ app.get("/campgrounds/new", async (req, res) => {
   res.render("pages/campgrounds/new");
 });
 
-const validateSchema = (req, res, next) => {
-  const { item } = req.body;
-  const result = campgroundSchema.validate(item);
-  const { error } = result;
-  if (error) {
-    const message = error.details.map((el) => el.message);
-    throw new ErrorMessage(message, 400);
-  } else {
-    next();
-  }
-};
-
-app.post("/campgrounds", validateSchema, async (req, res, next) => {
+app.post("/campgrounds", validateCampgrounds, async (req, res, next) => {
   try {
+    const { item } = req.body;
     const newItem = new Campground(item);
     await newItem.save();
     res.redirect("/campgrounds");
@@ -67,7 +60,7 @@ app.post("/campgrounds", validateSchema, async (req, res, next) => {
 });
 
 app.get("/campgrounds/:id/show", async (req, res) => {
-  const item = await Campground.findById(req.params.id);
+  const item = await Campground.findById(req.params.id).populate("ratings");
   res.render("pages/campgrounds/show", { item });
 });
 
@@ -76,7 +69,27 @@ app.get("/campgrounds/:id/edit", async (req, res) => {
   res.render("pages/campgrounds/edit", { item });
 });
 
-app.patch("/campgrounds/:id/", validateSchema, async (req, res, next) => {
+app.post(
+  "/campgrounds/:id/reviews",
+  validateReviews,
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const { item } = req.body;
+      const campground = await Campground.findById(id);
+      const newReview = new Review(item);
+      campground.ratings.push(newReview);
+      await newReview.save();
+      await campground.save();
+      res.redirect(`/campgrounds/${id}/show`);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// Update Campground
+app.patch("/campgrounds/:id/", validateCampgrounds, async (req, res, next) => {
   try {
     const item = await Campground.findByIdAndUpdate(
       req.params.id,
@@ -89,10 +102,19 @@ app.patch("/campgrounds/:id/", validateSchema, async (req, res, next) => {
   }
 });
 
+// Delete Campground
 app.delete("/campgrounds/:id", async (req, res) => {
   const { id } = req.params;
   const removedItem = await Campground.findByIdAndRemove(id);
   res.redirect("/campgrounds");
+});
+
+// Delete Reviews
+app.delete("/campgrounds/:itemId/:reviewId/review", async (req, res) => {
+  const { itemId, reviewId } = req.params;
+  await Campground.findByIdAndUpdate(itemId, { $pull: { ratings: reviewId } });
+  await Review.findByIdAndDelete(reviewId);
+  res.redirect(`/campgrounds/${itemId}/show`);
 });
 
 app.use((err, req, res, next) => {
