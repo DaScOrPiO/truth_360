@@ -3,7 +3,7 @@
 <h1><%= item.title %></h1>
 <hr />
 <div class="row">
-  <div class="col-6 offset-3">
+  <div class="col-6">
     <div class="card mb-3">
       <img src="<%= item.image%>" class="card-img-top" alt="..." />
       <div class="card-body">
@@ -15,9 +15,7 @@
         <li class="list-group-item">$<%= item.price%>/night</li>
       </ul>
       <div class="card-body">
-        <a
-          class="card-link btn btn-info"
-          href="/campgrounds/<%=item._id%>/edit"
+        <a class="card-link btn btn-info" href="/campgrounds/<%=item._id%>/edit"
           >Edit</a
         >
         <form
@@ -31,16 +29,53 @@
       <div class="card-footer text-muted">2 days ago</div>
     </div>
   </div>
+
+  <div class="col-6">
+    <h1>Leave a review</h1>
+    <form
+      action="/campgrounds/<%=item._id%>/reviews"
+      method="post"
+      class="un-validated mb-3"
+      novalidate
+    >
+      <div class="mb-3">
+        <label for="Ratings" class="form-label">Ratings</label>
+        <input
+          type="range"
+          name="item[rating]"
+          min="0"
+          max="5"
+          class="form-control"
+          id="Ratings"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="r-description" class="form-label">Message</label>
+        <textarea
+          name="item[description]"
+          id="r-description"
+          cols="30"
+          rows="10"
+          required
+          class="form-control"
+        ></textarea>
+      </div>
+      <button class="btn btn-sm btn-success">Submit</button>
+    </form>
+
+    <% for(let review of item.ratings) { %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Rating: <%= review.rating %></h5>
+        <p class="card-text">Review: <%= review.description %></p>
+        <form
+          action="/campgrounds/<%=item.id%>/<%= review._id%>/review?_method=DELETE"
+          method="post"
+        >
+          <button class="btn-sm btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+    <% } %>
+  </div>
 </div>
-
-<!-- <h1><%= item.location%></h1>
-
-<a href="/campgrounds/<%=item.id %>/edit"> Edit </a>
-
-<form action="/campgrounds/<%=item._id%>?_method=DELETE" method="post">
-  <button href="campgrounds/<%=item.id %>">Delete</button>
-</form>
-
-<footer>
-  <a href="/campgrounds">Back</a>
-</footer> -->
