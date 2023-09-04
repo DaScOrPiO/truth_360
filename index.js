@@ -39,15 +39,18 @@ app.use(express.json());
 
 app.get("/", (req, res) => [res.render("index")]);
 
+// Show all campgrounds
 app.get("/campgrounds", async (req, res) => {
   const campgrounds = await Campground.find({});
   res.render("pages/campgrounds/index", { campgrounds });
 });
 
+// Render for for creating new campground
 app.get("/campgrounds/new", async (req, res) => {
   res.render("pages/campgrounds/new");
 });
 
+// Add new campground
 app.post("/campgrounds", validateCampgrounds, async (req, res, next) => {
   try {
     const { item } = req.body;
@@ -59,16 +62,19 @@ app.post("/campgrounds", validateCampgrounds, async (req, res, next) => {
   }
 });
 
+// Show one campground
 app.get("/campgrounds/:id/show", async (req, res) => {
   const item = await Campground.findById(req.params.id).populate("ratings");
   res.render("pages/campgrounds/show", { item });
 });
 
+// Edit campground
 app.get("/campgrounds/:id/edit", async (req, res) => {
   const item = await Campground.findById(req.params.id);
   res.render("pages/campgrounds/edit", { item });
 });
 
+// Add reviews
 app.post(
   "/campgrounds/:id/reviews",
   validateReviews,
