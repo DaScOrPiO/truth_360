@@ -32,8 +32,12 @@ const campgroundSchema = new Schema({
 });
 
 campgroundSchema.post("findOneAndRemove", async function (item) {
-  if (item) {
-    await Review.deleteMany({ _id: { $in: item.ratings } });
+  try {
+    if (item) {
+      await Review.deleteMany({ _id: { $in: item.ratings } });
+    }
+  } catch (err) {
+    console.log(err);
   }
 });
 
