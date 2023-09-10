@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
+const flash = require("connect-flash");
 
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
@@ -41,10 +42,16 @@ app.set("views", path.join(__dirname, "/views"));
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/campgrounds", campgroundRoutes);
-app.use("/campgrounds", reviewRoutes);
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(session(sessionParams));
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
+app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds", reviewRoutes);
 
 app.get("/", (req, res) => res.render("index"));
 

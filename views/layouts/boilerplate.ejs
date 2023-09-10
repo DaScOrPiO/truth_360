@@ -13,7 +13,10 @@
   </head>
   <body>
     <%- include("../partials/navbar") %>
-    <main class="container"><%- body %></main>
+    <main class="container">
+      <%- include("../partials/flash") %> 
+      <%- body %>
+    </main>
     <%- include("../partials/footer") %>
 
     <script

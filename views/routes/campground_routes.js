@@ -23,6 +23,7 @@ router.post("/", validateCampgrounds, async (req, res, next) => {
     const { item } = req.body;
     const newItem = new Campground(item);
     await newItem.save();
+    req.flash("success", "Addition Successful");
     res.redirect("/campgrounds");
   } catch (err) {
     next(err);
@@ -30,15 +31,29 @@ router.post("/", validateCampgrounds, async (req, res, next) => {
 });
 
 // Show one campground
-router.get("/:id/show", async (req, res) => {
-  const item = await Campground.findById(req.params.id).populate("ratings");
-  res.render("pages/campgrounds/show", { item });
+router.get("/:id/show", async (req, res, next) => {
+  try {
+    const item = await Campground.findById(req.params.id).populate("ratings");
+    if (!item) req.flash("error", "Cannot find page");
+    res.render("pages/campgrounds/show", { item });
+  } catch (err) {
+    next(err);
+  }
 });
 
 // Edit campground
-router.get("/:id/edit", async (req, res) => {
-  const item = await Campground.findById(req.params.id);
-  res.render("pages/campgrounds/edit", { item });
+router.get("/:id/edit", async (req, res, next) => {
+  try {
+    const item = await Campground.findById(req.params.id);
+    if (!item) {
+      req.flash("error", "Cannot find page");
+    } else {
+      req.flash("success", "Campground edit successful");
+      res.render("pages/campgrounds/edit", { item });
+    }
+  } catch (err) {
+    next(err);
+  }
 });
 
 // Update Campground
@@ -48,7 +63,7 @@ router.patch("/:id/", validateCampgrounds, async (req, res, next) => {
       req.params.id,
       req.body.item
     );
-    console.log(req.body);
+    req.flash("success", "Campground update successful");
     res.redirect("/campgrounds");
   } catch (err) {
     next();
@@ -56,10 +71,15 @@ router.patch("/:id/", validateCampgrounds, async (req, res, next) => {
 });
 
 // Delete Campground
-router.delete("/:id", async (req, res) => {
-  const { id } = req.params;
-  const removedItem = await Campground.findByIdAndRemove(id);
-  res.redirect("/campgrounds");
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const removedItem = await Campground.findByIdAndRemove(id);
+    req.flash("success", "Campground delete successful");
+    res.redirect("/campgrounds");
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;
