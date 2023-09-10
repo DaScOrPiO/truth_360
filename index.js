@@ -6,6 +6,8 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const campgroundRoutes = require("./views/routes/campground_routes");
+const reviewRoutes = require("./views/routes/review_routes");
+const session = require("express-session");
 
 async function main() {
   try {
@@ -22,6 +24,17 @@ app.listen(3000, () => {
   console.log("Server Started at port: 3000");
 });
 
+const sessionParams = {
+  secret: "Thisisasecret",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 2,
+    maxAge: 1000 * 60 * 60 * 24 * 2,
+  },
+};
+
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
@@ -29,6 +42,9 @@ app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds", reviewRoutes);
+app.use(express.static(path.join(__dirname, "/public")));
+app.use(session(sessionParams));
 
 app.get("/", (req, res) => res.render("index"));
 

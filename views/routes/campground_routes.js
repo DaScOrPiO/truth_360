@@ -3,7 +3,6 @@ const router = express.Router();
 const Campground = require("../../models/campgrounds");
 const Review = require("../../models/review");
 const {
-  validateReviews,
   validateCampgrounds,
 } = require("../../utils/validationFunctions/validate");
 
@@ -42,22 +41,6 @@ router.get("/:id/edit", async (req, res) => {
   res.render("pages/campgrounds/edit", { item });
 });
 
-// Add reviews
-router.post("/:id/reviews", validateReviews, async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const { item } = req.body;
-    const campground = await Campground.findById(id);
-    const newReview = new Review(item);
-    campground.ratings.push(newReview);
-    await newReview.save();
-    await campground.save();
-    res.redirect(`/campgrounds/${id}/show`);
-  } catch (err) {
-    next(err);
-  }
-});
-
 // Update Campground
 router.patch("/:id/", validateCampgrounds, async (req, res, next) => {
   try {
@@ -77,14 +60,6 @@ router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   const removedItem = await Campground.findByIdAndRemove(id);
   res.redirect("/campgrounds");
-});
-
-// Delete Reviews
-router.delete("/:itemId/:reviewId/review", async (req, res) => {
-  const { itemId, reviewId } = req.params;
-  await Campground.findByIdAndUpdate(itemId, { $pull: { ratings: reviewId } });
-  await Review.findByIdAndDelete(reviewId);
-  res.redirect(`/campgrounds/${itemId}/show`);
 });
 
 module.exports = router;
