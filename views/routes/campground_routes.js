@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Campground = require("../../models/campgrounds");
 const Review = require("../../models/review");
-const { isLoggedIn } = require("../../utils/middleware/requireLogin");
+const { isLoggedIn } = require("../../utils/middleware/middleware");
 const {
   validateCampgrounds,
 } = require("../../utils/validationFunctions/validate");

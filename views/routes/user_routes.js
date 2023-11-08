@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../../models/user");
 const ErrorMessage = require("../../utils/validation/ErrorMessage");
 const passport = require("passport");
+const { storeReturnTo } = require("../../utils/middleware/middleware");
 
 router.get("/register", (req, res) => {
   res.render("Pages/user/register");
@@ -32,13 +33,15 @@ router.get("/login", async (req, res) => {
 
 router.post(
   "/login",
+  storeReturnTo,
   passport.authenticate("local", {
     failureFlash: true,
     failureRedirect: "/login",
   }),
   async (req, res) => {
     req.flash("success", "welcome back");
-    res.redirect("/campgrounds");
+    const redirect = res.locals.returnTo || "/campgrounds";
+    res.redirect(redirect);
   }
 );
 
