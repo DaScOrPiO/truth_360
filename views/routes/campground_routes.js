@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Campground = require("../../models/campgrounds");
 const Review = require("../../models/review");
+const { isLoggedIn } = require("../../utils/middleware/requireLogin");
 const {
   validateCampgrounds,
 } = require("../../utils/validationFunctions/validate");
@@ -13,12 +14,12 @@ router.get("/", async (req, res) => {
 });
 
 // Render for for creating new campground
-router.get("/new", async (req, res) => {
+router.get("/new", isLoggedIn, async (req, res) => {
   res.render("pages/campgrounds/new");
 });
 
 // Add new campground
-router.post("/", validateCampgrounds, async (req, res, next) => {
+router.post("/", validateCampgrounds, isLoggedIn, async (req, res, next) => {
   try {
     const { item } = req.body;
     const newItem = new Campground(item);
@@ -42,7 +43,7 @@ router.get("/:id/show", async (req, res, next) => {
 });
 
 // Edit campground
-router.get("/:id/edit", async (req, res, next) => {
+router.get("/:id/edit", isLoggedIn, async (req, res, next) => {
   try {
     const item = await Campground.findById(req.params.id);
     if (!item) {
@@ -57,21 +58,26 @@ router.get("/:id/edit", async (req, res, next) => {
 });
 
 // Update Campground
-router.patch("/:id/", validateCampgrounds, async (req, res, next) => {
-  try {
-    const item = await Campground.findByIdAndUpdate(
-      req.params.id,
-      req.body.item
-    );
-    req.flash("success", "Campground update successful");
-    res.redirect("/campgrounds");
-  } catch (err) {
-    next();
+router.patch(
+  "/:id/",
+  validateCampgrounds,
+  isLoggedIn,
+  async (req, res, next) => {
+    try {
+      const item = await Campground.findByIdAndUpdate(
+        req.params.id,
+        req.body.item
+      );
+      req.flash("success", "Campground update successful");
+      res.redirect("/campgrounds");
+    } catch (err) {
+      next();
+    }
   }
-});
+);
 
 // Delete Campground
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", isLoggedIn, async (req, res, next) => {
   try {
     const { id } = req.params;
     const removedItem = await Campground.findByIdAndRemove(id);
