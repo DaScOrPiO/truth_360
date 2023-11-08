@@ -8,13 +8,18 @@ router.get("/register", (req, res) => {
   res.render("Pages/user/register");
 });
 
-router.post("/register", async (req, res) => {
+router.post("/register", async (req, res, next) => {
   try {
     const { username, password, email } = req.body;
     const user = new User({ email, username });
     const registeredUser = await User.register(user, password);
-    req.flash("success", "Welcome to Yelpcamp");
-    res.redirect("/campgrounds");
+    req.login(registeredUser, (err) => {
+      if (err) {
+        return next();
+      }
+      req.flash("success", "Welcome to Yelpcamp");
+      res.redirect("/campgrounds");
+    });
   } catch (err) {
     req.flash("error", err.message);
     res.redirect("/register");
@@ -36,5 +41,15 @@ router.post(
     res.redirect("/campgrounds");
   }
 );
+
+router.get("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    req.flash("success", "logout success! ✔");
+    res.redirect("/");
+  });
+});
 
 module.exports = router;
