@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const Review = require("./review");
 
 const campgroundSchema = new Schema({
+  author: { type: Schema.Types.ObjectId, ref: "User" },
   title: {
     type: String,
   },

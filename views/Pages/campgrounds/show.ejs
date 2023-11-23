@@ -1,4 +1,5 @@
 <% layout("layouts/boilerplate") %>
+<link rel="stylesheet" href="/styles/ratings/rating.css" />
 
 <h1><%= item.title %></h1>
 <hr />
@@ -12,8 +13,10 @@
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item text-muted"><%= item.location%></li>
+        <li class="list-group-item">Author: <%= item.author.username%></li>
         <li class="list-group-item">$<%= item.price%>/night</li>
       </ul>
+      <%if(currentUser && item.author._id.equals(currentUser._id)) {%>
       <div class="card-body">
         <a class="card-link btn btn-info" href="/campgrounds/<%=item._id%>/edit"
           >Edit</a
@@ -26,11 +29,13 @@
           <button class="btn btn-danger">Delete</button>
         </form>
       </div>
+      <%} %>
       <div class="card-footer text-muted">2 days ago</div>
     </div>
   </div>
 
   <div class="col-6">
+    <%if(currentUser) {%>
     <h1>Leave a review</h1>
     <form
       action="/campgrounds/<%=item._id%>/reviews"
@@ -39,16 +44,38 @@
       novalidate
     >
       <div class="mb-3">
-        <label for="Ratings" class="form-label">Ratings</label>
-        <input
-          type="range"
-          name="item[rating]"
-          min="0"
-          max="5"
-          class="form-control"
-          id="Ratings"
-        />
+        <fieldset class="starability-grow">
+          <legend>rating:</legend>
+          <input
+            type="radio"
+            id="no-rate"
+            class="input-no-rate"
+            name="item[rating]"
+            value="1"
+            checked
+            aria-label="No rating."
+            max="5"
+          />
+
+          <input type="radio" id="rate1" name="item[rating]" value="1" />
+          <label for="rate1">1 star.</label>
+
+          <input type="radio" id="rate2" name="item[rating]" value="2" />
+          <label for="rate2">2 stars.</label>
+
+          <input type="radio" id="rate3" name="item[rating]" value="3" />
+          <label for="rate3">3 stars.</label>
+
+          <input type="radio" id="rate4" name="item[rating]" value="4" />
+          <label for="rate4">4 stars.</label>
+
+          <input type="radio" id="rate5" name="item[rating]" value="5" />
+          <label for="rate5">5 stars.</label>
+
+          <span class="starability-focus-ring"></span>
+        </fieldset>
       </div>
+
       <div class="mb-3">
         <label for="r-description" class="form-label">Message</label>
         <textarea
@@ -60,20 +87,27 @@
           class="form-control"
         ></textarea>
       </div>
+
       <button class="btn btn-sm btn-success">Submit</button>
     </form>
-
-    <% for(let review of item.ratings) { %>
+    <% }%> <% for(let review of item.ratings) { %>
     <div class="card mb-3">
       <div class="card-body">
-        <h5 class="card-title">Rating: <%= review.rating %></h5>
+        <p class="starability-result" data-rating="<%=review.rating %>">
+          Rated: <%=review.rating %> stars
+        </p>
+        <h6 class="card-subtitle mb-2 text-muted">
+          Posted by: <%= review.author.username %>
+        </h6>
         <p class="card-text">Review: <%= review.description %></p>
+        <%if(currentUser && review.author.equals(currentUser._id)) {%>
         <form
           action="/campgrounds/<%=item.id%>/<%= review._id%>/review?_method=DELETE"
           method="post"
         >
           <button class="btn-sm btn-danger">Delete</button>
         </form>
+        <% }%>
       </div>
     </div>
     <% } %>

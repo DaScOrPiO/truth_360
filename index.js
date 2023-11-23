@@ -3,9 +3,13 @@ const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const flash = require("connect-flash");
+const passport = require("passport");
+const passportLocal = require("passport-local");
+const User = require("./models/user");
 
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const userRoutes = require("./views/routes/user_routes");
 const campgroundRoutes = require("./views/routes/campground_routes");
 const reviewRoutes = require("./views/routes/review_routes");
 const session = require("express-session");
@@ -45,11 +49,21 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(session(sessionParams));
 app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new passportLocal(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
 });
+
+app.use("/", userRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds", reviewRoutes);
 
