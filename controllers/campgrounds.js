@@ -12,8 +12,14 @@ module.exports.displayNewCampgroundsPage = async (req, res) => {
 module.exports.addNewCampground = async (req, res, next) => {
   try {
     const { item } = req.body;
+    const filesParams = req.files.map((val) => ({
+      url: val.path,
+      filename: val.filename,
+    }));
     item.author = req.user._id;
     const newItem = new Campground(item);
+    newItem.images = filesParams;
+    console.log(newItem);
     await newItem.save();
     req.flash("success", "Addition Successful");
     res.redirect("/campgrounds");
@@ -32,7 +38,7 @@ module.exports.displayOneCampground = async (req, res, next) => {
         },
       })
       .populate("author");
-    if (!item) req.flash("error", "Cannot find page");
+    if (!item) return req.flash("error", "Cannot find page");
     res.render("pages/campgrounds/show", { item });
   } catch (err) {
     next(err);

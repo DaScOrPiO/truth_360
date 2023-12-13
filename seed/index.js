@@ -23,11 +23,20 @@ const creatItems = async () => {
     const rand = Math.floor(Math.random() * 1000);
     const randPrice = Math.floor(Math.random() * 100 + 1);
     const campSite = new Campground({
-      author: "6548ffbc0450b0635dafcea2",
+      author: "6578acc8a9bcb95f4fee9da3",
       location: `${(cities[rand].city, cities[rand].state)}`,
       title: `${arrayLoop(descriptors)} ${arrayLoop(places)}`,
       price: randPrice,
-      image: "https://source.unsplash.com/collection/483251",
+      images: [
+        {
+          url: "https://source.unsplash.com/collection/483251",
+          filename: "image1",
+        },
+        {
+          url: "https://source.unsplash.com/collection/483251",
+          filename: "image2",
+        },
+      ],
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id quam faucibus, volutpat diam vel, hendrerit quam.",
     });
