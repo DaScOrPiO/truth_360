@@ -40,9 +40,10 @@ router.get(
 router
   .route("/:id")
   .patch(
-    validateCampgrounds,
     isLoggedIn,
     isAuthor,
+    upload.array("image"),
+    validateCampgrounds,
     campgroundController.updateCampground
   )
   .delete(isLoggedIn, isAuthor, campgroundController.deleteCampground);
