@@ -27,6 +27,7 @@ const creatItems = async () => {
       location: `${(cities[rand].city, cities[rand].state)}`,
       title: `${arrayLoop(descriptors)} ${arrayLoop(places)}`,
       price: randPrice,
+      geometry: { type: "Point", coordinates: [-87.624421, 41.875562] },
       images: [
         {
           url: "https://source.unsplash.com/collection/483251",
