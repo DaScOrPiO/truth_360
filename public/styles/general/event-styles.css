@@ -1,0 +1,13 @@
+.event-container, .slide-container {
+    max-width: 100%;
+    max-height: 300px;
+    overflow: hidden;
+}
+
+.login, .register{
+    min-height: 100vh;
+}
+
+/* .login > .items{
+    width: 100%;
+} */

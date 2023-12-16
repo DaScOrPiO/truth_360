@@ -1,5 +1,7 @@
 const Campground = require("../models/campgrounds");
 const { cloudinary } = require("../cloudinary");
+const mapService = require("@mapbox/mapbox-sdk/services/geocoding");
+const geoService = mapService({ accessToken: process.env.Campgroud_map_token });
 
 module.exports.displayallCampgrounds = async (req, res) => {
   const campgrounds = await Campground.find({});
@@ -13,12 +15,19 @@ module.exports.displayNewCampgroundsPage = async (req, res) => {
 module.exports.addNewCampground = async (req, res, next) => {
   try {
     const { item } = req.body;
+    const getLocation = await geoService
+      .forwardGeocode({
+        query: item.location,
+        limit: 1,
+      })
+      .send();
     const filesParams = req.files.map((val) => ({
       url: val.path,
       filename: val.filename,
     }));
     item.author = req.user._id;
     const newItem = new Campground(item);
+    newItem.geometry = getLocation.body.features[0].geometry;
     newItem.images = filesParams;
     await newItem.save();
     req.flash("success", "Addition Successful");
@@ -77,7 +86,7 @@ module.exports.updateCampground = async (req, res, next) => {
       for (let file of req.body.deleteImages) {
         await cloudinary.uploader.destroy(file);
       }
-     const updated = await item.updateOne({
+      const updated = await item.updateOne({
         $pull: { images: { filename: { $in: req.body.deleteImages } } },
       });
     }

@@ -75,6 +75,8 @@ app.get("/", (req, res) => res.render("index"));
 
 app.use((err, req, res, next) => {
   const { message = "Something went wrong!", code = 500 } = err;
-  res.status(code).render("pages/campgrounds/error", { err });
+  req.flash("error", `${message}`);
+  res.status(code).redirect("/campgrounds")
+  // res.status(code).render("pages/campgrounds/error", { err });
   console.log(message, code);
 });
