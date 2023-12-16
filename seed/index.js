@@ -19,7 +19,7 @@ const arrayLoop = (someArr) =>
 
 const creatItems = async () => {
   await Campground.deleteMany({});
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 200; i++) {
     const rand = Math.floor(Math.random() * 1000);
     const randPrice = Math.floor(Math.random() * 100 + 1);
     const campSite = new Campground({
@@ -27,7 +27,10 @@ const creatItems = async () => {
       location: `${(cities[rand].city, cities[rand].state)}`,
       title: `${arrayLoop(descriptors)} ${arrayLoop(places)}`,
       price: randPrice,
-      geometry: { type: "Point", coordinates: [-87.624421, 41.875562] },
+      geometry: {
+        type: "Point",
+        coordinates: [cities[rand].longitude, cities[rand].latitude],
+      },
       images: [
         {
           url: "https://source.unsplash.com/collection/483251",
