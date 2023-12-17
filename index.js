@@ -17,6 +17,7 @@ const userRoutes = require("./views/routes/user_routes");
 const campgroundRoutes = require("./views/routes/campground_routes");
 const reviewRoutes = require("./views/routes/review_routes");
 const session = require("express-session");
+const mongoSanitize = require("express-mongo-sanitize");
 
 async function main() {
   try {
@@ -47,6 +48,7 @@ const sessionParams = {
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
+app.use(mongoSanitize());
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -76,7 +78,7 @@ app.get("/", (req, res) => res.render("index"));
 app.use((err, req, res, next) => {
   const { message = "Something went wrong!", code = 500 } = err;
   req.flash("error", `${message}`);
-  res.status(code).redirect("/campgrounds")
+  res.status(code).redirect("/campgrounds");
   // res.status(code).render("pages/campgrounds/error", { err });
   console.log(message, code);
 });
