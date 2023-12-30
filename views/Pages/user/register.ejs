@@ -1,12 +1,12 @@
 <% layout("layouts/boilerplate") %>
-<link rel="stylesheet" href="/styles/general/event-styles.css">
+<link rel="stylesheet" href="/styles/general/event-styles.css" />
 
 <div
-  class="register container d-flex justify-content-center align-items-center mt-5"
+  class="register d-flex justify-content-center align-items-center"
 >
   <div class="items row">
-    <div class="col-md-6 offset-md-3 col-xl-12">
-      <div class="card shadow">
+    <div class="col-md-12 col-xl-12">
+      <div class="card shadow customized-card">
         <div class="card-body">
           <h1 class="card-title">Register</h1>
           <form
@@ -48,8 +48,16 @@
             </div>
             <button class="btn btn-success">Register</button>
           </form>
+          <p class="mt-2">
+            Have an account? <button class="to-login">Login</button>
+          </p>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  const button = document.querySelector(".to-login");
+  button.addEventListener("click", () => (window.location.href = "/login"));
+</script>
