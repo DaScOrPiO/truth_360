@@ -68,6 +68,7 @@
     flex-direction: column;
     align-items: center;
     padding: 2% 2%;
+    width: 50%;
 }
 
 .screen-message>h1 {
@@ -90,7 +91,13 @@
     cursor: pointer;
 }
 
-.screen-message>.home-button:hover{
+.screen-message>.home-button:hover {
     background-color: #92c7f5;
     border: none;
+}
+
+@media screen and (max-width: 767px) {
+    .screen-message {
+        width: 100%;
+    }
 }
