@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Truth 360</a>
+    <a class="navbar-brand" href="/">Truth 360</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -14,12 +14,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="/">Home</a>
         <a class="nav-link" href="/campgrounds">Add/review Location</a>
         <a class="nav-link" href="/movies">Add/review Movies</a>
       </div>
 
-      <div class="navbar-nav ml-auto">
+      <div class="navbar-nav mx-auto">
         <% if(!currentUser) {%>
         <a class="nav-link" href="/login">Login</a>
         <a class="nav-link" href="/register">Register</a>
