@@ -19,7 +19,7 @@ router.post("/register", async (req, res, next) => {
         return next();
       }
       req.flash("success", "Welcome to Yelpcamp");
-      res.redirect("/campgrounds");
+      res.redirect("/");
     });
   } catch (err) {
     req.flash("error", err.message);
@@ -40,7 +40,7 @@ router.post(
   }),
   async (req, res) => {
     req.flash("success", "welcome back");
-    const redirect = res.locals.returnTo || "/campgrounds";
+    const redirect = res.locals.returnTo || "/";
     res.redirect(redirect);
   }
 );

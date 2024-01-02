@@ -13,7 +13,15 @@
       <div class="screen-message">
         <h1>Truth 360</h1>
         <p class="p1" id="type-text"></p>
+        <% if(!currentUser){%>
         <button class="home-button">Get Started</button>
+        <% }else{ %>
+        <div class="active-session-btn">
+          <a class="home-button" href="/movies">Explore Movies</a>
+          <a class="home-button" href="/campgrounds">Explore Locations</a>
+          <button class="home-button" id="logout">Logout</button>
+        </div>
+        <%}%>
       </div>
     </main>
   </body>

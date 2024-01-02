@@ -91,9 +91,31 @@
     cursor: pointer;
 }
 
+.active-session-btn>.home-button {
+    background-color: transparent;
+    padding: 2% 2%;
+    color: aliceblue;
+    border: 1px solid aliceblue;
+    border-radius: 2rem;
+    cursor: pointer;
+    margin: 0 2%;
+    text-decoration: none;
+    font-size: 1rem;
+    text-align: center;
+}
+
 .screen-message>.home-button:hover {
     background-color: #92c7f5;
     border: none;
+}
+
+.active-session-btn>.home-button:hover {
+    background-color: #92c7f5;
+    border: none;
+}
+
+.active-session-btn{
+    display: flex;
 }
 
 @media screen and (max-width: 767px) {
