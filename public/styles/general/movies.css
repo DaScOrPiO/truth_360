@@ -1,0 +1,110 @@
+body {
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .body-items {
+    display: flex;
+  }
+  
+  .sidebar-container {
+    width: 30%;
+    height: 100vh;
+    background-color: aliceblue;
+    position: fixed;
+    overflow-y: auto;
+  }
+  
+  .items-container {
+    padding: 2% 2%;
+    height: 100%;
+  }
+  
+  .link-items {
+    font-size: 2rem;
+  }
+  
+  .items {
+    list-style: none;
+    margin: 4% 0%;
+  }
+  
+  .items a {
+    text-decoration: none;
+    color: aqua;
+  }
+  
+  .items:hover {
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .main-content {
+    flex: 1;
+    margin-left: 30%;
+  }
+  
+  .trending-movies {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  
+  .trending-movies > .carousel > .carousel-inner > .carousel-item {
+    height: 100%;
+    background: center/cover;
+    background-color: red;
+    position: relative;
+  }
+  
+  .trending-movies > .carousel > .carousel-inner > .carousel-item > .image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+  }
+
+  .trending-movies > .carousel > .carousel-inner > .carousel-item > .button-container{
+    position: absolute;
+    bottom: 5%;
+    left: 10%;
+    display: flex;
+  }
+  
+  .trending-movies > .carousel > .carousel-inner > .carousel-item > .button-container > .button, .button{
+    border: 1px solid aliceblue;
+    border-radius: 2rem;
+    padding: 2% 16%;
+    background-color: transparent;
+    color: aqua;
+    margin: 0 4%;
+  }
+
+  .trending-movies > .carousel > .carousel-inner > .carousel-item > .button-container > .button:hover{
+    background-color: aliceblue;
+  }
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.search-container{
+  width: 80%;
+  position: absolute;
+  top: 10%;
+  right: 5%;
+}
+
+.top{
+  position: absolute;
+  top: 0%;
+  left: 0;
+  z-index: 10;
+  color: aqua;
+  font-weight: 700;
+  margin: 0 4%;
+}

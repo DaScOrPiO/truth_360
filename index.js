@@ -16,6 +16,7 @@ const ejsMate = require("ejs-mate");
 const userRoutes = require("./views/routes/user_routes");
 const campgroundRoutes = require("./views/routes/campground_routes");
 const reviewRoutes = require("./views/routes/review_routes");
+const movieRoutes = require("./views/routes/movie_route");
 const session = require("express-session");
 const mongoSanitize = require("express-mongo-sanitize");
 
@@ -72,6 +73,7 @@ app.use((req, res, next) => {
 app.use("/", userRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds", reviewRoutes);
+app.use("/movies", movieRoutes);
 
 app.get("/", (req, res) => res.render("index"));
 
