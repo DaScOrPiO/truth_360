@@ -8,6 +8,9 @@
   rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
 />
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css">
 <header class="upcoming-movies">
   <div
     id="carouselExampleDark"
@@ -96,6 +99,10 @@
 </section>
 
 <script>
-  const key = "<%-process.env.movieKey %>";
+  const key = '<%-process.env.movieKey %>';
+  const mainData = <%- JSON.stringify(trendingMovies) %>;
+  const moreData = <%- JSON.stringify(data2) %>;
+  let totalItems = <%- totalItems %>;
+  let items_per_page = <%- items_per_page %>;
 </script>
 <script src="/JavaScripts/movies.js"></script>

@@ -12,17 +12,25 @@ module.exports.showMovies = async (req, res, next) => {
     const url2 = `https://api.themoviedb.org/3/trending/movie/week?api_key=${key}`;
     const response = await axios.get(url);
     const response2 = await axios.get(url2);
-    const moviesByCurrentMonth = await response2.data;
+    const trendingMovies = await response2.data.results;
     const movies = await response.data;
     const data = movies.results;
-    const data2 = moviesByCurrentMonth.results
+    const totalItems = trendingMovies.length;
+    const data2 = trendingMovies
       .slice(startingIndex, startingIndex + items_per_page)
       .map((el) => el);
     if (data.length <= 0 && data2.length <= 0) {
       req.flash("error", "No items to display");
     } else {
       console.log(data2);
-      res.render("Pages/movies/index", { data, data2, key });
+      res.render("Pages/movies/index", {
+        data,
+        data2,
+        key,
+        totalItems,
+        trendingMovies,
+        items_per_page,
+      });
     }
   } catch (err) {
     next(err);

@@ -2,51 +2,60 @@ document.addEventListener("DOMContentLoaded", function () {
   const contentContainer = document.getElementById("content-container");
   const loadMoreBtn = document.getElementById("load-more");
 
-  console.log(key);
-  let page = 2;
-  const loadMoreContent = async () => {
+  let currentPage = 1;
+  let initialDisplay = moreData.length;
+  let isDataAvailable = true
+
+  const loadMoreMovies = async () => {
     try {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/trending/movie/week?api_key=${key}`
-      );
-      //   const res = await fetch(`/api/showMovies?page=${page}`);
-      const data = await res.json();
-      console.log(data, "is data");
-      const result = data.results
-    //   const movies = data.data2
-    //   console.log(movies, "is movies");
-      result.forEach((movie) => {
-        const card = document.createElement("div");
-        card.classList.add("card", "mx-2", "mb-3");
-        card.style.width = "18rem";
+      if (initialDisplay < totalItems) {
+        isDataAvailable = true
+        const remainingItems = totalItems - initialDisplay;
+        const moreItems = mainData.slice(
+          initialDisplay,
+          initialDisplay + Math.min(items_per_page, remainingItems)
+        );
 
-        card.innerHTML = `
-          <img src="https://image.tmdb.org/t/p/original${movie.poster_path}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">${movie.overview}</p>
-          </div>
-        `;
+        moreItems.forEach((movie) => {
+          const card = document.createElement("div");
+          card.classList.add("card", "mx-2", "mb-3");
+          card.style.width = "18rem";
 
-        contentContainer.appendChild(card);
-      });
-      page++;
+          card.innerHTML = `
+            <img src="https://image.tmdb.org/t/p/original${movie.poster_path}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">${movie.overview}</p>
+            </div>
+          `;
+
+          contentContainer.appendChild(card);
+        });
+
+        initialDisplay += moreItems.length;
+
+        if (initialDisplay >= totalItems) {
+          // No more data to load
+          loadMoreBtn.classList.add("disabled-pointer");
+          isDataAvailable = false
+        }
+
+        currentPage++;
+      }
     } catch (error) {
-      console.error("Error fetching more data:", error);
+      console.error("Error fetching data:", error);
     }
   };
 
-  loadMoreBtn.addEventListener("click", loadMoreContent);
-
-  function isBottom() {
-    return window.innerHeight + window.scrollY >= document.body.offsetHeight;
-  }
-
-  function handleScroll() {
-    if (isBottom()) {
-      loadMoreContent();
+  const handleClick = () => {
+    if (!isDataAvailable) {
+      Swal.fire({
+        icon: "info",
+        title: "No more data to load.",
+      });
+    } else {
+      loadMoreMovies();
     }
-  }
+  };
 
-  // Attach the scroll event listener
-  window.addEventListener("scroll", handleScroll);
+  loadMoreBtn.addEventListener("click", handleClick);
 });
