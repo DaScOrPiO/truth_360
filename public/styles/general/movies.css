@@ -45,33 +45,33 @@ body {
     margin-left: 30%;
   }
   
-  .trending-movies {
+  .upcoming-movies {
     width: 100%;
     height: auto;
     position: relative;
   }
   
-  .trending-movies > .carousel > .carousel-inner > .carousel-item {
+  .upcoming-movies > .carousel > .carousel-inner > .carousel-item {
     height: 100%;
     background: center/cover;
     background-color: red;
     position: relative;
   }
   
-  .trending-movies > .carousel > .carousel-inner > .carousel-item > .image {
+  .upcoming-movies > .carousel > .carousel-inner > .carousel-item > .image {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover;
   }
 
-  .trending-movies > .carousel > .carousel-inner > .carousel-item > .button-container{
+  .upcoming-movies > .carousel > .carousel-inner > .carousel-item > .button-container{
     position: absolute;
     bottom: 5%;
     left: 10%;
     display: flex;
   }
   
-  .trending-movies > .carousel > .carousel-inner > .carousel-item > .button-container > .button, .button{
+  .upcoming-movies > .carousel > .carousel-inner > .carousel-item > .button-container > .button, .button{
     border: 1px solid aliceblue;
     border-radius: 2rem;
     padding: 2% 16%;
@@ -80,7 +80,7 @@ body {
     margin: 0 4%;
   }
 
-  .trending-movies > .carousel > .carousel-inner > .carousel-item > .button-container > .button:hover{
+  .upcoming-movies > .carousel > .carousel-inner > .carousel-item > .button-container > .button:hover{
     background-color: aliceblue;
   }
 
@@ -107,4 +107,8 @@ body {
   color: aqua;
   font-weight: 700;
   margin: 0 4%;
+}
+
+.trending-movies > h1{
+  color: aqua;
 }
