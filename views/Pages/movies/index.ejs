@@ -1,0 +1,112 @@
+<%- layout("/layouts/boilerplate2.ejs") %>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.all.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css"
+/>
+<header class="upcoming-movies">
+  <div class="hamburger-menu" id="hamburger"><i class="material-symbols-outlined icon-size hamburger-item"> menu </i></div>
+  <div
+    id="carouselExampleDark"
+    class="carousel carousel-dark slide"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner">
+      <h1 class="top">Upcoming Movies</h1>
+      <% for (let i = 0; i < data.length; i++) { %>
+      <div
+        class="carousel-item <%= i === 0 ? 'active' : '' %>"
+        data-bs-interval="3000"
+      >
+        <img
+          src="https://image.tmdb.org/t/p/original<%= data[i].poster_path %>"
+          class="d-block w-100 image"
+          alt="..."
+        />
+        <div class="button-container">
+          <button class="button fw-bolder d-flex">
+            <span class="material-symbols-outlined mx-2"> add </span>
+            Wishlist
+          </button>
+          <button class="button fw-bolder d-flex">
+            <span class="material-symbols-outlined mx-2"> star </span>
+            Review
+          </button>
+        </div>
+      </div>
+      <% } %>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleDark"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleDark"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <div class="search-container">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search movie"
+        aria-label="Recipient's username"
+        aria-describedby="button-addon2"
+      />
+      <button class="button" type="button" id="button-addon2">Search</button>
+    </div>
+  </div>
+</header>
+
+<section class="trending-movies py-2 px-2">
+  <h1>Trending This Week</h1>
+  <div class="content-container d-flex flex-wrap" id="content-container">
+    <% for(let i = 0; i < data2.length; i++) {%>
+    <div class="card mx-auto mb-3" style="width: 16rem">
+      <img
+        src="https://image.tmdb.org/t/p/original<%= data2[i].poster_path %>"
+        class="card-img-top"
+        alt="..."
+      />
+      <div class="card-body">
+        <p class="card-text"><%= data2[i].overview %></p>
+      </div>
+    </div>
+    <% }%>
+  </div>
+
+  <div class="d-flex justify-content-center align-items-center w-100">
+    <button class="button shadow fw-bolder" id="load-more">Load More</button>
+  </div>
+</section>
+
+<script>
+  const key = '<%-process.env.movieKey %>';
+  const mainData = <%- JSON.stringify(trendingMovies) %>;
+  const moreData = <%- JSON.stringify(data2) %>;
+  let totalItems = <%- totalItems %>;
+  let items_per_page = <%- items_per_page %>;
+</script>
+<script src="/JavaScripts/movies.js"></script>

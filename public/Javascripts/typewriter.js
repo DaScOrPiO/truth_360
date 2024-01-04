@@ -16,3 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const button = document.querySelector(".home-button");
 button.addEventListener("click", () => (window.location.href = "/login"));
+
+const logout = document.getElementById("logout")
+logout.addEventListener("click", ()=> window.location.href = "/logout")

@@ -8,7 +8,7 @@
 .customized-card {
     background-color: transparent !important;
     backdrop-filter: blur(10px) !important;
-    width: 500px;
+    /* width: 500px; */
 }
 
 .to-signup, .to-login {
@@ -22,6 +22,12 @@
 
 .to-signup:hover, .to-login:hover{
     background-color: transparent;
+}
+
+@media screen and (min-width: 1024px) {
+    .customized-card{
+        width: 500px;
+    }
 }
 
 @media screen and (max-width: 1023px) {
