@@ -75,7 +75,7 @@
 
 <section class="trending-movies py-2 px-2">
   <h1>Trending This Week</h1>
-  <div class="content-container d-flex flex-wrap">
+  <div class="content-container d-flex flex-wrap" id="content-container">
     <% for(let i = 0; i < data2.length; i++) {%>
     <div class="card mx-2 mb-3" style="width: 18rem">
       <img
@@ -89,6 +89,13 @@
     </div>
     <% }%>
   </div>
+
+  <div class="d-flex justify-content-center align-items-center w-100">
+    <button class="button shadow fw-bolder" id="load-more">Load More</button>
+  </div>
 </section>
 
-<script src="/JavaScrips/movies.js"></script>
+<script>
+  const key = "<%-process.env.movieKey %>";
+</script>
+<script src="/JavaScripts/movies.js"></script>
