@@ -21,6 +21,7 @@ module.exports.showMovies = async (req, res, next) => {
       .map((el) => el);
     if (data.length <= 0 && data2.length <= 0) {
       req.flash("error", "No items to display");
+      res.redirect("/");
     } else {
       res.render("Pages/movies/index", {
         data,
@@ -49,12 +50,34 @@ module.exports.showTvSeries = async (req, res, next) => {
   try {
     const date = new Date();
     const page = req.query.page || 1;
+    const startingIndex = (page - 1) * items_per_page;
     const url = `https://api.themoviedb.org/3/discover/tv?api_key=${key}&primary_release_date.gte=${date.getFullYear()}&sort=primary_release_date.asc
     `;
+    const url2 = `https://api.themoviedb.org/3/trending/tv/week?api_key=${key}`;
     const response1 = await axios.get(url);
+    const response2 = await axios.get(url2);
     const data1 = await response1.data.results;
-    console.log(data1);
-    res.render("Pages/movies/tvseries", { data1 });
+    const data2 = await response2.data.results;
+    const totalItems = data2.length;
+    const trendingSeries = data2.slice(
+      startingIndex,
+      startingIndex + items_per_page
+    );
+    if (data1.length <= 0 && data2.length <= 0) {
+      req.flash("error", "No items to display");
+    } else if (!data1 || !data2) {
+      req.flash("error", "No data to display");
+      res.redirect("/");
+    } else {
+      console.log(data2);
+      res.render("Pages/movies/tvseries", {
+        data1,
+        data2,
+        trendingSeries,
+        totalItems,
+        items_per_page,
+      });
+    }
   } catch (err) {
     next(err);
   }

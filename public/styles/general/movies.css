@@ -95,7 +95,7 @@ body {
   margin: 0 4%;
 }
 
-.trending-movies>h1 {
+.trending-movies>h1, .trending-series>h1 {
   color: aqua;
 }
 
@@ -112,7 +112,7 @@ body {
     /* background-color: aqua; */
   }
 
-  .trending-movies>.content-container {
+  .trending-movies>.content-container, .trending-series>.content-container {
     justify-content: center;
   }
 }
