@@ -73,7 +73,7 @@ app.use((req, res, next) => {
 app.use("/", userRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds", reviewRoutes);
-app.use("/movies", movieRoutes);
+app.use("/", movieRoutes);
 
 app.get("/", (req, res) => res.render("index"));
 

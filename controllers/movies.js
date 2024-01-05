@@ -2,9 +2,9 @@ const movieReview = require("../models/movies");
 const axios = require("axios");
 
 const items_per_page = 10;
+const key = process.env.movieKey;
 module.exports.showMovies = async (req, res, next) => {
   try {
-    const key = process.env.movieKey;
     const page = req.query.page || 1;
     // initially load 10 items
     const startingIndex = (page - 1) * items_per_page;
@@ -22,7 +22,6 @@ module.exports.showMovies = async (req, res, next) => {
     if (data.length <= 0 && data2.length <= 0) {
       req.flash("error", "No items to display");
     } else {
-      console.log(data2);
       res.render("Pages/movies/index", {
         data,
         data2,
@@ -41,6 +40,21 @@ module.exports.addMovieReview = async (req, res, next) => {
   try {
     console.log("hello World");
     res.send("hello world");
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.showTvSeries = async (req, res, next) => {
+  try {
+    const date = new Date();
+    const page = req.query.page || 1;
+    const url = `https://api.themoviedb.org/3/discover/tv?api_key=${key}&primary_release_date.gte=${date.getFullYear()}&sort=primary_release_date.asc
+    `;
+    const response1 = await axios.get(url);
+    const data1 = await response1.data.results;
+    console.log(data1);
+    res.render("Pages/movies/tvseries", { data1 });
   } catch (err) {
     next(err);
   }

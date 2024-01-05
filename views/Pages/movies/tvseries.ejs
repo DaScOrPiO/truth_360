@@ -1,6 +1,6 @@
 <%- layout("/layouts/boilerplate2.ejs") %>
 
-<header class="upcoming-movies">
+<header class="upcoming-series">
   <div class="hamburger-menu" id="hamburger">
     <i class="material-symbols-outlined icon-size hamburger-item"> menu </i>
   </div>
@@ -11,13 +11,13 @@
   >
     <div class="carousel-inner">
       <h1 class="top">Upcoming Movies</h1>
-      <% for (let i = 0; i < data.length; i++) { %>
+      <% for (let i = 0; i < data1.length; i++) { %>
       <div
         class="carousel-item <%= i === 0 ? 'active' : '' %>"
         data-bs-interval="3000"
       >
         <img
-          src="https://image.tmdb.org/t/p/original<%= data[i].poster_path %>"
+          src="https://image.tmdb.org/t/p/original<%= data1[i].poster_path %>"
           class="d-block w-100 image"
           alt="..."
         />
@@ -72,42 +72,3 @@
     </div>
   </div>
 </header>
-
-<section class="trending-movies py-2 px-2">
-  <h1>Trending This Week</h1>
-  <div class="content-container d-flex flex-wrap" id="content-container">
-    <% for(let i = 0; i < data2.length; i++) {%>
-    <div class="card mx-auto mb-3" style="width: 16rem">
-      <img
-        src="https://image.tmdb.org/t/p/original<%= data2[i].poster_path %>"
-        class="card-img-top"
-        alt="..."
-      />
-      <div class="card-body">
-        <p class="card-text"><%= data2[i].overview %></p>
-      </div>
-
-      <form action="" class="card-details mb-3">
-        <button class="details-button">Show details</button>
-      </form>
-
-      <form action="" class="card-review">
-        <button class="card-review-button">Review</button>
-      </form>
-    </div>
-    <% }%>
-  </div>
-
-  <div class="d-flex justify-content-center align-items-center w-100">
-    <button class="button shadow fw-bolder" id="load-more">Load More</button>
-  </div>
-</section>
-
-<script>
-  const key = '<%-process.env.movieKey %>';
-  const mainData = <%- JSON.stringify(trendingMovies) %>;
-  const moreData = <%- JSON.stringify(data2) %>;
-  let totalItems = <%- totalItems %>;
-  let items_per_page = <%- items_per_page %>;
-</script>
-<script src="/JavaScripts/movies.js"></script>
