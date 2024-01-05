@@ -39,7 +39,7 @@ body {
   display: flex;
 }
 
-.upcoming-movies>.carousel>.carousel-inner>.carousel-item>.button-container>.button, .button {
+.upcoming-movies>.carousel>.carousel-inner>.carousel-item>.button-container>.form>.button, .button {
   border: 1px solid aliceblue;
   border-radius: 2rem;
   padding: 2% 16%;
@@ -48,8 +48,16 @@ body {
   margin: 0 4%;
 }
 
-.upcoming-movies>.carousel>.carousel-inner>.carousel-item>.button-container>.button:hover {
+.upcoming-movies>.carousel>.carousel-inner>.carousel-item>.button-container>.form>.button:hover {
   background-color: aliceblue;
+}
+
+.card-details>.details-button, .card-review>.card-review-button{
+  background-color: aqua;
+  border: 1px solid aliceblue;
+  padding: 2% 16%;
+  color: aliceblue;
+  width: 100%;
 }
 
 .material-symbols-outlined {

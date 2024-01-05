@@ -15,7 +15,9 @@
   href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css"
 />
 <header class="upcoming-movies">
-  <div class="hamburger-menu" id="hamburger"><i class="material-symbols-outlined icon-size hamburger-item"> menu </i></div>
+  <div class="hamburger-menu" id="hamburger">
+    <i class="material-symbols-outlined icon-size hamburger-item"> menu </i>
+  </div>
   <div
     id="carouselExampleDark"
     class="carousel carousel-dark slide"
@@ -34,14 +36,19 @@
           alt="..."
         />
         <div class="button-container">
-          <button class="button fw-bolder d-flex">
-            <span class="material-symbols-outlined mx-2"> add </span>
-            Wishlist
-          </button>
-          <button class="button fw-bolder d-flex">
-            <span class="material-symbols-outlined mx-2"> star </span>
-            Review
-          </button>
+          <form action="" class="form mx-4">
+            <button class="button fw-bolder d-flex">
+              <span class="material-symbols-outlined"> add </span>
+              Wishlist
+            </button>
+          </form>
+
+          <form action="" class="form mx-4">
+            <button class="button fw-bolder d-flex">
+              <span class="material-symbols-outlined"> star </span>
+              Review
+            </button>
+          </form>
         </div>
       </div>
       <% } %>
@@ -93,6 +100,14 @@
       <div class="card-body">
         <p class="card-text"><%= data2[i].overview %></p>
       </div>
+
+      <form action="" class="card-details mb-3">
+        <button class="details-button">Show details</button>
+      </form>
+
+      <form action="" class="card-review">
+        <button class="card-review-button">Review</button>
+      </form>
     </div>
     <% }%>
   </div>
