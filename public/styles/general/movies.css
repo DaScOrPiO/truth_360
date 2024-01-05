@@ -8,38 +8,6 @@ body {
   display: flex;
 }
 
-.sidebar-container {
-  width: 30%;
-  height: 100vh;
-  background-color: aliceblue;
-  position: fixed;
-  overflow-y: auto;
-}
-
-.items-container {
-  padding: 2% 2%;
-  height: 100%;
-}
-
-.link-items {
-  font-size: 2rem;
-}
-
-.items {
-  list-style: none;
-  margin: 4% 0%;
-}
-
-.items a {
-  text-decoration: none;
-  color: aqua;
-}
-
-.items:hover {
-  background-color: #fff;
-  cursor: pointer;
-}
-
 .main-content {
   flex: 1;
   margin-left: 30%;
@@ -107,7 +75,7 @@ body {
   position: absolute;
   top: 0%;
   left: 0;
-  z-index: 10;
+  z-index: 2;
   color: aqua;
   font-weight: 700;
   margin: 0 4%;
@@ -120,4 +88,17 @@ body {
 .disabled-pointer {
   cursor: not-allowed;
   opacity: 0.2;
+}
+
+@media screen and (max-width: 767px) {
+  .main-content {
+    width: 100%;
+    margin: 0;
+    /* z-index: 8; */
+    /* background-color: aqua; */
+  }
+
+  .trending-movies>.content-container {
+    justify-content: center;
+  }
 }
