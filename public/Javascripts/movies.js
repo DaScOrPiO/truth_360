@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         moreItems.forEach((movie) => {
           const card = document.createElement("div");
-          card.classList.add("card", "mx-2", "mb-3");
-          card.style.width = "18rem";
+          card.classList.add("card", "mx-auto", "mb-3");
+          card.style.width = "16rem";
 
           card.innerHTML = `
             <img src="https://image.tmdb.org/t/p/original${movie.poster_path}" class="card-img-top" alt="...">
