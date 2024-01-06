@@ -30,6 +30,7 @@ module.exports.showMovies = async (req, res, next) => {
         totalItems,
         trendingMovies,
         items_per_page,
+        currentPage: req.path
       });
     }
   } catch (err) {
@@ -69,13 +70,13 @@ module.exports.showTvSeries = async (req, res, next) => {
       req.flash("error", "No data to display");
       res.redirect("/");
     } else {
-      console.log(data2);
       res.render("Pages/movies/tvseries", {
         data1,
         data2,
         trendingSeries,
         totalItems,
         items_per_page,
+        currentPage: req.path
       });
     }
   } catch (err) {
@@ -114,6 +115,7 @@ module.exports.kidsTvSeries = async (req, res, next) => {
         items_per_page,
         startingIndex,
         totalItems,
+        currentPage: req.path
       });
     }
   } catch (err) {
