@@ -4,12 +4,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let currentPage = 1;
   let initialDisplay = moreData.length;
-  let isDataAvailable = true
+  let isDataAvailable = true;
 
   const loadMoreMovies = async () => {
     try {
       if (initialDisplay < totalItems) {
-        isDataAvailable = true
+        isDataAvailable = true;
         const remainingItems = totalItems - initialDisplay;
         const moreItems = mainData.slice(
           initialDisplay,
@@ -26,6 +26,12 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="card-body">
               <p class="card-text">${movie.overview}</p>
             </div>
+            <form action="" class="card-details mb-3">
+              <button class="details-button">Show details</button>
+            </form>
+            <form action="" class="card-review">
+              <button class="card-review-button">Review</button>
+            </form>
           `;
 
           contentContainer.appendChild(card);
@@ -36,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (initialDisplay >= totalItems) {
           // No more data to load
           loadMoreBtn.classList.add("disabled-pointer");
-          isDataAvailable = false
+          isDataAvailable = false;
         }
 
         currentPage++;
