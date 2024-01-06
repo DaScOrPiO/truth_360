@@ -82,3 +82,41 @@ module.exports.showTvSeries = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.kidsTvSeries = async (req, res, next) => {
+  try {
+    const page = req.query.page || 1;
+    const startingIndex = (page - 1) * items_per_page;
+
+    const url1 = `https://api.themoviedb.org/3/movie/now_playing?api_key=${key}`;
+    const response1 = await axios.get(url1);
+    const data1 = await response1.data.results;
+
+    const url2 = `https://api.themoviedb.org/3/movie/top_rated?api_key=${key}`;
+    const response2 = await axios.get(url2);
+    const data2 = await response2.data.results;
+    const totalItems = data2.length;
+    const topRated = data2.slice(startingIndex, startingIndex + items_per_page);
+    if (data1.length <= 0 && data2.length <= 0) {
+      req.flash("error", "No items to display");
+      res.redirect("/");
+    } else if (!data1 || !data2) {
+      !data1
+        ? req.flash("error", "couldn't fetch now playing, try again later :(")
+        : !data2
+        ? req.flash("error", "couldn't fetch top rated list")
+        : next();
+    } else {
+      res.render("Pages/movies/toprated", {
+        data1,
+        data2,
+        topRated,
+        items_per_page,
+        startingIndex,
+        totalItems,
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
+};

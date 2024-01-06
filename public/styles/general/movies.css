@@ -13,14 +13,17 @@ body {
   margin-left: 30%;
 }
 
-.upcoming-movies, .upcoming-series {
+.upcoming-movies,
+.upcoming-series,
+.top-rated {
   width: 100%;
   height: auto;
   position: relative;
 }
 
 .upcoming-movies>.carousel>.carousel-inner>.carousel-item,
-.upcoming-series>.carousel>.carousel-inner>.carousel-item {
+.upcoming-series>.carousel>.carousel-inner>.carousel-item,
+.top-rated>.carousel>.carousel-inner>.carousel-item {
   height: 100%;
   background: center/cover;
   background-color: red;
@@ -28,14 +31,16 @@ body {
 }
 
 .upcoming-movies>.carousel>.carousel-inner>.carousel-item>.image,
-.upcoming-series>.carousel>.carousel-inner>.carousel-item>.image {
+.upcoming-series>.carousel>.carousel-inner>.carousel-item>.image,
+.top-rated>.carousel>.carousel-inner>.carousel-item>.image {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover;
 }
 
 .upcoming-movies>.carousel>.carousel-inner>.carousel-item>.button-container,
-.upcoming-series>.carousel>.carousel-inner>.carousel-item>.button-container {
+.upcoming-series>.carousel>.carousel-inner>.carousel-item>.button-container,
+.top-rated>.carousel>.carousel-inner>.carousel-item>.button-container {
   position: absolute;
   bottom: 5%;
   left: 10%;
@@ -44,6 +49,7 @@ body {
 
 .upcoming-movies>.carousel>.carousel-inner>.carousel-item>.button-container>.form>.button,
 .upcoming-series>.carousel>.carousel-inner>.carousel-item>.button-container>.form>.button,
+.top-rated>.carousel>.carousel-inner>.carousel-item>.button-container>.form>.button,
 .button {
   border: 1px solid aliceblue;
   border-radius: 2rem;
@@ -54,7 +60,8 @@ body {
 }
 
 .upcoming-movies>.carousel>.carousel-inner>.carousel-item>.button-container>.form>.button:hover,
-.upcoming-series>.carousel>.carousel-inner>.carousel-item>.button-container>.form>.button:hover {
+.upcoming-series>.carousel>.carousel-inner>.carousel-item>.button-container>.form>.button:hover,
+.top-rated>.carousel>.carousel-inner>.carousel-item>.button-container>.form>.button:hover {
   background-color: aliceblue;
 }
 
@@ -95,7 +102,9 @@ body {
   margin: 0 4%;
 }
 
-.trending-movies>h1, .trending-series>h1 {
+.trending-movies>h1,
+.trending-series>h1,
+.top-rated>h1 {
   color: aqua;
 }
 
@@ -112,7 +121,9 @@ body {
     /* background-color: aqua; */
   }
 
-  .trending-movies>.content-container, .trending-series>.content-container {
+  .trending-movies>.content-container,
+  .trending-series>.content-container,
+  .top-rated>.content-container {
     justify-content: center;
   }
 }
