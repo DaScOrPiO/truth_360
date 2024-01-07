@@ -127,8 +127,12 @@ module.exports.kidsTvSeries = async (req, res, next) => {
 module.exports.addToWishlist = async (req, res, next) => {
   try {
     const item = req.body;
-    const isPresent = await movieWishlist.findOne(item.id);
-    if (isPresent.Movie_id === item.Movie_id) {
+    //  const addNew = new movieWishlist(item);
+    //     await addNew.save();
+    const isPresent = await movieWishlist.findOne({ Movie_id: item.Movie_id });
+    console.log(item, isPresent);
+    if (isPresent && isPresent.Movie_id === item.Movie_id) {
+      console.log(isPresent.Movie_id === item.Movie_id);
       req.flash("error", "item has been previously added");
       res.redirect("/movies");
     } else {
@@ -137,6 +141,16 @@ module.exports.addToWishlist = async (req, res, next) => {
       req.flash("success", "Action Successful");
       res.redirect("/movies");
     }
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.showWishlists = async (req, res, next) => {
+  try {
+    const item = await movieWishlist.find();
+    console.log(item);
+    res.render("Pages/movies/wishlists", { currentPage: req.path, item });
   } catch (err) {
     next(err);
   }

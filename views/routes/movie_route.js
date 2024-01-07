@@ -8,13 +8,15 @@ const {
   showTvSeries,
   kidsTvSeries,
   addToWishlist,
+  showWishlists,
 } = require("../../controllers/movies");
 const { isLoggedIn } = require("../../utils/middleware/middleware");
 
 router
   .get("/movies", showMovies)
   .get("/tvseries", showTvSeries)
-  .get("/toprated", kidsTvSeries);
+  .get("/toprated", kidsTvSeries)
+  .get("/wishlists", showWishlists);
 
 router
   .post("/", addMovieReview)
