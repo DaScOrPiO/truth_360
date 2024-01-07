@@ -1,4 +1,5 @@
 const movieReview = require("../models/movies");
+const movieWishlist = require("../models/movieWishlist");
 const axios = require("axios");
 
 const items_per_page = 10;
@@ -30,7 +31,7 @@ module.exports.showMovies = async (req, res, next) => {
         totalItems,
         trendingMovies,
         items_per_page,
-        currentPage: req.path
+        currentPage: req.path,
       });
     }
   } catch (err) {
@@ -76,7 +77,7 @@ module.exports.showTvSeries = async (req, res, next) => {
         trendingSeries,
         totalItems,
         items_per_page,
-        currentPage: req.path
+        currentPage: req.path,
       });
     }
   } catch (err) {
@@ -115,9 +116,41 @@ module.exports.kidsTvSeries = async (req, res, next) => {
         items_per_page,
         startingIndex,
         totalItems,
-        currentPage: req.path
+        currentPage: req.path,
       });
     }
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.addToWishlist = async (req, res, next) => {
+  try {
+    const item = req.body;
+    //  const addNew = new movieWishlist(item);
+    //     await addNew.save();
+    const isPresent = await movieWishlist.findOne({ Movie_id: item.Movie_id });
+    console.log(item, isPresent);
+    if (isPresent && isPresent.Movie_id === item.Movie_id) {
+      console.log(isPresent.Movie_id === item.Movie_id);
+      req.flash("error", "item has been previously added");
+      res.redirect("/movies");
+    } else {
+      const addNew = new movieWishlist(item);
+      await addNew.save();
+      req.flash("success", "Action Successful");
+      res.redirect("/movies");
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.showWishlists = async (req, res, next) => {
+  try {
+    const item = await movieWishlist.find();
+    console.log(item);
+    res.render("Pages/movies/wishlists", { currentPage: req.path, item });
   } catch (err) {
     next(err);
   }

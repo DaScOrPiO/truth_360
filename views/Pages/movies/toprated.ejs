@@ -22,7 +22,28 @@
             alt="..."
           />
           <div class="button-container">
-            <form action="" class="form mx-4">
+            <form action="/addtowishlist" method="post" class="form mx-4" enctype="multipart/form-data">
+              <input
+              type="text"
+              class="d-none"
+              name="Movie_id"
+              id=""
+              value="<%= data1[i].id %>"
+            />
+            <input
+              type="text"
+              class="d-none"
+              name="MovieName"
+              id=""
+              value="<%= data1[i].original_title %>"
+            />
+            <input
+              type="text"
+              class="d-none"
+              name="Poster_path"
+              id=""
+              value="<%= data1[i].poster_path%>"
+            />
               <button class="button fw-bolder d-flex">
                 <span class="material-symbols-outlined"> add </span>
                 Wishlist
