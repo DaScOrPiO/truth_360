@@ -15,7 +15,7 @@ body {
 
 .upcoming-movies,
 .upcoming-series,
-.top-rated
+.top-rated,
 .wishlists {
   width: 100%;
   height: auto;
@@ -24,7 +24,7 @@ body {
 
 .upcoming-movies>.carousel>.carousel-inner>.carousel-item,
 .upcoming-series>.carousel>.carousel-inner>.carousel-item,
-.top-rated>.carousel>.carousel-inner>.carousel-item
+.top-rated>.carousel>.carousel-inner>.carousel-item,
 .wishlists>.carousel>.carousel-inner>.carousel-item {
   height: 100%;
   background: center/cover;
@@ -34,7 +34,7 @@ body {
 
 .upcoming-movies>.carousel>.carousel-inner>.carousel-item>.image,
 .upcoming-series>.carousel>.carousel-inner>.carousel-item>.image,
-.top-rated>.carousel>.carousel-inner>.carousel-item>.image
+.top-rated>.carousel>.carousel-inner>.carousel-item>.image,
 .wishlists>.carousel>.carousel-inner>.carousel-item>.image {
   width: 100% !important;
   height: 100% !important;
@@ -43,7 +43,7 @@ body {
 
 .upcoming-movies>.carousel>.carousel-inner>.carousel-item>.button-container,
 .upcoming-series>.carousel>.carousel-inner>.carousel-item>.button-container,
-.top-rated>.carousel>.carousel-inner>.carousel-item>.button-container
+.top-rated>.carousel>.carousel-inner>.carousel-item>.button-container,
 .wishlists>.carousel>.carousel-inner>.carousel-item>.button-container {
   position: absolute;
   bottom: 5%;
