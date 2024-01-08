@@ -127,9 +127,19 @@ module.exports.kidsTvSeries = async (req, res, next) => {
 module.exports.addToWishlist = async (req, res, next) => {
   try {
     const item = req.body;
-    //  const addNew = new movieWishlist(item);
-    //     await addNew.save();
-    const isPresent = await movieWishlist.findOne({ Movie_id: item.Movie_id });
+    console.log(req.user);
+    const userId = req.user._id;
+    // const addNew = new movieWishlist({
+    //   Owner: userId,
+    //   Movie_id: item.Movie_id,
+    //   MovieName: item.MovieName,
+    //   Poster_path: item.Poster_path,
+    // });
+    // await addNew.save();
+    const isPresent = await movieWishlist.findOne({
+      Movie_id: item.Movie_id,
+      Owner: userId,
+    });
     console.log(item, isPresent);
     if (isPresent && isPresent.Movie_id === item.Movie_id) {
       console.log(isPresent.Movie_id === item.Movie_id);
@@ -137,6 +147,7 @@ module.exports.addToWishlist = async (req, res, next) => {
       res.redirect("/movies");
     } else {
       const addNew = new movieWishlist(item);
+      addNew.Owner = userId;
       await addNew.save();
       req.flash("success", "Action Successful");
       res.redirect("/movies");
@@ -148,7 +159,7 @@ module.exports.addToWishlist = async (req, res, next) => {
 
 module.exports.showWishlists = async (req, res, next) => {
   try {
-    const item = await movieWishlist.find();
+    const item = await movieWishlist.find({ Owner: req.user._id });
     console.log(item);
     res.render("Pages/movies/wishlists", { currentPage: req.path, item });
   } catch (err) {

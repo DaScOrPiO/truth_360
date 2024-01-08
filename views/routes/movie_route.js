@@ -16,7 +16,7 @@ router
   .get("/movies", showMovies)
   .get("/tvseries", showTvSeries)
   .get("/toprated", kidsTvSeries)
-  .get("/wishlists", showWishlists);
+  .get("/wishlists", isLoggedIn, showWishlists);
 
 router
   .post("/", addMovieReview)
