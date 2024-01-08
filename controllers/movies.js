@@ -164,9 +164,15 @@ module.exports.showWishlists = async (req, res, next) => {
     if (!item) {
       req.flash("error", "No items to display");
       res.redirect("/movies");
-    } else {
+    } else if (item.length === 1) {
       const data1 = item[0];
       console.log(data1, "is data1");
+      res.render("Pages/movies/wishlists", {
+        currentPage: req.path,
+        data1,
+      });
+    } else if (item.length > 1) {
+      const data1 = item.findLast(el => el);
       res.render("Pages/movies/wishlists", {
         currentPage: req.path,
         item,
