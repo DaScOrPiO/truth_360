@@ -13,7 +13,7 @@ const movieWishlistSchema = {
   MovieName: {
     type: String,
   },
-  poster_path: {
+  Poster_path: {
     type: String,
   },
 };

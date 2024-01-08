@@ -161,7 +161,18 @@ module.exports.showWishlists = async (req, res, next) => {
   try {
     const item = await movieWishlist.find({ Owner: req.user._id });
     console.log(item);
-    res.render("Pages/movies/wishlists", { currentPage: req.path, item });
+    if (!item) {
+      req.flash("error", "No items to display");
+      res.redirect("/movies");
+    } else {
+      const data1 = item[0];
+      console.log(data1, "is data1");
+      res.render("Pages/movies/wishlists", {
+        currentPage: req.path,
+        item,
+        data1,
+      });
+    }
   } catch (err) {
     next(err);
   }

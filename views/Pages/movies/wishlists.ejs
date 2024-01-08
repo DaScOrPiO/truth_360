@@ -1,2 +1,101 @@
 <%- layout("/layouts/boilerplate2.ejs") %>
-<h1>Your Wishlists</h1>
+
+<header class="wishlists">
+  <div class="hamburger-menu" id="hamburger">
+    <i class="material-symbols-outlined icon-size hamburger-item"> menu </i>
+  </div>
+  <div
+    id="carouselExampleDark"
+    class="carousel carousel-dark slide"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner">
+      <h1 class="top">Most Recent</h1>
+      <!-- Assuming there's only one item in data1 -->
+      <div class="carousel-item active" data-bs-interval="3000">
+        <img
+          src="https://image.tmdb.org/t/p/original<%= data1.Poster_path %>"
+          class="d-block w-100 image"
+          alt="..."
+        />
+        <div class="button-container">
+          <form
+            action="/addtowishlist"
+            method="post"
+            class="form mx-4"
+            enctype="multipart/form-data"
+          >
+            <input
+              type="text"
+              class="d-none"
+              name="Movie_id"
+              id=""
+              value="<%= data1.Movie_id %>"
+            />
+            <input
+              type="text"
+              class="d-none"
+              name="MovieName"
+              id=""
+              value="<%= data1.MovieName %>"
+            />
+            <input
+              type="text"
+              class="d-none"
+              name="Poster_path"
+              id=""
+              value="<%= data1.Poster_path %>"
+            />
+            <button class="button fw-bolder d-flex disabled-pointer" disabled>
+              <span class="material-symbols-outlined"> add </span>
+              Wishlist
+            </button>
+          </form>
+
+          <form action="" class="form mx-4">
+            <button class="button fw-bolder d-flex">
+              <span class="material-symbols-outlined"> star </span>
+              Review
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleDark"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleDark"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <div class="search-container">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search movie"
+        aria-label="Recipient's username"
+        aria-describedby="button-addon2"
+      />
+      <button class="button" type="button" id="button-addon2">Search</button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const headerData = <%- JSON.stringify(data1)%>
+  console.log(headerData);
+</script>
