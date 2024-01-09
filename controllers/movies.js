@@ -140,7 +140,7 @@ module.exports.addToWishlist = async (req, res, next) => {
       Movie_id: item.Movie_id,
       Owner: userId,
     });
-    console.log(item, isPresent);
+    // console.log(item, isPresent);
     if (isPresent && isPresent.Movie_id === item.Movie_id) {
       console.log(isPresent.Movie_id === item.Movie_id);
       req.flash("error", "item has been previously added");
@@ -160,6 +160,7 @@ module.exports.addToWishlist = async (req, res, next) => {
 module.exports.showWishlists = async (req, res, next) => {
   try {
     const items = await movieWishlist.find({ Owner: req.user._id });
+    const page = req.query.page || 1;
 
     if (!items || items.length === 0) {
       req.flash("error", "No items to display");
@@ -167,10 +168,20 @@ module.exports.showWishlists = async (req, res, next) => {
     } else {
       const data1 = items.findLast((el) => el);
       const restOfItems = items.slice(1);
+      const startingIndex = (page - 1) * items_per_page;
+      const totalItems = items.length;
+      const initialData = items.slice(
+        startingIndex,
+        startingIndex + items_per_page
+      );
+      // console.log(initialData);
       res.render("Pages/movies/wishlists", {
         currentPage: req.path,
         item: restOfItems,
         data1,
+        totalItems,
+        initialData,
+        items_per_page,
       });
     }
   } catch (err) {
