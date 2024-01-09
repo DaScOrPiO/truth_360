@@ -159,26 +159,33 @@ module.exports.addToWishlist = async (req, res, next) => {
 
 module.exports.showWishlists = async (req, res, next) => {
   try {
-    const item = await movieWishlist.find({ Owner: req.user._id });
-    console.log(item);
-    if (!item) {
+    const items = await movieWishlist.find({ Owner: req.user._id });
+
+    if (!items || items.length === 0) {
       req.flash("error", "No items to display");
       res.redirect("/movies");
-    } else if (item.length === 1) {
-      const data1 = item[0];
-      console.log(data1, "is data1");
+    } else {
+      const data1 = items.findLast((el) => el);
+      const restOfItems = items.slice(1);
       res.render("Pages/movies/wishlists", {
         currentPage: req.path,
-        data1,
-      });
-    } else if (item.length > 1) {
-      const data1 = item.findLast(el => el);
-      res.render("Pages/movies/wishlists", {
-        currentPage: req.path,
-        item,
+        item: restOfItems,
         data1,
       });
     }
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.removeFromWishlists = async (req, res, next) => {
+  try {
+    const queryData = req.body;
+    const item = await movieWishlist.findOneAndRemove({
+      Movie_id: queryData.Movie_id,
+      Owner: req.user._id,
+    });
+    res.redirect("/movies");
   } catch (err) {
     next(err);
   }

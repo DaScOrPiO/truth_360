@@ -19,7 +19,7 @@
         />
         <div class="button-container">
           <form
-            action="/addtowishlist"
+            action="/remove_fromwishlist"
             method="post"
             class="form mx-4"
             enctype="multipart/form-data"
@@ -45,9 +45,9 @@
               id=""
               value="<%= data1.Poster_path %>"
             />
-            <button class="button fw-bolder d-flex disabled-pointer" disabled>
-              <span class="material-symbols-outlined"> add </span>
-              Wishlist
+            <button class="button fw-bolder d-flex">
+              <span class="material-symbols-outlined"> delete </span>
+              Remove
             </button>
           </form>
 
@@ -94,8 +94,8 @@
   </div>
 </header>
 
-<% if(item) {%>
-<section class="trending-movies py-2 px-2">
+<% if(item && item.length > 0) {%>
+<section class="wishlists py-2 px-2">
   <h1>More</h1>
   <div class="content-container d-flex flex-wrap" id="content-container">
     <% for(let i = 0; i < item.length; i++) {%>
@@ -105,22 +105,64 @@
         class="card-img-top"
         alt="..."
       />
-    
 
       <form action="" class="card-details mb-3">
-        <button class="details-button">Show details</button>
+        <button class="details-button d-flex justify-content-center">
+          <span class="material-symbols-outlined mx-2">info</span>
+          Show details
+        </button>
       </form>
 
-      <form action="" class="card-review">
-        <button class="card-review-button">Review</button>
+      <form action="" class="card-review mb-3">
+        <button class="card-review-button d-flex justify-content-center">
+          <span class="material-symbols-outlined mx-2">star</span>
+          Review
+        </button>
+      </form>
+
+      <form
+        action="/remove_fromwishlist"
+        method="post"
+        class="card-review"
+        enctype="multipart/form-data"
+      >
+        <input
+          type="text"
+          class="d-none"
+          name="Movie_id"
+          id=""
+          value="<%= item[i].Movie_id %>"
+        />
+        <input
+          type="text"
+          class="d-none"
+          name="MovieName"
+          id=""
+          value="<%= item[i].MovieName %>"
+        />
+        <input
+          type="text"
+          class="d-none"
+          name="Poster_path"
+          id=""
+          value="<%= item[i].Poster_path %>"
+        />
+        <button class="card-review-button d-flex justify-content-center">
+          <span class="material-symbols-outlined mx-2">delete</span>
+          Remove Item
+        </button>
       </form>
     </div>
-    <% }%>
+    <% } %>
   </div>
 
   <div class="d-flex justify-content-center align-items-center w-100">
     <button class="button shadow fw-bolder" id="load-more">Load More</button>
   </div>
+</section>
+<%} else{ %>
+<section class="wishlists px-4 py-4 d-flex justify-content-center align-items-center">
+  <h1>No More items to display</h1>
 </section>
 <%} %>
 
