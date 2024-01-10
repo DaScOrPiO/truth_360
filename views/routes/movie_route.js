@@ -10,6 +10,7 @@ const {
   addToWishlist,
   showWishlists,
   removeFromWishlists,
+  addReview,
 } = require("../../controllers/movies");
 const { isLoggedIn } = require("../../utils/middleware/middleware");
 
@@ -22,6 +23,7 @@ router
 router
   .post("/", addMovieReview)
   .post("/addtowishlist", isLoggedIn, upload.none(), addToWishlist)
-  .post("/remove_fromwishlist", isLoggedIn, upload.none(), removeFromWishlists);
+  .post("/remove_fromwishlist", isLoggedIn, upload.none(), removeFromWishlists)
+  .post("/add_review", isLoggedIn, upload.none(), addReview);
 
 module.exports = router;

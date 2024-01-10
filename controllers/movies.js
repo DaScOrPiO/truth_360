@@ -1,4 +1,4 @@
-const movieReview = require("../models/movies");
+const movieReview = require("../models/movieReview");
 const movieWishlist = require("../models/movieWishlist");
 const axios = require("axios");
 
@@ -197,6 +197,37 @@ module.exports.removeFromWishlists = async (req, res, next) => {
       Owner: req.user._id,
     });
     res.redirect("/movies");
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.addReview = async (req, res, next) => {
+  try {
+    const { Movie_id, comment, rating } = req.body;
+    const userId = req.user._id;
+
+    const review = new movieReview({
+      Author: userId,
+      Ratings: rating,
+      Comment: comment,
+      Movie_id: Movie_id
+    });
+    const hasReview = await movieReview.findOne({
+      Author: req.user._id,
+      Movie_id: Movie_id,
+    });
+    if (hasReview) {
+      req.flash(
+        "error",
+        "You have previously reviewed this movie, edit review instead!"
+      );
+      res.redirect("/movies");
+    } else {
+      await review.save();
+      req.flash("success", "Action successful");
+      res.redirect("/movies");
+    }
   } catch (err) {
     next(err);
   }
