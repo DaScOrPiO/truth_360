@@ -6,9 +6,10 @@
     <i class="material-symbols-outlined icon-size hamburger-item"> menu </i>
   </div>
   <div
-    id="carouselExampleDark"
+    id="movie-image-slider"
     class="carousel carousel-dark slide"
     data-bs-ride="carousel"
+    data-bs-pause="false"
   >
     <div class="carousel-inner">
       <h1 class="top">Upcoming Movies</h1>
@@ -62,6 +63,7 @@
               data-bs-toggle="modal"
               data-bs-target="#exampleModal<%= i %>"
               data-bs-whatever="@getbootstrap"
+              id="review-button<%= i %>"
             >
               <span class="material-symbols-outlined"> star </span>
               Review
@@ -181,12 +183,12 @@
                   <div class="modal-footer">
                     <button
                       type="button"
-                      class="btn btn-secondary"
+                      class="btn btn-danger"
                       data-bs-dismiss="modal"
                     >
                       Close
                     </button>
-                    <button class="btn btn-primary">Drop Review</button>
+                    <button class="btn btn-success">Drop Review</button>
                   </div>
                 </div>
               </form>
@@ -199,7 +201,7 @@
     <button
       class="carousel-control-prev"
       type="button"
-      data-bs-target="#carouselExampleDark"
+      data-bs-target="#movie-image-slider"
       data-bs-slide="prev"
     >
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -208,7 +210,7 @@
     <button
       class="carousel-control-next"
       type="button"
-      data-bs-target="#carouselExampleDark"
+      data-bs-target="#movie-image-slider"
       data-bs-slide="next"
     >
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
@@ -263,8 +265,11 @@
 <script>
   const key = '<%-process.env.movieKey %>';
   const mainData = <%- JSON.stringify(trendingMovies) %>;
+  const values = <%- JSON.stringify(data) %>;
   const moreData = <%- JSON.stringify(data2) %>;
   let totalItems = <%- totalItems %>;
   let items_per_page = <%- items_per_page %>;
 </script>
 <script src="/JavaScripts/movies.js"></script>
+
+<script src="/JavaScripts/sliderPause.js"></script>
