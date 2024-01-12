@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
           initialDisplay + Math.min(items_per_page, remainingItems)
         );
 
-        moreItems.forEach((movie) => {
+        moreItems.forEach((movie, i) => {
           const card = document.createElement("div");
           card.classList.add("card", "mx-auto", "mb-3");
           card.style.width = "16rem";
@@ -29,9 +29,143 @@ document.addEventListener("DOMContentLoaded", function () {
             <form action="" class="card-details mb-3">
               <button class="details-button">Show details</button>
             </form>
-            <form action="" class="card-review">
-              <button class="card-review-button">Review</button>
-            </form>
+            <div class="card-review">
+        <button
+          class="card-review-button d-flex justify-content-center align-items-center"
+          data-bs-toggle="modal"
+          data-bs-target="#movie-review-modal${initialDisplay + i}"
+          data-bs-whatever="@getbootstrap"
+          id="review-button${i}"
+        >
+          <span class="material-symbols-outlined"> star </span>
+          Review
+        </button>
+
+        <!-- modal for review -->
+        <div
+          class="modal fade"
+          id="movie-review-modal${initialDisplay + i}"
+          tabindex="-1"
+          aria-labelledby="movie-review"
+          aria-hidden="true"
+        >
+          <form
+            action="/add_review"
+            method="post"
+            class="modal-dialog"
+            enctype="multipart/form-data"
+          >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="movie-review">
+                  Write a review for ${movie.original_title}
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-3">
+                    <label for="movie_id">Movie id</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="Movie_id"
+                      value="${movie.id}"
+                      readonly
+                      id="movie_id"
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                  <fieldset class="starability-grow">
+                    <legend>rating:</legend>
+                    <input
+                      type="radio"
+                      id="trending-no-rate${initialDisplay + i}"
+                      class="input-no-rate"
+                      name="rating"
+                      value="1"
+                      aria-label="No rating."
+                      max="5"
+                    />
+
+                    <input
+                      type="radio"
+                      id="trending-rate1${initialDisplay + i}"
+                      name="rating"
+                      value="1"
+                      checked
+                    />
+                    <label for="trending-rate1${initialDisplay + i}">1 star.</label>
+
+                    <input
+                      type="radio"
+                      id="trending-rate2${i}"
+                      name="rating"
+                      value="2"
+                    />
+                    <label for="trending-rate2${initialDisplay + i}">2 stars.</label>
+
+                    <input
+                      type="radio"
+                      id="trending-rate3${initialDisplay + i}"
+                      name="rating"
+                      value="3"
+                    />
+                    <label for="trending-rate3${initialDisplay + i}">3 stars.</label>
+
+                    <input
+                      type="radio"
+                      id="trending-rate4${initialDisplay + 1}"
+                      name="rating"
+                      value="4"
+                    />
+                    <label for="trending-rate4${initialDisplay + i}">4 stars.</label>
+
+                    <input
+                      type="radio"
+                      id="trending-rate5${initialDisplay + i}"
+                      name="rating"
+                      value="5"
+                    />
+                    <label for="trending-rate5${initialDisplay + i}">5 stars.</label>
+
+                    <span class="starability-focus-ring"></span>
+                  </fieldset>
+                </div>
+
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label"
+                      >Comment:</label
+                    >
+                    <textarea
+                      class="form-control"
+                      id="message-text"
+                      name="comment"
+                      placeholder="Enter comment"
+                    ></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button class="btn btn-success">Drop Review</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
           `;
 
           contentContainer.appendChild(card);
