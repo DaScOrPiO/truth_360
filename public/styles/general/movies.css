@@ -71,12 +71,26 @@ body {
   background-color: aliceblue;
 }
 
-.card-details>.details-button, .card-review>.card-review-button {
+.card-details, .card-review>.card-review-button, .card-details:hover {
   background-color: aqua;
   border: 1px solid aliceblue;
   padding: 2% 16%;
   color: aliceblue;
   width: 100%;
+  text-decoration: none;
+  text-align: center;
+}
+
+.modal-flex{
+  display: flex;
+}
+
+#modal-footer{
+  justify-content: space-between !important;
+}
+
+#card-body{
+  width: 100rem;
 }
 
 .material-symbols-outlined {
@@ -133,5 +147,13 @@ body {
   .top-rated>.content-container
   .wishlists>.content-container {
     justify-content: center;
+  }
+
+  .modal-flex{
+    display: block;
+  }
+
+  #card-body{
+    width: 100%;
   }
 }

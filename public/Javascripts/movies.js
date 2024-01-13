@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentPage = 1;
   let initialDisplay = moreData.length;
   let isDataAvailable = true;
+  console.log(moreData.map(el => el.id));
 
   const loadMoreMovies = async () => {
     try {
