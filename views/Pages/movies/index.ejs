@@ -246,9 +246,197 @@
         <p class="card-text"><%= data2[i].overview %></p>
       </div>
 
-      <form action="" class="card-details mb-3">
-        <button class="details-button">Show details</button>
-      </form>
+      <!-- New code here -->
+      <div
+        class="modal fade"
+        id="movie-info<%= i %>"
+        aria-hidden="true"
+        aria-labelledby="movie-info-label"
+        tabindex="-1"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="movie-info-label">Modal 1</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modal-flex">
+              <div class="card mb-3">
+                <div>
+                  <img
+                    src="https://image.tmdb.org/t/p/w342<%= data2[i].poster_path %>"
+                    class="card-img-top"
+                    alt="..."
+                  />
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title"><%= data2[i].original_title %></h5>
+                  <p class="card-text"><%= data2[i].overview %></p>
+                  <p class="card-text">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                  </p>
+                </div>
+              </div>
+
+              <% if (Array.isArray(reviews) && reviews.length > 0) { %>
+              <div class="review-container mb-3">
+                <% reviews.forEach(review => { %> <% if (review.Author &&
+                review.Movie_id === data2[i].id && review.Author._id.toString()
+                !== currentUser._id.toString()) { %>
+                <div class="card mb-3 mx-3">
+                  <div class="card-body">
+                    <h1 class="fs-5">Author: <%= review.Author.username %></h1>
+                    <p
+                      class="starability-result"
+                      data-rating="<%= review.Ratings %>"
+                    >
+                      Rated: <%= review.Ratings %> stars
+                    </p>
+                    <p class="card-text">Review: <%= review.Comment %></p>
+                  </div>
+                </div>
+                <% } %> <% }) %>
+              </div>
+              <% } %>
+
+              <!-- Show a second modal and hide this one with the button below. -->
+            </div>
+            <div class="modal-footer" id="modal-footer">
+              <% if (currentUser && Array.isArray(reviews) && reviews.length >
+              0) { %> <% reviews.forEach(review => { %> <% if (review.Author &&
+              review.Author.equals && review.Author.equals(currentUser._id) &&
+              review.Movie_id === data2[i].id) { %>
+              <div class="card mb-3 w-100">
+                <div class="card-body">
+                  <h1 class="fs-5">Your Review</h1>
+                  <p
+                    class="starability-result"
+                    data-rating="<%= review.Ratings %>"
+                  >
+                    Rated: <%= review.Ratings %> stars
+                  </p>
+                  <p class="card-text">Review: <%= review.Comment %></p>
+                </div>
+              </div>
+              <% } %> <% }) %> <% } %>
+              <button
+                class="btn btn-primary"
+                data-bs-target="#edit-movie-review<%= i %>"
+                data-bs-toggle="modal"
+                data-bs-dismiss="modal"
+              >
+                Edit review
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="edit-movie-review<%= i %>"
+        aria-hidden="true"
+        aria-labelledby="edit-movie-review-label"
+        tabindex="-1"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="edit-movie-review-label">
+                Edit Review
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <% reviews.forEach(review => { %> <% if(review.Movie_id ===
+              data2[i].id && review.Author.equals(currentUser)) { %>
+              <div class="mb-3">
+                <!-- still working here -->
+                <fieldset class="starability-grow">
+                  <legend>rating:</legend>
+                  <input
+                    type="radio"
+                    id="movie-review-edit-no-rate<%= i %>"
+                    class="input-no-rate"
+                    name="rating"
+                    value="1"
+                    aria-label="No rating."
+                    max="5"
+                  />
+
+                  <input type="radio" id="movie-review-edit<%= i %>"
+                  name="rating" value="1" <%review.Ratings === 1 ? 'checked' :
+                  '' %> />
+                  <label for="movie-review-edit<%= i %>">1 star.</label>
+
+                  <input type="radio" id="movie-review-edit<%= i %>"
+                  name="rating" value="2" <%review.Ratings === 2 ? 'checked' :
+                  '' %> />
+                  <label for="movie-review-edit<%= i %>">2 stars.</label>
+
+                  <input type="radio" id="movie-review-edit<%= i %>"
+                  name="rating" value="3" <%review.Ratings === 3 ? 'checked' :
+                  '' %> />
+                  <label for="movie-review-edit<%= i %>">3 stars.</label>
+
+                  <input type="radio" id="movie-review-edit<%= i %>"
+                  name="rating" value="4" <%review.Ratings === 4 ? 'checked' :
+                  '' %> />
+                  <label for="movie-review-edit<%= i %>">4 stars.</label>
+
+                  <input type="radio" id="movie-review-edit<%= i %>"
+                  name="rating" value="5" <%review.Ratings === 5 ? 'checked' :
+                  '' %> />
+                  <label for="movie-review-edit<%= i %>">5 stars.</label>
+
+                  <span class="starability-focus-ring"></span>
+                </fieldset>
+              </div>
+
+              <div>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  value="<%= review.Comment %>"
+                />
+              </div>
+              <% } %> <% }) %>
+              <!-- Hide this modal and show the first with the button below. -->
+            </div>
+
+            <div class="modal-footer">
+              <button
+                class="btn btn-primary"
+                data-bs-target="#movie-info<%= i %>"
+                data-bs-toggle="modal"
+                data-bs-dismiss="modal"
+              >
+                Back to first
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a
+        class="card-details d-flex justify-content-center align-items-center"
+        data-bs-toggle="modal"
+        href="#movie-info<%= i %>"
+        role="button"
+      >
+        <span class="material-symbols-outlined mx-2"> info </span>
+        Show Info</a
+      >
+      <!-- End of new code -->
 
       <div class="card-review">
         <button

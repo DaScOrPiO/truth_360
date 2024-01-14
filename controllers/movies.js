@@ -20,6 +20,10 @@ module.exports.showMovies = async (req, res, next) => {
     const data2 = trendingMovies
       .slice(startingIndex, startingIndex + items_per_page)
       .map((el) => el);
+
+    const reviews = await movieReview.find().populate("Author");
+    console.log(reviews);
+
     if (data.length <= 0 && data2.length <= 0) {
       req.flash("error", "No items to display");
       res.redirect("/");
@@ -32,6 +36,7 @@ module.exports.showMovies = async (req, res, next) => {
         trendingMovies,
         items_per_page,
         currentPage: req.path,
+        reviews,
       });
     }
   } catch (err) {
@@ -211,7 +216,7 @@ module.exports.addReview = async (req, res, next) => {
       Author: userId,
       Ratings: rating,
       Comment: comment,
-      Movie_id: Movie_id
+      Movie_id: Movie_id,
     });
     const hasReview = await movieReview.findOne({
       Author: req.user._id,
