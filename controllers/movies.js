@@ -21,8 +21,8 @@ module.exports.showMovies = async (req, res, next) => {
       .slice(startingIndex, startingIndex + items_per_page)
       .map((el) => el);
 
+    const currentIndex = 0;
     const reviews = await movieReview.find().populate("Author");
-    console.log(reviews);
 
     if (data.length <= 0 && data2.length <= 0) {
       req.flash("error", "No items to display");
@@ -37,6 +37,7 @@ module.exports.showMovies = async (req, res, next) => {
         items_per_page,
         currentPage: req.path,
         reviews,
+        currentIndex,
       });
     }
   } catch (err) {
