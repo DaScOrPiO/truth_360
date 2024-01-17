@@ -69,33 +69,40 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                     ${
                       Array.isArray(reviewItems) && reviewItems.length > 0
-                        ? `
-                          <div class="review-container mb-3" id="reviews-container">
-                          ${reviewItems
+                        ? reviewItems
                             .filter(
                               (review) =>
                                 review.Author && review.Movie_id === movie.id
                             )
                             .map(
                               (review) => `
-                              <div class="card mb-3 mx-3">
-                                <div class="card-body">
-                                  <h1 class="fs-5">Author: ${review.Author.username}</h1>
-                                  <p class="starability-result" data-rating="${review.Ratings}">
-                                    Rated: ${review.Ratings} stars
-                                  </p>
-                                  <p class="card-text">Comment: ${review.Comment}</p>
+                              <div class="review-container mb-3" id="reviews-container">
+                                <div class="card mb-3 mx-3">
+                                  <div class="card-body">
+                                    <h1 class="fs-5">Author: ${
+                                      review.Author.username
+                                    }</h1>
+                                    <p class="starability-result" data-rating="${
+                                      review.Ratings
+                                    }">
+                                      Rated: ${review.Ratings} stars
+                                    </p>
+                                    <p class="card-text">Comment: ${
+                                      review.Comment
+                                    }</p>
+                                  </div>
                                 </div>
+                                <button class="btn btn-primary mx-3" id="view-more" style="display: ${
+                                  review.length > 5 ? "block" : "none"
+                                }">
+                                  View More
+                                </button>
                               </div>
-                            `
+                              `
                             )
-                            .join("")}
-                          <button class="btn btn-primary mx-3" id="view-more">
-                            View More
-                          </button>
-                        </div>`
+                            .join("")
                         : ""
-                    }
+                    }                    
                   </div>
                   <div class="modal-footer" id="modal-footer">
                     ${

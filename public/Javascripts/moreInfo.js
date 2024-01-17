@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const contentContainer = document.getElementById("content-container");
   const reviewContainer = document.getElementById("reviews-container");
   const moreButtons = document.querySelectorAll('[id^="view-more"]');
-  const showInfoButtons = document.querySelectorAll('[id^="show-info"]');
   const reviewsPerPage = 5;
   let currentIndex = 0;
   let movieReviews;
@@ -22,16 +22,29 @@ document.addEventListener("DOMContentLoaded", function () {
       // Check if there are more than 5 reviews for the current movie
       const displayStyle = movieReviews.length > 5 ? "block" : "none";
 
-      moreButtons.forEach((el) => (el.style.display = displayStyle));
+      // delegation to set display style for all "View More" buttons using event delegation
+      contentContainer
+        .querySelectorAll('[id^="view-more"]')
+        .forEach((el) => (el.style.display = displayStyle));
     } else {
       // Hide all buttons if movieIndex is out of bounds
-      moreButtons.forEach((el) => (el.style.display = "block"));
+      moreButtons.forEach((el) => (el.style.display = "none"));
     }
   };
 
-  // Add event listener to all "Show Info" buttons
-  showInfoButtons.forEach((button, index) => {
-    button.addEventListener("click", () => shouldButtonDisplay(index));
+  // Add event listener to the common ancestor ("contentContainer") for "Show Info" and "View More" buttons
+  contentContainer.addEventListener("click", (event) => {
+    const target = event.target;
+
+    if (target.id && target.id.startsWith("show-info")) {
+      // Extract the movie index from the button's id
+      const movieIndex = parseInt(target.id.replace("show-info", ""), 10);
+      shouldButtonDisplay(movieIndex);
+    }
+
+    if (target.id && target.id.startsWith("view-more")) {
+      handleViewMore();
+    }
   });
 
   function displayReviews(startIndex, endIndex) {
@@ -48,22 +61,22 @@ document.addEventListener("DOMContentLoaded", function () {
           // Append the review HTML to the container
           movieReviews.forEach((review) => {
             reviewContainer.innerHTML += `
-                  <div class="card mb-3 mx-3">
-                    <div class="card-body">
-                      <h1 class="fs-5">Author: ${review.Author.username}</h1>
-                      <p class="starability-result" data-rating="${review.Ratings}">
-                        Rated: ${review.Ratings} stars
-                      </p>
-                      <p class="card-text">Review: ${review.Comment}</p>
-                    </div>
-                  </div>
-                `;
+                      <div class="card mb-3 mx-3">
+                        <div class="card-body">
+                          <h1 class="fs-5">Author: ${review.Author.username}</h1>
+                          <p class="starability-result" data-rating="${review.Ratings}">
+                            Rated: ${review.Ratings} stars
+                          </p>
+                          <p class="card-text">Review: ${review.Comment}</p>
+                        </div>
+                      </div>
+                    `;
           });
         }
       }
     }
 
-    shouldButtonDisplay(currentIndex); // Call the function after displaying new reviews
+    shouldButtonDisplay(currentIndex);
   }
 
   function handleViewMore() {
@@ -80,15 +93,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Initial call to display the button based on the initial set of reviews
   shouldButtonDisplay(currentIndex);
-
-  // Add event listener to the "View More" button
-  showInfoButtons.forEach((button, index) => {
-    button.addEventListener("click", () => shouldButtonDisplay(index));
-  });
-
-  moreButtons.forEach((button) => {
-    button.addEventListener("click", handleViewMore);
-  });
 });
