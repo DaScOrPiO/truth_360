@@ -324,7 +324,7 @@
               </div>
               <% } %> <% }) %> <% } %> <% reviews.forEach(review => { %> <%
               if(review.Movie_id === data2[i].id &&
-              review.Author.equals(currentUser)) { %>
+              review.Author.equals(currentUser._id)) { %>
               <button
                 class="btn btn-primary"
                 data-bs-target="#edit-movie-review<%= i %>"
@@ -381,8 +381,7 @@
               </div>
               <div class="modal-body">
                 <% reviews.forEach(review => { %> <% if(review.Movie_id ===
-                data2[i].id && review.Author.equals(currentUser)) { %> <%
-                console.log(review.Ratings) %>
+                data2[i].id && review.Author.equals(currentUser)) { %>
                 <div class="mb-3">
                   <!-- still working here -->
                   <h3><%= data2[i].original_title%> rating</h3>
@@ -400,8 +399,7 @@
                     type="text"
                     name="comment"
                     id="<% data2[i].original_title %>-review"
-                    value="<%= review.Comment %>"
-                  ></textarea>
+                  ><%= review.Comment %></textarea>
                   <label for="<% data2[i].original_title %>-review"></label>
                 </div>
                 <% } %> <% }) %>
@@ -590,6 +588,7 @@
   const moreData = <%- JSON.stringify(data2) %>;
   let totalItems = <%- totalItems %>;
   let items_per_page = <%- items_per_page %>;
+  const user = <%- JSON.stringify(usr) %>;
 </script>
 <script src="/JavaScripts/moreInfo.js"></script>
 <script src="/JavaScripts/movies.js"></script>

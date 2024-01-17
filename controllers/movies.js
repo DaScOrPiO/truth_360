@@ -23,6 +23,7 @@ module.exports.showMovies = async (req, res, next) => {
 
     const currentIndex = 0;
     const reviews = await movieReview.find().populate("Author");
+    const usr = res.locals.currentUser || undefined;
 
     if (data.length <= 0 && data2.length <= 0) {
       req.flash("error", "No items to display");
@@ -38,6 +39,7 @@ module.exports.showMovies = async (req, res, next) => {
         currentPage: req.path,
         reviews,
         currentIndex,
+        usr,
       });
     }
   } catch (err) {
