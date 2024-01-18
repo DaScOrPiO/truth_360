@@ -242,9 +242,6 @@
         class="card-img-top"
         alt="..."
       />
-      <div class="card-body">
-        <p class="card-text"><%= data2[i].overview %></p>
-      </div>
 
       <!-- New code here -->
       <div
@@ -266,7 +263,9 @@
               ></button>
             </div>
             <div class="modal-body modal-flex">
-              <div class="card mb-3">
+              <div
+                class="card mb-3 <%= reviews.some(el => el.Movie_id === data2[i].id && reviews.length > 0) ? 'review-space': '' %>"
+              >
                 <div>
                   <img
                     src="https://image.tmdb.org/t/p/w342<%= data2[i].poster_path %>"
@@ -277,17 +276,16 @@
                 <div class="card-body">
                   <h5 class="card-title"><%= data2[i].original_title %></h5>
                   <p class="card-text"><%= data2[i].overview %></p>
-                  <p class="card-text">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                  </p>
                 </div>
               </div>
 
               <% if (Array.isArray(reviews) && reviews.length > 0) { %>
-              <div class="review-container mb-3">
+              <div
+                class="review-container mb-3 <%= reviews.some(el => el.Movie_id === data2[i].id && reviews.length > 0) ? 'review-space': '' %>"
+                id="reviews-container"
+              >
                 <% reviews.forEach(review => { %> <% if (review.Author &&
-                review.Movie_id === data2[i].id && review.Author._id.toString()
-                !== currentUser._id.toString()) { %>
+                review.Movie_id === data2[i].id) { %>
                 <div class="card mb-3 mx-3">
                   <div class="card-body">
                     <h1 class="fs-5">Author: <%= review.Author.username %></h1>
@@ -297,10 +295,13 @@
                     >
                       Rated: <%= review.Ratings %> stars
                     </p>
-                    <p class="card-text">Review: <%= review.Comment %></p>
+                    <p class="card-text">Comment: <%= review.Comment %></p>
                   </div>
                 </div>
                 <% } %> <% }) %>
+                <button class="btn btn-primary mx-3" id="view-more">
+                  View More
+                </button>
               </div>
               <% } %>
 
@@ -309,7 +310,7 @@
             <div class="modal-footer" id="modal-footer">
               <% if (currentUser && Array.isArray(reviews) && reviews.length >
               0) { %> <% reviews.forEach(review => { %> <% if (review.Author &&
-              review.Author.equals && review.Author.equals(currentUser._id) &&
+              review.Author.equals && review.Author.equals(currentUser) &&
               review.Movie_id === data2[i].id) { %>
               <div class="card mb-3 w-100">
                 <div class="card-body">
@@ -320,18 +321,41 @@
                   >
                     Rated: <%= review.Ratings %> stars
                   </p>
-                  <p class="card-text">Review: <%= review.Comment %></p>
+                  <p class="card-text">Comment: <%= review.Comment %></p>
                 </div>
               </div>
-              <% } %> <% }) %> <% } %>
+              <% } %> <% }) %> <% } %> <% reviews.forEach(review => { %> <%
+              if(review.Movie_id === data2[i].id &&
+              review.Author.equals(currentUser)) { %>
               <button
                 class="btn btn-primary"
                 data-bs-target="#edit-movie-review<%= i %>"
                 data-bs-toggle="modal"
                 data-bs-dismiss="modal"
               >
-                Edit review
+                Edit your comment
               </button>
+              <% } %> <% }) %> <% if (currentUser && Array.isArray(reviews) &&
+              reviews.length > 0) { %> <% reviews.forEach(review => { %> <% if
+              (review.Author && review.Author.equals &&
+              review.Author.equals(currentUser) && review.Movie_id ===
+              data2[i].id) { %>
+              <form action="">
+                <div class="no-view">
+                  <input
+                    type="text"
+                    name="ratings"
+                    value="<%= review.Ratings %>"
+                  />
+                  <input
+                    type="text"
+                    name="comment"
+                    value="<%= review.Comment %>"
+                  />
+                </div>
+                <button class="btn btn-danger">Delete your review</button>
+              </form>
+              <% } %> <% }) %> <% } %>
             </div>
           </div>
         </div>
@@ -345,85 +369,60 @@
       >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="edit-movie-review-label">
-                Edit Review
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <% reviews.forEach(review => { %> <% if(review.Movie_id ===
-              data2[i].id && review.Author.equals(currentUser)) { %>
-              <div class="mb-3">
-                <!-- still working here -->
-                <fieldset class="starability-grow">
-                  <legend>rating:</legend>
-                  <input
-                    type="radio"
-                    id="movie-review-edit-no-rate<%= i %>"
-                    class="input-no-rate"
-                    name="rating"
-                    value="1"
-                    aria-label="No rating."
-                    max="5"
-                  />
+            <form action="#">
+              <div class="modal-header">
+                <h5 class="modal-title" id="edit-movie-review-label">
+                  Change review comment
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <% reviews.forEach(review => { %> <% if(review.Movie_id ===
+                data2[i].id && review.Author.equals(currentUser)) { %>
+                <div class="mb-3">
+                  <!-- still working here -->
+                  <h3><%= data2[i].original_title%> rating</h3>
+                  <p
+                    class="starability-result"
+                    data-rating="<%=review.Ratings %>"
+                  >
+                    Rated: 3 stars
+                  </p>
+                </div>
 
-                  <input type="radio" id="movie-review-edit<%= i %>"
-                  name="rating" value="1" <%review.Ratings === 1 ? 'checked' :
-                  '' %> />
-                  <label for="movie-review-edit<%= i %>">1 star.</label>
-
-                  <input type="radio" id="movie-review-edit<%= i %>"
-                  name="rating" value="2" <%review.Ratings === 2 ? 'checked' :
-                  '' %> />
-                  <label for="movie-review-edit<%= i %>">2 stars.</label>
-
-                  <input type="radio" id="movie-review-edit<%= i %>"
-                  name="rating" value="3" <%review.Ratings === 3 ? 'checked' :
-                  '' %> />
-                  <label for="movie-review-edit<%= i %>">3 stars.</label>
-
-                  <input type="radio" id="movie-review-edit<%= i %>"
-                  name="rating" value="4" <%review.Ratings === 4 ? 'checked' :
-                  '' %> />
-                  <label for="movie-review-edit<%= i %>">4 stars.</label>
-
-                  <input type="radio" id="movie-review-edit<%= i %>"
-                  name="rating" value="5" <%review.Ratings === 5 ? 'checked' :
-                  '' %> />
-                  <label for="movie-review-edit<%= i %>">5 stars.</label>
-
-                  <span class="starability-focus-ring"></span>
-                </fieldset>
+                <div>
+                  <legend>Comment</legend>
+                  <textarea
+                    type="text"
+                    name="comment"
+                    id="<% data2[i].original_title %>-review"
+                  >
+<%= review.Comment %></textarea
+                  >
+                  <label for="<% data2[i].original_title %>-review"></label>
+                </div>
+                <% } %> <% }) %>
+                <!-- Hide this modal and show the first with the button below. -->
               </div>
 
-              <div>
-                <input
-                  type="text"
-                  name=""
-                  id=""
-                  value="<%= review.Comment %>"
-                />
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-target="#movie-info<%= i %>"
+                  data-bs-toggle="modal"
+                  data-bs-dismiss="modal"
+                >
+                  Back to details
+                </button>
+                <button class="btn btn-success">Update comment</button>
               </div>
-              <% } %> <% }) %>
-              <!-- Hide this modal and show the first with the button below. -->
-            </div>
-
-            <div class="modal-footer">
-              <button
-                class="btn btn-primary"
-                data-bs-target="#movie-info<%= i %>"
-                data-bs-toggle="modal"
-                data-bs-dismiss="modal"
-              >
-                Back to first
-              </button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -432,13 +431,14 @@
         data-bs-toggle="modal"
         href="#movie-info<%= i %>"
         role="button"
+        id="show-info"
       >
         <span class="material-symbols-outlined mx-2"> info </span>
         Show Info</a
       >
       <!-- End of new code -->
 
-      <div class="card-review">
+      <div class="card-review" role="button">
         <button
           class="card-review-button d-flex justify-content-center align-items-center"
           data-bs-toggle="modal"
@@ -575,6 +575,42 @@
           </form>
         </div>
       </div>
+
+      <div class="card-wishlist" role="button">
+        <form
+          action="/addtowishlist"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <input
+            type="text"
+            class="d-none"
+            name="Movie_id"
+            id=""
+            value="<%= data2[i].id %>"
+          />
+          <input
+            type="text"
+            class="d-none"
+            name="MovieName"
+            id=""
+            value="<%= data2[i].original_title %>"
+          />
+          <input
+            type="text"
+            class="d-none"
+            name="Poster_path"
+            id=""
+            value="<%= data2[i].poster_path%>"
+          />
+          <button
+            class="fw-bolder d-flex justify-content-center card-wishlist-btn"
+          >
+            <span class="material-symbols-outlined"> add </span>
+            Wishlist
+          </button>
+        </form>
+      </div>
     </div>
     <% }%>
   </div>
@@ -586,12 +622,15 @@
 
 <script>
   const key = '<%-process.env.movieKey %>';
+  const reviewItems = <%- JSON.stringify(reviews) %>;
   const mainData = <%- JSON.stringify(trendingMovies) %>;
   const values = <%- JSON.stringify(data) %>;
   const moreData = <%- JSON.stringify(data2) %>;
   let totalItems = <%- totalItems %>;
   let items_per_page = <%- items_per_page %>;
+  const user = <%- JSON.stringify(usr) %>;
 </script>
-<script src="/JavaScripts/movies.js"></script>
+<script src="/Javascripts/moreInfo.js"></script>
+<script src="/Javascripts/movies.js"></script>
 
-<script src="/JavaScripts/sliderPause.js"></script>
+<script src="/Javascripts/sliderPause.js"></script>

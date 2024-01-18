@@ -21,8 +21,9 @@ module.exports.showMovies = async (req, res, next) => {
       .slice(startingIndex, startingIndex + items_per_page)
       .map((el) => el);
 
+    const currentIndex = 0;
     const reviews = await movieReview.find().populate("Author");
-    console.log(reviews);
+    const usr = res.locals.currentUser || "";
 
     if (data.length <= 0 && data2.length <= 0) {
       req.flash("error", "No items to display");
@@ -37,6 +38,8 @@ module.exports.showMovies = async (req, res, next) => {
         items_per_page,
         currentPage: req.path,
         reviews,
+        currentIndex,
+        usr,
       });
     }
   } catch (err) {
@@ -70,6 +73,10 @@ module.exports.showTvSeries = async (req, res, next) => {
       startingIndex,
       startingIndex + items_per_page
     );
+
+    const reviews = await movieReview.find().populate("Author");
+    const usr = res.locals.currentUser || "";
+
     if (data1.length <= 0 && data2.length <= 0) {
       req.flash("error", "No items to display");
     } else if (!data1 || !data2) {
@@ -83,6 +90,8 @@ module.exports.showTvSeries = async (req, res, next) => {
         totalItems,
         items_per_page,
         currentPage: req.path,
+        reviews,
+        usr,
       });
     }
   } catch (err) {
@@ -90,7 +99,7 @@ module.exports.showTvSeries = async (req, res, next) => {
   }
 };
 
-module.exports.kidsTvSeries = async (req, res, next) => {
+module.exports.TvSeries = async (req, res, next) => {
   try {
     const page = req.query.page || 1;
     const startingIndex = (page - 1) * items_per_page;
@@ -104,6 +113,10 @@ module.exports.kidsTvSeries = async (req, res, next) => {
     const data2 = await response2.data.results;
     const totalItems = data2.length;
     const topRated = data2.slice(startingIndex, startingIndex + items_per_page);
+
+    const reviews = await movieReview.find().populate("Author");
+    const usr = res.locals.currentUser || "";
+
     if (data1.length <= 0 && data2.length <= 0) {
       req.flash("error", "No items to display");
       res.redirect("/");
@@ -122,6 +135,8 @@ module.exports.kidsTvSeries = async (req, res, next) => {
         startingIndex,
         totalItems,
         currentPage: req.path,
+        reviews,
+        usr,
       });
     }
   } catch (err) {
