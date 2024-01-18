@@ -275,7 +275,7 @@
                   />
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title"><%= data2[i].original_title %></h5>
+                  <h5 class="card-title"><%= data2[i].name %></h5>
                   <p class="card-text"><%= data2[i].overview %></p>
                 </div>
               </div>
@@ -384,7 +384,7 @@
                 data2[i].id && review.Author.equals(currentUser)) { %>
                 <div class="mb-3">
                   <!-- still working here -->
-                  <h3><%= data2[i].original_title%> rating</h3>
+                  <h3><%= data2[i].name%> rating</h3>
                   <p
                     class="starability-result"
                     data-rating="<%=review.Ratings %>"
@@ -398,11 +398,11 @@
                   <textarea
                     type="text"
                     name="comment"
-                    id="<% data2[i].original_title %>-review"
+                    id="<% data2[i].name %>-review"
                   >
 <%= review.Comment %></textarea
                   >
-                  <label for="<% data2[i].original_title %>-review"></label>
+                  <label for="<% data2[i].name %>-review"></label>
                 </div>
                 <% } %> <% }) %>
                 <!-- Hide this modal and show the first with the button below. -->
@@ -592,7 +592,7 @@
             class="d-none"
             name="MovieName"
             id=""
-            value="<%= data2[i].original_title %>"
+            value="<%= data2[i].name %>"
           />
           <input
             type="text"
