@@ -71,25 +71,26 @@ body {
   background-color: aliceblue;
 }
 
-.card-details, .card-review>.card-review-button, .card-details:hover {
+.card-details, .card-wishlist-btn, .card-review>.card-review-button, .card-wishlist-btn, .card-details:hover {
   background-color: aqua;
   border: 1px solid aliceblue;
   padding: 2% 16%;
+  margin: 2%;
   color: aliceblue;
   width: 100%;
   text-decoration: none;
   text-align: center;
 }
 
-.modal-flex{
+.modal-flex {
   display: flex;
 }
 
-#modal-footer{
+#modal-footer {
   justify-content: space-between !important;
 }
 
-#card-body{
+#card-body {
   width: 100rem;
 }
 
@@ -124,7 +125,7 @@ body {
 
 .trending-movies>h1,
 .trending-series>h1,
-.top-rated>h1, 
+.top-rated>h1,
 .wishlists>h1 {
   color: aqua;
 }
@@ -134,7 +135,7 @@ body {
   opacity: 0.2;
 }
 
-.no-view{
+.no-view {
   display: none;
 }
 
@@ -148,16 +149,15 @@ body {
 
   .trending-movies>.content-container,
   .trending-series>.content-container,
-  .top-rated>.content-container
-  .wishlists>.content-container {
+  .top-rated>.content-container .wishlists>.content-container {
     justify-content: center;
   }
 
-  .modal-flex{
+  .modal-flex {
     display: block;
   }
 
-  #card-body{
+  #card-body {
     width: 100%;
   }
 }

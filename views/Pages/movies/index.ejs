@@ -434,7 +434,7 @@
       >
       <!-- End of new code -->
 
-      <div class="card-review">
+      <div class="card-review" role="button">
         <button
           class="card-review-button d-flex justify-content-center align-items-center"
           data-bs-toggle="modal"
@@ -570,6 +570,40 @@
             </div>
           </form>
         </div>
+      </div>
+
+      <div class="card-wishlist" role="button">
+        <form
+          action="/addtowishlist"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <input
+            type="text"
+            class="d-none"
+            name="Movie_id"
+            id=""
+            value="<%= data2[i].id %>"
+          />
+          <input
+            type="text"
+            class="d-none"
+            name="MovieName"
+            id=""
+            value="<%= data2[i].original_title %>"
+          />
+          <input
+            type="text"
+            class="d-none"
+            name="Poster_path"
+            id=""
+            value="<%= data2[i].poster_path%>"
+          />
+          <button class="fw-bolder d-flex justify-content-center card-wishlist-btn">
+            <span class="material-symbols-outlined"> add </span>
+            Wishlist
+          </button>
+        </form>
       </div>
     </div>
     <% }%>

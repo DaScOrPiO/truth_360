@@ -396,6 +396,41 @@ document.addEventListener("DOMContentLoaded", function () {
                 </form>
               </div>
             </div>
+            <!-- End of review feature -->
+
+            <div class="card-wishlist" role="button">
+              <form
+                action="/addtowishlist"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <input
+                  type="text"
+                  class="d-none"
+                  name="Movie_id"
+                  id=""
+                  value="${movie.id}"
+                />
+                <input
+                  type="text"
+                  class="d-none"
+                  name="MovieName"
+                  id=""
+                  value="${movie.original_title}"
+                />
+                <input
+                  type="text"
+                  class="d-none"
+                  name="Poster_path"
+                  id=""
+                  value="${movie.poster_path}"
+                />
+                <button class="fw-bolder d-flex justify-content-center card-wishlist-btn">
+                  <span class="material-symbols-outlined"> add </span>
+                  Wishlist
+                </button>
+              </form>
+            </div>
           `;
 
           contentContainer.appendChild(card);
