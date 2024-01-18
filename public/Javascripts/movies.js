@@ -49,7 +49,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     ></button>
                   </div>
                   <div class="modal-body modal-flex">
-                    <div class="card mb-3">
+                    <div class="card mb-3 ${
+                      reviewItems.some(
+                        (el) =>
+                          el.Movie_id === movie.id &&
+                          reviewItems.length > 0
+                      )
+                        ? "card-space"
+                        : ""
+                    }">
                       <div>
                         <img
                           src="https://image.tmdb.org/t/p/w342${
@@ -67,7 +75,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     ${
                       Array.isArray(reviewItems) && reviewItems.length > 0
                         ? `
-                          <div class="review-container mb-3" id="reviews-container">
+                          <div class="review-container ${
+                            reviewItems.some(
+                              (el) =>
+                                el.Movie_id === movie.id &&
+                                reviewItems.length > 0
+                            )
+                              ? "review-space"
+                              : ""
+                          } mb-3" id="reviews-container">
                           ${reviewItems
                             .filter(
                               (review) =>

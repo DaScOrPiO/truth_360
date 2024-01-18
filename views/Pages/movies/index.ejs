@@ -263,7 +263,9 @@
               ></button>
             </div>
             <div class="modal-body modal-flex">
-              <div class="card mb-3">
+              <div
+                class="card mb-3 <%= reviews.some(el => el.Movie_id === data2[i].id && reviews.length > 0) ? 'review-space': '' %>"
+              >
                 <div>
                   <img
                     src="https://image.tmdb.org/t/p/w342<%= data2[i].poster_path %>"
@@ -278,7 +280,10 @@
               </div>
 
               <% if (Array.isArray(reviews) && reviews.length > 0) { %>
-              <div class="review-container mb-3" id="reviews-container">
+              <div
+                class="review-container mb-3 <%= reviews.some(el => el.Movie_id === data2[i].id && reviews.length > 0) ? 'review-space': '' %>"
+                id="reviews-container"
+              >
                 <% reviews.forEach(review => { %> <% if (review.Author &&
                 review.Movie_id === data2[i].id) { %>
                 <div class="card mb-3 mx-3">
@@ -396,7 +401,9 @@
                     type="text"
                     name="comment"
                     id="<% data2[i].original_title %>-review"
-                  ><%= review.Comment %></textarea>
+                  >
+<%= review.Comment %></textarea
+                  >
                   <label for="<% data2[i].original_title %>-review"></label>
                 </div>
                 <% } %> <% }) %>
@@ -596,7 +603,9 @@
             id=""
             value="<%= data2[i].poster_path%>"
           />
-          <button class="fw-bolder d-flex justify-content-center card-wishlist-btn">
+          <button
+            class="fw-bolder d-flex justify-content-center card-wishlist-btn"
+          >
             <span class="material-symbols-outlined"> add </span>
             Wishlist
           </button>

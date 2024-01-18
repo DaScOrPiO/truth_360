@@ -10,28 +10,28 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("shouldDisplayRan");
 
     // Check if movieIndex is within the bounds of moreData array
-    if (movieIndex < moreData.length) {
-      // Get the current movie at the movieIndex
-      const currentMovie = moreData[movieIndex];
+    // if (movieIndex < moreData.length) {
+    // Get the current movie at the movieIndex
+    const currentMovie = moreData[movieIndex];
 
-      // Filter reviews for the current movie
-      movieReviews = reviewItems.filter(
-        (item) => item.Movie_id === currentMovie.id
-      );
+    // Filter reviews for the current movie
+    movieReviews = reviewItems.filter(
+      (item) => item.Movie_id === currentMovie?.id
+    );
 
-      // Check if there are more than 5 reviews for the current movie
-      const displayStyle = movieReviews.length > 5 ? "block" : "none";
+    // Check if there are more than 5 reviews for the current movie
+    const displayStyle = movieReviews.length > reviewsPerPage ? "block" : "none";
 
-      // delegation to set display style for all "View More" buttons using event delegation
-      contentContainer
-        .querySelectorAll('[id^="view-more"]')
-        .forEach((el) => (el.style.display = displayStyle));
-    } else {
-      // Hide all buttons if movieIndex is out of bounds
-      contentContainer
+    // delegation to set display style for all "View More" buttons using event delegation
+    contentContainer
       .querySelectorAll('[id^="view-more"]')
-      .forEach((el) => (el.style.display = "none"));
-    }
+      .forEach((el) => (el.style.display = displayStyle));
+    // } else {
+    //   // Hide all buttons if movieIndex is out of bounds
+    //   contentContainer
+    //   .querySelectorAll('[id^="view-more"]')
+    //   .forEach((el) => (el.style.display = "none"));
+    // }
   };
 
   // Add event listener to the common ancestor ("contentContainer") for "Show Info" and "View More" buttons

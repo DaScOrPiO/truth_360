@@ -139,6 +139,17 @@ body {
   display: none;
 }
 
+.review-space {
+  width: 50%;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.card-space{
+  width: 50%;
+}
+
 @media screen and (max-width: 767px) {
   .main-content {
     width: 100%;
@@ -151,6 +162,17 @@ body {
   .trending-series>.content-container,
   .top-rated>.content-container .wishlists>.content-container {
     justify-content: center;
+  }
+
+  .review-space {
+    width: auto;
+    height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .card-space{
+    width: auto;
   }
 
   .modal-flex {
