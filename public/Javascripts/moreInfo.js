@@ -28,7 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
         .forEach((el) => (el.style.display = displayStyle));
     } else {
       // Hide all buttons if movieIndex is out of bounds
-      moreButtons.forEach((el) => (el.style.display = "none"));
+      contentContainer
+      .querySelectorAll('[id^="view-more"]')
+      .forEach((el) => (el.style.display = "none"));
     }
   };
 
