@@ -310,7 +310,7 @@
             <div class="modal-footer" id="modal-footer">
               <% if (currentUser && Array.isArray(reviews) && reviews.length >
               0) { %> <% reviews.forEach(review => { %> <% if (review.Author &&
-              review.Author.equals && review.Author.equals(currentUser._id) &&
+              review.Author.equals && review.Author.equals(currentUser) &&
               review.Movie_id === data2[i].id) { %>
               <div class="card mb-3 w-100">
                 <div class="card-body">
@@ -326,7 +326,7 @@
               </div>
               <% } %> <% }) %> <% } %> <% reviews.forEach(review => { %> <%
               if(review.Movie_id === data2[i].id &&
-              review.Author.equals(currentUser._id)) { %>
+              review.Author.equals(currentUser)) { %>
               <button
                 class="btn btn-primary"
                 data-bs-target="#edit-movie-review<%= i %>"
@@ -338,7 +338,7 @@
               <% } %> <% }) %> <% if (currentUser && Array.isArray(reviews) &&
               reviews.length > 0) { %> <% reviews.forEach(review => { %> <% if
               (review.Author && review.Author.equals &&
-              review.Author.equals(currentUser._id) && review.Movie_id ===
+              review.Author.equals(currentUser) && review.Movie_id ===
               data2[i].id) { %>
               <form action="">
                 <div class="no-view">

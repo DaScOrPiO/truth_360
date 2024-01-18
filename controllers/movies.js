@@ -23,7 +23,7 @@ module.exports.showMovies = async (req, res, next) => {
 
     const currentIndex = 0;
     const reviews = await movieReview.find().populate("Author");
-    const usr = res.locals.currentUser || undefined;
+    const usr = res.locals.currentUser || "";
 
     if (data.length <= 0 && data2.length <= 0) {
       req.flash("error", "No items to display");
@@ -75,7 +75,7 @@ module.exports.showTvSeries = async (req, res, next) => {
     );
 
     const reviews = await movieReview.find().populate("Author");
-    const usr = res.locals.currentUser || undefined;
+    const usr = res.locals.currentUser || "";
 
     if (data1.length <= 0 && data2.length <= 0) {
       req.flash("error", "No items to display");
@@ -115,7 +115,7 @@ module.exports.kidsTvSeries = async (req, res, next) => {
     const topRated = data2.slice(startingIndex, startingIndex + items_per_page);
 
     const reviews = await movieReview.find().populate("Author");
-    const usr = res.locals.currentUser || undefined;
+    const usr = res.locals.currentUser || "";
 
     if (data1.length <= 0 && data2.length <= 0) {
       req.flash("error", "No items to display");
