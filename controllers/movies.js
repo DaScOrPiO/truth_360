@@ -73,6 +73,10 @@ module.exports.showTvSeries = async (req, res, next) => {
       startingIndex,
       startingIndex + items_per_page
     );
+
+    const reviews = await movieReview.find().populate("Author");
+    const usr = res.locals.currentUser || undefined;
+
     if (data1.length <= 0 && data2.length <= 0) {
       req.flash("error", "No items to display");
     } else if (!data1 || !data2) {
@@ -86,6 +90,8 @@ module.exports.showTvSeries = async (req, res, next) => {
         totalItems,
         items_per_page,
         currentPage: req.path,
+        reviews,
+        usr,
       });
     }
   } catch (err) {
@@ -107,6 +113,10 @@ module.exports.kidsTvSeries = async (req, res, next) => {
     const data2 = await response2.data.results;
     const totalItems = data2.length;
     const topRated = data2.slice(startingIndex, startingIndex + items_per_page);
+
+    const reviews = await movieReview.find().populate("Author");
+    const usr = res.locals.currentUser || undefined;
+
     if (data1.length <= 0 && data2.length <= 0) {
       req.flash("error", "No items to display");
       res.redirect("/");
@@ -125,6 +135,8 @@ module.exports.kidsTvSeries = async (req, res, next) => {
         startingIndex,
         totalItems,
         currentPage: req.path,
+        reviews,
+        usr,
       });
     }
   } catch (err) {
