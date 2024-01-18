@@ -28,9 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
             <img src="https://image.tmdb.org/t/p/original${
               movie.poster_path
             }" class="card-img-top" alt="...">
-            <div class="card-body">
-              <p class="card-text">${movie.overview}</p>
-            </div>
 
             <!-- New code here -->
             <div
