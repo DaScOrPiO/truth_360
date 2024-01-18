@@ -6,7 +6,7 @@ const {
   showMovies,
   addMovieReview,
   showTvSeries,
-  kidsTvSeries,
+  TvSeries,
   addToWishlist,
   showWishlists,
   removeFromWishlists,
@@ -17,7 +17,7 @@ const { isLoggedIn } = require("../../utils/middleware/middleware");
 router
   .get("/movies", showMovies)
   .get("/tvseries", showTvSeries)
-  .get("/toprated", kidsTvSeries)
+  .get("/toprated", TvSeries)
   .get("/wishlists", isLoggedIn, showWishlists);
 
 router

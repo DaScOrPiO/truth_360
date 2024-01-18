@@ -99,7 +99,7 @@ module.exports.showTvSeries = async (req, res, next) => {
   }
 };
 
-module.exports.kidsTvSeries = async (req, res, next) => {
+module.exports.TvSeries = async (req, res, next) => {
   try {
     const page = req.query.page || 1;
     const startingIndex = (page - 1) * items_per_page;
