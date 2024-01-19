@@ -263,7 +263,9 @@
               ></button>
             </div>
             <div class="modal-body modal-flex">
-              <div class="card mb-3 <%= reviews.some(el => el.Movie_id === data2[i].id && reviews.length > 0) ? 'card-space': '' %>">
+              <div
+                class="card mb-3 <%= reviews.some(el => el.Movie_id === data2[i].id && reviews.length > 0) ? 'card-space': '' %>"
+              >
                 <div>
                   <img
                     src="https://image.tmdb.org/t/p/w342<%= data2[i].poster_path %>"
@@ -485,6 +487,42 @@
                       value="<%= data2[i].id %>"
                       readonly
                       id="movie_id"
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="movie_description">Movie Description</label>
+                    <input
+                      class="form-control text-truncate"
+                      type="text"
+                      name="Movie_description"
+                      value="<%= data2[i].overview %>"
+                      readonly
+                      id="movie_description"
+                    />
+                  </div>
+
+                  <div class="mb-3 no-view">
+                    <label for="movie_poster">Movie Poster</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="Movie_poster"
+                      value="<%= data2[i].poster_path %>"
+                      readonly
+                      id="movie_poster"
+                    />
+                  </div>
+
+                  <div class="mb-3 no-view">
+                    <label for="movie_name">Movie name</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="Movie_name"
+                      value="<%= data2[i].name %>"
+                      readonly
+                      id="movie_name"
                     />
                   </div>
 

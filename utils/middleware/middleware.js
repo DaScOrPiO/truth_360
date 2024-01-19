@@ -1,5 +1,6 @@
 const Campgrounds = require("../../models/campgrounds");
 const Reviews = require("../../models/review");
+const movieReview = require("../../models/movieReview");
 
 module.exports.isLoggedIn = async (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -36,4 +37,21 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     return res.redirect(`/campgrounds/${itemId}/show`);
   }
   next();
+};
+
+module.exports.itemIsReviewed = async (req, res, next) => {
+  const { Movie_id } = req.body;
+  const hasReview = await movieReview.findOne({
+    Author: req.user._id,
+    Movie_id: Movie_id,
+  });
+  if (hasReview) {
+    req.flash(
+      "error",
+      "You have previously reviewed this movie, edit review instead!"
+    );
+    res.redirect("/movies");
+  } else {
+    next();
+  }
 };
