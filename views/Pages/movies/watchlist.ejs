@@ -1,0 +1,99 @@
+<%- layout("layouts/boilerplate2.ejs") %> <%-
+layout("/layouts/boilerplate2.ejs") %>
+
+<header class="wishlists">
+  <div class="hamburger-menu" id="hamburger">
+    <i class="material-symbols-outlined icon-size hamburger-item"> menu </i>
+  </div>
+  <div
+    id="carouselExampleDark"
+    class="carousel carousel-dark slide"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner">
+      <h1 class="top">Recently Added</h1>
+      <div class="carousel-item active" data-bs-interval="3000">
+        <img
+          src="https://image.tmdb.org/t/p/original<%= data1.Movie_poster %>"
+          class="d-block w-100 image"
+          alt="..."
+        />
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleDark"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleDark"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <div class="search-container">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search movie"
+        aria-label="Recipient's username"
+        aria-describedby="button-addon2"
+      />
+      <button class="button" type="button" id="button-addon2">Search</button>
+    </div>
+  </div>
+</header>
+
+<% if(initialData && initialData.length > 0) {%>
+<section class="wishlists py-2 px-2">
+  <h1>More</h1>
+  <div class="content-container d-flex flex-wrap" id="content-container">
+    <% for(let i = 0; i < initialData.length; i++) {%>
+    <div class="card mx-auto mb-3" style="width: 16rem">
+      <img
+        src="https://image.tmdb.org/t/p/original<%= initialData[i].Movie_poster %>"
+        class="card-img-top"
+        alt="..."
+      />
+
+      <form action="" class="card-details mb-3">
+        <button class="details-button d-flex justify-content-center">
+          <span class="material-symbols-outlined mx-2">info</span>
+          Show details
+        </button>
+      </form>
+    </div>
+    <% } %>
+  </div>
+
+  <div class="d-flex justify-content-center align-items-center w-100">
+    <button class="button shadow fw-bolder" id="load-more">Load More</button>
+  </div>
+</section>
+<%} else{ %>
+<section
+  class="wishlists px-4 py-4 d-flex justify-content-center align-items-center"
+>
+  <h1>No More items to display</h1>
+</section>
+<%} %>
+
+<script>
+   const headerData = <%- JSON.stringify(data1)%>;
+  const initialLoadData = <%- JSON.stringify(initialData) %>;
+  const data = <%- JSON.stringify(item) %>;
+  const totalItems = <%- totalItems %>;
+  const items_per_page = <%- items_per_page %>;
+</script>
+
+<!-- <script src="/Javascripts/wishlists.js"></script> -->

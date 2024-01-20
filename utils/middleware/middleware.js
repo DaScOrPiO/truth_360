@@ -1,6 +1,8 @@
 const Campgrounds = require("../../models/campgrounds");
 const Reviews = require("../../models/review");
 const movieReview = require("../../models/movieReview");
+const movieWatchlist = require("../../models/movieWatchlist");
+const movieWishlist = require("../../models/movieWishlist");
 
 module.exports.isLoggedIn = async (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -50,6 +52,33 @@ module.exports.itemIsReviewed = async (req, res, next) => {
       "error",
       "You have previously reviewed this movie, edit review instead!"
     );
+    res.redirect("/movies");
+  } else {
+    next();
+  }
+};
+
+module.exports.presentInWishlistsOrWatchlists = async (req, res, next) => {
+  const item = req.body;
+  const userId = req.user._id;
+
+  const inWatchlist = await movieWatchlist.findOne({
+    Movie_id: item.Movie_id,
+    Owner: userId,
+  });
+
+  const isPresent = await movieWishlist.findOne({
+    Movie_id: item.Movie_id,
+    Owner: userId,
+  });
+  // console.log(item, isPresent);
+  if (inWatchlist) {
+    console.log(inWatchlist);
+    req.flash("error", "Item among movies you've seen");
+    res.redirect("/movies");
+  } else if (isPresent && isPresent.Movie_id === item.Movie_id) {
+    // console.log(isPresent.Movie_id === item.Movie_id);
+    req.flash("error", "item has been previously added");
     res.redirect("/movies");
   } else {
     next();

@@ -47,6 +47,13 @@
             <input
               type="text"
               class="d-none"
+              name="Movie_description"
+              id=""
+              value="<%= data[i].overview %>"
+            />
+            <input
+              type="text"
+              class="d-none"
               name="Poster_path"
               id=""
               value="<%= data[i].poster_path%>"
@@ -106,6 +113,41 @@
                           value="<%= data[i].id %>"
                           readonly
                           id="movie_id"
+                        />
+                      </div>
+
+                      <div class="mb-3 d-none">
+                        <label for="movie_name">Movie name</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="Movie_name"
+                          value="<%= data[i].original_title %>"
+                          readonly
+                          id="movie_name"
+                        />
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="movie_description">Movie description</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="Movie_description"
+                          value="<%= data[i].overview %>"
+                          readonly
+                          id="movie_description"
+                        />
+                      </div>
+                      <div class="mb-3 d-none">
+                        <label for="movie_poster">Movie poster</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="Movie_poster"
+                          value="<%= data[i].poster_path %>"
+                          readonly
+                          id="movie_poster"
                         />
                       </div>
 

@@ -147,9 +147,6 @@ module.exports.TvSeries = async (req, res, next) => {
 
 module.exports.addToWishlist = async (req, res, next) => {
   try {
-    const item = req.body;
-    console.log(req.user);
-    const userId = req.user._id;
     // const addNew = new movieWishlist({
     //   Owner: userId,
     //   Movie_id: item.Movie_id,
@@ -157,22 +154,16 @@ module.exports.addToWishlist = async (req, res, next) => {
     //   Poster_path: item.Poster_path,
     // });
     // await addNew.save();
-    const isPresent = await movieWishlist.findOne({
-      Movie_id: item.Movie_id,
-      Owner: userId,
-    });
-    // console.log(item, isPresent);
-    if (isPresent && isPresent.Movie_id === item.Movie_id) {
-      console.log(isPresent.Movie_id === item.Movie_id);
-      req.flash("error", "item has been previously added");
-      res.redirect("/movies");
-    } else {
-      const addNew = new movieWishlist(item);
-      addNew.Owner = userId;
-      await addNew.save();
-      req.flash("success", "Action Successful");
-      res.redirect("/movies");
-    }
+    // console.log(req.body);
+
+    const item = req.body;
+    const userId = req.user._id;
+
+    const addNew = new movieWishlist(item);
+    addNew.Owner = userId;
+    await addNew.save();
+    req.flash("success", "Action Successful");
+    res.redirect("/movies");
   } catch (err) {
     next(err);
   }
@@ -262,5 +253,36 @@ module.exports.addReview = async (req, res, next) => {
     res.redirect("/movies");
   } catch (err) {
     next(err);
+  }
+};
+
+module.exports.showWatchlists = async (req, res, next) => {
+  const items = await movieWatchlist
+    .find({ Owner: req.user._id })
+    .populate("Ratings");
+
+  const page = req.query.page || 1;
+
+  if (items) {
+    const data1 = items.findLast((el) => el);
+    const restOfItems = items.slice(1);
+    const startingIndex = (page - 1) * items_per_page;
+    const totalItems = items.length;
+    const initialData = items.slice(
+      startingIndex,
+      startingIndex + items_per_page
+    );
+    console.log(initialData);
+    res.render("Pages/movies/watchlist", {
+      currentPage: req.path,
+      data1,
+      item: restOfItems,
+      totalItems,
+      initialData,
+      items_per_page,
+    });
+  } else {
+    req.flash("error", "No items to display");
+    res.redirect("/movies");
   }
 };

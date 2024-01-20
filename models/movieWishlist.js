@@ -9,12 +9,23 @@ const movieWishlistSchema = {
   },
   Movie_id: {
     type: String,
+    required: true,
   },
   MovieName: {
     type: String,
+    required: true,
+  },
+  Movie_description: {
+    type: String,
+    required: true,
   },
   Poster_path: {
     type: String,
+    required: true,
+  },
+  Ratings: {
+    type: Schema.Types.ObjectId,
+    ref: "MovieReview",
   },
 };
 

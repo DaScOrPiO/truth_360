@@ -22,6 +22,11 @@ const movieWatchlistSchema = new Schema({
     required: true,
   },
 
+  Movie_poster: {
+    type: String,
+    required: true,
+  },
+
   Ratings: {
     type: Schema.Types.ObjectId,
     ref: "MovieReview",
