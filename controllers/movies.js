@@ -263,7 +263,10 @@ module.exports.showWatchlists = async (req, res, next) => {
 
   const page = req.query.page || 1;
 
-  if (items) {
+  if (!items || items.length === 0) {
+    req.flash("error", "No items to display");
+    res.redirect("/movies");
+  } else {
     const data1 = items.findLast((el) => el);
     const restOfItems = items.slice(1);
     const startingIndex = (page - 1) * items_per_page;
@@ -281,8 +284,5 @@ module.exports.showWatchlists = async (req, res, next) => {
       initialData,
       items_per_page,
     });
-  } else {
-    req.flash("error", "No items to display");
-    res.redirect("/movies");
   }
 };

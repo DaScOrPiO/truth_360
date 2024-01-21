@@ -675,6 +675,14 @@
             value="<%= data2[i].original_title %>"
           />
           <input
+            class="d-none"
+            type="text"
+            name="Movie_description"
+            value="<%= data2[i].overview %>"
+            readonly
+            id="movie_description"
+          />
+          <input
             type="text"
             class="d-none"
             name="Poster_path"

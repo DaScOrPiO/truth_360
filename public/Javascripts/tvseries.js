@@ -462,6 +462,14 @@ document.addEventListener("DOMContentLoaded", function () {
                   value="${movie.name}"
                 />
                 <input
+                class="d-none"
+                type="text"
+                name="Movie_description"
+                value="${movie.overview}"
+                readonly
+                id="movie_description"
+              />
+                <input
                   type="text"
                   class="d-none"
                   name="Poster_path"

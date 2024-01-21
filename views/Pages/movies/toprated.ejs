@@ -51,6 +51,13 @@
               id=""
               value="<%= data1[i].poster_path%>"
             />
+            <input
+              type="text"
+              class="d-none"
+              name="Movie_description"
+              id=""
+              value="<%= data1[i].overview%>"
+            />
             <button class="button fw-bolder d-flex">
               <span class="material-symbols-outlined"> add </span>
               Wishlist
@@ -665,6 +672,14 @@
               id=""
               value="<%= topRated[i].original_title %>"
             />
+            <input
+            class="d-none"
+            type="text"
+            name="Movie_description"
+            value="<%= topRated[i].overview %>"
+            readonly
+            id="movie_description"
+          />
             <input
               type="text"
               class="d-none"

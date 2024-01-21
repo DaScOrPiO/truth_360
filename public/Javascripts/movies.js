@@ -5,9 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentPage = 1;
   let initialDisplay = moreData.length;
   let isDataAvailable = true;
-  console.log(moreData.map((el) => el.id));
-  console.log(user);
-  console.log(reviewItems.map((el) => el));
 
   const loadMoreMovies = async () => {
     try {
@@ -462,6 +459,14 @@ document.addEventListener("DOMContentLoaded", function () {
                   id=""
                   value="${movie.original_title}"
                 />
+                <input
+                class="form-control d-none"
+                type="text"
+                name="Movie_description"
+                value="${movie.overview}"
+                readonly
+                id="movie_description"
+              />
                 <input
                   type="text"
                   class="d-none"
