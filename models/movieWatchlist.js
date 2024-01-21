@@ -1,32 +1,36 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const User = require("../models/user");
 
-const movieWishlistSchema = {
+const movieWatchlistSchema = new Schema({
   Owner: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+
   Movie_id: {
     type: String,
     required: true,
   },
-  MovieName: {
+
+  Movie_name: {
     type: String,
     required: true,
   },
+
   Movie_description: {
     type: String,
     required: true,
   },
-  Poster_path: {
+
+  Movie_poster: {
     type: String,
     required: true,
   },
+
   Ratings: {
     type: Schema.Types.ObjectId,
     ref: "MovieReview",
   },
-};
+});
 
-module.exports = mongoose.model("MovieWishlist", movieWishlistSchema);
+module.exports = mongoose.model("MovieWatchlist", movieWatchlistSchema);

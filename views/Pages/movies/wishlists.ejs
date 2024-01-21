@@ -1,4 +1,5 @@
 <%- layout("/layouts/boilerplate2.ejs") %>
+<link rel="stylesheet" href="/styles/ratings/rating.css" />
 
 <header class="wishlists">
   <div class="hamburger-menu" id="hamburger">
@@ -51,12 +52,178 @@
             </button>
           </form>
 
-          <form action="" class="form mx-4">
-            <button class="button fw-bolder d-flex">
+          <div class="form mx-4">
+            <button
+              class="button fw-bolder d-flex"
+              data-bs-toggle="modal"
+              data-bs-target="#wishlist-header-review"
+              data-bs-whatever="@getbootstrap"
+              id="review-button"
+            >
               <span class="material-symbols-outlined"> star </span>
               Review
             </button>
-          </form>
+
+            <!-- modal for review -->
+            <div
+              class="modal fade"
+              id="wishlist-header-review"
+              tabindex="-1"
+              aria-labelledby="wishlists-review-h"
+              aria-hidden="true"
+            >
+              <form
+                action="/add_review"
+                method="post"
+                class="modal-dialog"
+                enctype="multipart/form-data"
+              >
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="wishlists-review-h">
+                      Write a review for <%= data1.MovieName %>
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div class="mb-3">
+                        <label for="movie_id">Movie id</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="Movie_id"
+                          value="<%= data1.Movie_id %>"
+                          readonly
+                          id="movie_id"
+                        />
+                      </div>
+
+                      <div class="mb-3 d-none">
+                        <label for="movieName">Movie name</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="Movie_name"
+                          value="<%= data1.MovieName %>"
+                          readonly
+                          id="movie_name"
+                        />
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="movie_description">Movie description</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="Movie_description"
+                          value="<%= data1.Movie_description %>"
+                          readonly
+                          id="movie_description"
+                        />
+                      </div>
+                      <div class="mb-3 d-none">
+                        <label for="movie_poster">Movie poster</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="Movie_poster"
+                          value="<%= data1.Poster_path %>"
+                          readonly
+                          id="movie_poster"
+                        />
+                      </div>
+
+                      <div class="mb-3">
+                        <fieldset class="starability-grow">
+                          <legend>rating:</legend>
+                          <input
+                            type="radio"
+                            id="no-rate"
+                            class="input-no-rate"
+                            name="rating"
+                            value="1"
+                            aria-label="No rating."
+                            max="5"
+                          />
+
+                          <input
+                            type="radio"
+                            id="rate1"
+                            name="rating"
+                            value="1"
+                            checked
+                          />
+                          <label for="rate1">1 star.</label>
+
+                          <input
+                            type="radio"
+                            id="rate2"
+                            name="rating"
+                            value="2"
+                          />
+                          <label for="rate2">2 stars.</label>
+
+                          <input
+                            type="radio"
+                            id="rate3"
+                            name="rating"
+                            value="3"
+                          />
+                          <label for="rate3">3 stars.</label>
+
+                          <input
+                            type="radio"
+                            id="rate4"
+                            name="rating"
+                            value="4"
+                          />
+                          <label for="rate4">4 stars.</label>
+
+                          <input
+                            type="radio"
+                            id="rate5"
+                            name="rating"
+                            value="5"
+                          />
+                          <label for="rate5>">5 stars.</label>
+
+                          <span class="starability-focus-ring"></span>
+                        </fieldset>
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="message-text" class="col-form-label"
+                          >Comment:</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="message-text"
+                          name="comment"
+                          placeholder="Enter comment"
+                        ></textarea>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button class="btn btn-success">Drop Review</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -113,12 +280,179 @@
         </button>
       </form>
 
-      <form action="" class="card-review mb-3">
-        <button class="card-review-button d-flex justify-content-center">
-          <span class="material-symbols-outlined mx-2">star</span>
+      <div class="card-review" role="button">
+        <button
+          class="card-review-button d-flex justify-content-center align-items-center"
+          data-bs-toggle="modal"
+          data-bs-target="#wishlist-review-modal<%= i %>"
+          data-bs-whatever="@getbootstrap"
+          id="review-button<%= i %>"
+        >
+          <span class="material-symbols-outlined"> star </span>
           Review
         </button>
-      </form>
+
+        <!-- modal for review -->
+        <div
+          class="modal fade"
+          id="wishlist-review-modal<%= i %>"
+          tabindex="-1"
+          aria-labelledby="movie-review"
+          aria-hidden="true"
+        >
+          <form
+            action="/add_review"
+            method="post"
+            class="modal-dialog"
+            enctype="multipart/form-data"
+          >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="movie-review">
+                  Write a review for <%= initialData[i].MovieName %>
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-3">
+                    <label for="movie_id">Movie id</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="Movie_id"
+                      value="<%= initialData[i].Movie_id %>"
+                      readonly
+                      id="movie_id"
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="movie_description">Movie Description</label>
+                    <input
+                      class="form-control text-truncate"
+                      type="text"
+                      name="Movie_description"
+                      value="<%= initialData[i].Movie_description %>"
+                      readonly
+                      id="movie_description"
+                    />
+                  </div>
+
+                  <div class="mb-3 no-view">
+                    <label for="movie_poster">Movie Poster</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="Movie_poster"
+                      value="<%= initialData[i].Poster_path %>"
+                      readonly
+                      id="movie_poster"
+                    />
+                  </div>
+
+                  <div class="mb-3 no-view">
+                    <label for="movie_name">Movie name</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="Movie_name"
+                      value="<%= initialData[i].MovieName %>"
+                      readonly
+                      id="movie_name"
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <fieldset class="starability-grow">
+                      <legend>rating:</legend>
+                      <input
+                        type="radio"
+                        id="trending-no-rate<%= i %>"
+                        class="input-no-rate"
+                        name="rating"
+                        value="1"
+                        aria-label="No rating."
+                        max="5"
+                      />
+
+                      <input
+                        type="radio"
+                        id="trending-rate1<%= i %>"
+                        name="rating"
+                        value="1"
+                        checked
+                      />
+                      <label for="trending-rate1<%= i %>">1 star.</label>
+
+                      <input
+                        type="radio"
+                        id="trending-rate2<%= i %>"
+                        name="rating"
+                        value="2"
+                      />
+                      <label for="trending-rate2<%= i %>">2 stars.</label>
+
+                      <input
+                        type="radio"
+                        id="trending-rate3<%= i %>"
+                        name="rating"
+                        value="3"
+                      />
+                      <label for="trending-rate3<%= i %>">3 stars.</label>
+
+                      <input
+                        type="radio"
+                        id="trending-rate4<%= i %>"
+                        name="rating"
+                        value="4"
+                      />
+                      <label for="trending-rate4<%= i %>">4 stars.</label>
+
+                      <input
+                        type="radio"
+                        id="trending-rate5<%= i %>"
+                        name="rating"
+                        value="5"
+                      />
+                      <label for="trending-rate5<%= i %>">5 stars.</label>
+
+                      <span class="starability-focus-ring"></span>
+                    </fieldset>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label"
+                      >Comment:</label
+                    >
+                    <textarea
+                      class="form-control"
+                      id="message-text"
+                      name="comment"
+                      placeholder="Enter comment"
+                    ></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button class="btn btn-success">Drop Review</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
 
       <form
         action="/remove_fromwishlist"
@@ -172,8 +506,8 @@
    const headerData = <%- JSON.stringify(data1)%>;
   const initialLoadData = <%- JSON.stringify(initialData) %>;
   const data = <%- JSON.stringify(item) %>;
-  const totalItems = <%- totalItems %>
-  const items_per_page = <%- items_per_page %>
+  const totalItems = <%- totalItems %>;
+  const items_per_page = <%- items_per_page %>;
 </script>
 
 <script src="/Javascripts/wishlists.js"></script>

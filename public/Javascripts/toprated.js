@@ -52,8 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="card mb-3 ${
                       reviewItems.some(
                         (el) =>
-                          el.Movie_id === movie.id &&
-                          reviewItems.length > 0
+                          el.Movie_id === movie.id && reviewItems.length > 0
                       )
                         ? "card-space"
                         : ""
@@ -308,6 +307,43 @@ document.addEventListener("DOMContentLoaded", function () {
                           />
                         </div>
 
+                        
+                  <div class="mb-3">
+                  <label for="movie_description">Movie Description</label>
+                  <input
+                    class="form-control text-truncate"
+                    type="text"
+                    name="Movie_description"
+                    value="${movie.overview}"
+                    readonly
+                    id="movie_description"
+                  />
+                </div>
+
+                <div class="mb-3 no-view">
+                  <label for="movie_poster">Movie Poster</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="Movie_poster"
+                    value="${movie.poster_path}"
+                    readonly
+                    id="movie_poster"
+                  />
+                </div>
+
+                <div class="mb-3 no-view">
+                  <label for="movie_name">Movie name</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="Movie_name"
+                    value="${movie.original_title}"
+                    readonly
+                    id="movie_name"
+                  />
+                </div>
+
                         <div class="mb-3">
                           <fieldset class="starability-grow">
                             <legend>rating:</legend>
@@ -425,6 +461,14 @@ document.addEventListener("DOMContentLoaded", function () {
                   id=""
                   value="${movie.original_title}"
                 />
+                <input
+                class="d-none"
+                type="text"
+                name="Movie_description"
+                value="${movie.overview}"
+                readonly
+                id="movie_description"
+              />
                 <input
                   type="text"
                   class="d-none"

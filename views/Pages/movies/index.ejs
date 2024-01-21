@@ -47,6 +47,13 @@
             <input
               type="text"
               class="d-none"
+              name="Movie_description"
+              id=""
+              value="<%= data[i].overview %>"
+            />
+            <input
+              type="text"
+              class="d-none"
               name="Poster_path"
               id=""
               value="<%= data[i].poster_path%>"
@@ -106,6 +113,41 @@
                           value="<%= data[i].id %>"
                           readonly
                           id="movie_id"
+                        />
+                      </div>
+
+                      <div class="mb-3 d-none">
+                        <label for="movie_name">Movie name</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="Movie_name"
+                          value="<%= data[i].original_title %>"
+                          readonly
+                          id="movie_name"
+                        />
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="movie_description">Movie description</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="Movie_description"
+                          value="<%= data[i].overview %>"
+                          readonly
+                          id="movie_description"
+                        />
+                      </div>
+                      <div class="mb-3 d-none">
+                        <label for="movie_poster">Movie poster</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="Movie_poster"
+                          value="<%= data[i].poster_path %>"
+                          readonly
+                          id="movie_poster"
                         />
                       </div>
 
@@ -491,6 +533,42 @@
                   </div>
 
                   <div class="mb-3">
+                    <label for="movie_description">Movie Description</label>
+                    <input
+                      class="form-control text-truncate"
+                      type="text"
+                      name="Movie_description"
+                      value="<%= data2[i].overview %>"
+                      readonly
+                      id="movie_description"
+                    />
+                  </div>
+
+                  <div class="mb-3 no-view">
+                    <label for="movie_poster">Movie Poster</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="Movie_poster"
+                      value="<%= data2[i].poster_path %>"
+                      readonly
+                      id="movie_poster"
+                    />
+                  </div>
+
+                  <div class="mb-3 no-view">
+                    <label for="movie_name">Movie name</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="Movie_name"
+                      value="<%= data2[i].original_title %>"
+                      readonly
+                      id="movie_name"
+                    />
+                  </div>
+
+                  <div class="mb-3">
                     <fieldset class="starability-grow">
                       <legend>rating:</legend>
                       <input
@@ -595,6 +673,14 @@
             name="MovieName"
             id=""
             value="<%= data2[i].original_title %>"
+          />
+          <input
+            class="d-none"
+            type="text"
+            name="Movie_description"
+            value="<%= data2[i].overview %>"
+            readonly
+            id="movie_description"
           />
           <input
             type="text"
