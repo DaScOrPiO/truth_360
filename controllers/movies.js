@@ -179,14 +179,13 @@ module.exports.showWishlists = async (req, res, next) => {
       res.redirect("/movies");
     } else {
       const data1 = items.findLast((el) => el);
-      const restOfItems = items.slice(1);
+      const restOfItems = items
       const startingIndex = (page - 1) * items_per_page;
       const totalItems = items.length;
       const initialData = items.slice(
         startingIndex,
         startingIndex + items_per_page
       );
-      // console.log(initialData);
       res.render("Pages/movies/wishlists", {
         currentPage: req.path,
         item: restOfItems,

@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const loadMoreMovies = async () => {
     try {
       if (initialDisplay < totalItems) {
-        console.log("it ran");
         isDataAvailable = true;
         const remainingItems = totalItems - initialDisplay;
         const moreItems = data.slice(
@@ -249,7 +248,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (initialDisplay >= totalItems) {
           // No more data to load
           loadMoreBtn.classList.add("disabled-pointer");
-          console.log("This code ran");
           isDataAvailable = false;
         }
 
