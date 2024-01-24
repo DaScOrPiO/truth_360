@@ -1,4 +1,4 @@
-<%- layout("layouts/boilerplate2.ejs") %>
+<%- layout("/layouts/boilerplate2.ejs") %>
 <link rel="stylesheet" href="/styles/ratings/rating.css" />
 
 <header class="watchlists">
@@ -54,11 +54,11 @@
   </div>
 </header>
 
-<% if(initialData && initialData.length > 0) {%>
+<% if (initialData && initialData.length > 0) { %>
 <section class="watchlists py-2 px-2">
   <h1>More</h1>
   <div class="content-container d-flex flex-wrap" id="content-container">
-    <% for(let i = 0; i < initialData.length; i++) {%>
+    <% for (let i = 0; i < initialData.length; i++) { %>
     <div class="card mx-auto mb-3" style="width: 16rem">
       <img
         src="https://image.tmdb.org/t/p/original<%= initialData[i].Movie_poster %>"
@@ -86,7 +86,7 @@
             </div>
             <div class="modal-body modal-flex">
               <div
-                class="card mb-3 <%= reviews.some(el => el.Movie_id === initialData.Movie_id && reviews.length > 0) ? 'review-space': '' %>"
+                class="card mb-3 <%= reviews.some(el => el.Movie_id === initialData[i].Movie_id && reviews.length > 0) ? 'review-space': '' %>"
               >
                 <div>
                   <img
@@ -128,8 +128,6 @@
                 </button>
               </div>
               <% } %>
-
-              <!-- Show a second modal and hide this one with the button below. -->
             </div>
             <div class="modal-footer" id="modal-footer">
               <% if (currentUser && Array.isArray(reviews) && reviews.length >
@@ -148,8 +146,8 @@
                   <p class="card-text">Comment: <%= review.Comment %></p>
                 </div>
               </div>
-              <% } %> <% }) %> <% } %> <% reviews.forEach(review => { %> <%
-              if(review.Movie_id === initialData[i].Movie_id &&
+              <% } %> <% }) %> <% } %> <% reviews.forEach(review => { %> <% if
+              (review.Movie_id === initialData[i].Movie_id &&
               review.Author.equals(currentUser)) { %>
               <button
                 class="btn btn-primary"
@@ -205,15 +203,14 @@
                 ></button>
               </div>
               <div class="modal-body">
-                <% reviews.forEach(review => { %> <% if(review.Movie_id ===
+                <% reviews.forEach(review => { %> <% if (review.Movie_id ===
                 initialData[i].Movie_id && review.Author.equals(currentUser)) {
                 %>
                 <div class="mb-3">
-                  <!-- still working here -->
                   <h3><%= initialData[i].Movie_name %> rating</h3>
                   <p
                     class="starability-result"
-                    data-rating="<%=review.Ratings %>"
+                    data-rating="<%= review.Ratings %>"
                   >
                     Rated: 3 stars
                   </p>
@@ -224,14 +221,13 @@
                   <textarea
                     type="text"
                     name="comment"
-                    id="<% initialData[i].Movie_name %>-review"
+                    id="<%= initialData[i].Movie_name %>-review"
                   >
 <%= review.Comment %></textarea
                   >
-                  <label for="<% initialData[i].Movie_name %>-review"></label>
+                  <label for="<%= initialData[i].Movie_name %>-review"></label>
                 </div>
                 <% } %> <% }) %>
-                <!-- Hide this modal and show the first with the button below. -->
               </div>
 
               <div class="modal-footer">
@@ -258,26 +254,26 @@
         id="show-info"
       >
         <span class="material-symbols-outlined mx-2"> info </span>
-        Show Info</a
-      >
-      <% } %>
+        Show Info
+      </a>
     </div>
+    <% } %>
   </div>
 
   <div class="d-flex justify-content-center align-items-center w-100">
     <button class="button shadow fw-bolder" id="load-more">Load More</button>
   </div>
 </section>
-<%} else{ %>
+<% } else { %>
 <section
   class="wishlists px-4 py-4 d-flex justify-content-center align-items-center"
 >
   <h1>No More items to display</h1>
 </section>
-<%} %>
+<% } %>
 
 <script>
-   const headerData = <%- JSON.stringify(data1)%>;
+  const headerData = <%- JSON.stringify(data1) %>;
   const moreData = <%- JSON.stringify(initialData) %>;
   const mainData = <%- JSON.stringify(item) %>;
   const reviewItems = <%- JSON.stringify(reviews) %>;
@@ -288,4 +284,4 @@
 </script>
 
 <script src="/Javascripts/moreInfo.js"></script>
-<script src="/Javascripts/wishlists.js"></script>
+<script src="/Javascripts/watchlists.js"></script>

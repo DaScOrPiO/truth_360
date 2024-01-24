@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
           initialDisplay,
           initialDisplay + Math.min(items_per_page, remainingItems)
         );
-        console.log(reviewItems);
 
         moreItems.forEach((movie, i) => {
           const card = document.createElement("div");
@@ -356,6 +355,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         currentPage++;
+      } else {
+        isDataAvailable = false;
+        loadMoreBtn.classList.add("disabled-pointer");
+        Swal.fire({
+          icon: "info",
+          title: "No more data to load.",
+        });
       }
     } catch (error) {
       console.error("Error fetching data:", error);
