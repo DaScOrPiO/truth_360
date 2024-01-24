@@ -261,6 +261,16 @@ module.exports.addReview = async (req, res, next) => {
   }
 };
 
+module.exports.editReview = async (req, res, next) => {
+  const item = req.body;
+  const findReview = await movieReview.findByIdAndUpdate(item.id, {
+    Comment: item.comment,
+  });
+
+  req.flash("success", "Action successful");
+  res.redirect("/movies");
+};
+
 module.exports.showWatchlists = async (req, res, next) => {
   const items = await movieWatchlist
     .find({ Owner: req.user._id })
@@ -268,33 +278,26 @@ module.exports.showWatchlists = async (req, res, next) => {
 
   const page = req.query.page || 1;
 
-  if (!items || items.length === 0) {
-    req.flash("error", "No items to display");
-    res.redirect("/movies");
-  } else {
-    const data1 = items.findLast((el) => el);
-    const restOfItems = items;
-    const startingIndex = (page - 1) * items_per_page;
-    const totalItems = items.length;
-    const initialData = items.slice(
-      startingIndex,
-      startingIndex + items_per_page
-    );
+  const data1 = items.findLast((el) => el);
+  const restOfItems = items;
+  const startingIndex = (page - 1) * items_per_page;
+  const totalItems = items.length;
+  const initialData = items.slice(
+    startingIndex,
+    startingIndex + items_per_page
+  );
 
-    const reviews = await movieReview.find().populate("Author");
-    console.log(reviews);
-    const usr = res.locals.currentUser || "";
+  const reviews = await movieReview.find().populate("Author");
+  const usr = res.locals.currentUser || "";
 
-    console.log(initialData);
-    res.render("Pages/movies/watchlist", {
-      currentPage: req.path,
-      data1,
-      item: restOfItems,
-      totalItems,
-      initialData,
-      items_per_page,
-      reviews,
-      usr,
-    });
-  }
+  res.render("Pages/movies/watchlist", {
+    currentPage: req.path,
+    data1,
+    item: restOfItems,
+    totalItems,
+    initialData,
+    items_per_page,
+    reviews,
+    usr,
+  });
 };

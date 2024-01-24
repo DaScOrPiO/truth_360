@@ -81,3 +81,16 @@ module.exports.presentInWishlistsOrWatchlists = async (req, res, next) => {
     next();
   }
 };
+
+module.exports.presentinWatchlist = async (req, res, next) => {
+  const items = await movieWatchlist
+    .find({ Owner: req.user._id })
+    .populate("Ratings");
+
+  if (!items || items.length === 0) {
+    req.flash("error", "No items to display");
+    res.redirect("/movies");
+  } else {
+    next();
+  }
+};
