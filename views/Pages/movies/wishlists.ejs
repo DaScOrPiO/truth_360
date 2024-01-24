@@ -273,12 +273,83 @@
         alt="..."
       />
 
-      <form action="" class="card-details mb-3">
-        <button class="details-button d-flex justify-content-center">
-          <span class="material-symbols-outlined mx-2">info</span>
-          Show details
-        </button>
-      </form>
+      <div
+        class="modal fade"
+        id="wishlist-info<%= i %>"
+        aria-hidden="true"
+        aria-labelledby="wishlist-info-label"
+        tabindex="-1"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="wishlist-info-label">Modal 1</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modal-flex">
+              <div
+                class="card mb-3 <%= reviews.some(el => el.Movie_id === initialData[i].Movie_id && reviews.length > 0) ? 'review-space': '' %>"
+              >
+                <div>
+                  <img
+                    src="https://image.tmdb.org/t/p/w342<%= initialData[i].Poster_path %>"
+                    class="card-img-top"
+                    alt="..."
+                  />
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title"><%= initialData[i].MovieName %></h5>
+                  <p class="card-text">
+                    <%= initialData[i].Movie_description %>
+                  </p>
+                </div>
+              </div>
+
+              <!-- working here -->
+              <% if (Array.isArray(reviews) && reviews.length > 0) { %>
+              <div
+                class="review-container mb-3 <%= reviews.some(el => el.Movie_id === initialData[i].Movie_id && reviews.length > 0) ? 'review-space': '' %>"
+                id="reviews-container"
+              >
+                <% reviews.forEach(review => { %> <% if (review.Author &&
+                review.Movie_id === initialData[i].Movie_id) { %>
+                <div class="card mb-3 mx-3">
+                  <div class="card-body">
+                    <h1 class="fs-5">Author: <%= review.Author.username %></h1>
+                    <p
+                      class="starability-result"
+                      data-rating="<%= review.Ratings %>"
+                    >
+                      Rated: <%= review.Ratings %> stars
+                    </p>
+                    <p class="card-text">Comment: <%= review.Comment %></p>
+                  </div>
+                </div>
+                <% } %> <% }) %>
+                <button class="btn btn-primary mx-3" id="view-more">
+                  View More
+                </button>
+              </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a
+        class="card-details d-flex justify-content-center align-items-center"
+        data-bs-toggle="modal"
+        href="#wishlist-info<%= i %>"
+        role="button"
+        id="show-info"
+      >
+        <span class="material-symbols-outlined mx-2"> info </span>
+        Show Info</a
+      >
 
       <div class="card-review" role="button">
         <button
@@ -504,10 +575,14 @@
 
 <script>
    const headerData = <%- JSON.stringify(data1)%>;
-  const initialLoadData = <%- JSON.stringify(initialData) %>;
-  const data = <%- JSON.stringify(item) %>;
+  const moreData = <%- JSON.stringify(initialData) %>;
+  const mainData = <%- JSON.stringify(item) %>;
+  const reviewItems = <%- JSON.stringify(reviews) %>;
+  const values = <%- JSON.stringify(item) %>;
   const totalItems = <%- totalItems %>;
   const items_per_page = <%- items_per_page %>;
+  const user = <%- JSON.stringify(usr) %>;
 </script>
 
+<script src="/Javascripts/moreInfo.js"></script>
 <script src="/Javascripts/wishlists.js"></script>

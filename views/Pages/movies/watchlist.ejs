@@ -1,7 +1,7 @@
-<%- layout("layouts/boilerplate2.ejs") %> <%-
-layout("/layouts/boilerplate2.ejs") %>
+<%- layout("/layouts/boilerplate2.ejs") %>
+<link rel="stylesheet" href="/styles/ratings/rating.css" />
 
-<header class="wishlists">
+<header class="watchlists">
   <div class="hamburger-menu" id="hamburger">
     <i class="material-symbols-outlined icon-size hamburger-item"> menu </i>
   </div>
@@ -54,11 +54,11 @@ layout("/layouts/boilerplate2.ejs") %>
   </div>
 </header>
 
-<% if(initialData && initialData.length > 0) {%>
-<section class="wishlists py-2 px-2">
+<% if (initialData && initialData.length > 0) { %>
+<section class="watchlists py-2 px-2">
   <h1>More</h1>
   <div class="content-container d-flex flex-wrap" id="content-container">
-    <% for(let i = 0; i < initialData.length; i++) {%>
+    <% for (let i = 0; i < initialData.length; i++) { %>
     <div class="card mx-auto mb-3" style="width: 16rem">
       <img
         src="https://image.tmdb.org/t/p/original<%= initialData[i].Movie_poster %>"
@@ -66,12 +66,196 @@ layout("/layouts/boilerplate2.ejs") %>
         alt="..."
       />
 
-      <form action="" class="card-details mb-3">
-        <button class="details-button d-flex justify-content-center">
-          <span class="material-symbols-outlined mx-2">info</span>
-          Show details
-        </button>
-      </form>
+      <div
+        class="modal fade"
+        id="watchlist-info<%= i %>"
+        aria-hidden="true"
+        aria-labelledby="watchlist-info-label"
+        tabindex="-1"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="watchlist-info-label">Modal 1</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modal-flex">
+              <div
+                class="card mb-3 <%= reviews.some(el => el.Movie_id === initialData[i].Movie_id && reviews.length > 0) ? 'review-space': '' %>"
+              >
+                <div>
+                  <img
+                    src="https://image.tmdb.org/t/p/w342<%= initialData[i].Movie_poster %>"
+                    class="card-img-top"
+                    alt="..."
+                  />
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title"><%= initialData[i].Movie_name %></h5>
+                  <p class="card-text">
+                    <%= initialData[i].Movie_description %>
+                  </p>
+                </div>
+              </div>
+
+              <% if (Array.isArray(reviews) && reviews.length > 0) { %>
+              <div
+                class="review-container mb-3 <%= reviews.some(el => el.Movie_id === initialData[i].Movie_id && reviews.length > 0) ? 'review-space': '' %>"
+                id="reviews-container"
+              >
+                <% reviews.forEach(review => { %> <% if (review.Author &&
+                review.Movie_id === initialData[i].Movie_id) { %>
+                <div class="card mb-3 mx-3">
+                  <div class="card-body">
+                    <h1 class="fs-5">Author: <%= review.Author.username %></h1>
+                    <p
+                      class="starability-result"
+                      data-rating="<%= review.Ratings %>"
+                    >
+                      Rated: <%= review.Ratings %> stars
+                    </p>
+                    <p class="card-text">Comment: <%= review.Comment %></p>
+                  </div>
+                </div>
+                <% } %> <% }) %>
+                <button class="btn btn-primary mx-3" id="view-more">
+                  View More
+                </button>
+              </div>
+              <% } %>
+            </div>
+            <div class="modal-footer" id="modal-footer">
+              <% if (currentUser && Array.isArray(reviews) && reviews.length >
+              0) { %> <% reviews.forEach(review => { %> <% if (review.Author &&
+              review.Author.equals && review.Author.equals(currentUser) &&
+              review.Movie_id === initialData[i].Movie_id) { %>
+              <div class="card mb-3 w-100">
+                <div class="card-body">
+                  <h1 class="fs-5">Your Review</h1>
+                  <p
+                    class="starability-result"
+                    data-rating="<%= review.Ratings %>"
+                  >
+                    Rated: <%= review.Ratings %> stars
+                  </p>
+                  <p class="card-text">Comment: <%= review.Comment %></p>
+                </div>
+              </div>
+              <% } %> <% }) %> <% } %> <% reviews.forEach(review => { %> <% if
+              (review.Movie_id === initialData[i].Movie_id &&
+              review.Author.equals(currentUser)) { %>
+              <button
+                class="btn btn-primary"
+                data-bs-target="#edit-movie-review<%= i %>"
+                data-bs-toggle="modal"
+                data-bs-dismiss="modal"
+              >
+                Edit your comment
+              </button>
+              <% } %> <% }) %> <% if (currentUser && Array.isArray(reviews) &&
+              reviews.length > 0) { %> <% reviews.forEach(review => { %> <% if
+              (review.Movie_id === initialData[i].Movie_id &&
+              review.Author.equals(currentUser)) { %>
+              <form action="">
+                <div class="no-view">
+                  <input
+                    type="text"
+                    name="ratings"
+                    value="<%= review.Ratings %>"
+                  />
+                  <input
+                    type="text"
+                    name="comment"
+                    value="<%= review.Comment %>"
+                  />
+                </div>
+                <button class="btn btn-danger">Delete your review</button>
+              </form>
+              <% } %> <% }) %> <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="edit-movie-review<%= i %>"
+        aria-hidden="true"
+        aria-labelledby="edit-movie-review-label"
+        tabindex="-1"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <form action="#">
+              <div class="modal-header">
+                <h5 class="modal-title" id="edit-movie-review-label">
+                  Change review comment
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <% reviews.forEach(review => { %> <% if (review.Movie_id ===
+                initialData[i].Movie_id && review.Author.equals(currentUser)) {
+                %>
+                <div class="mb-3">
+                  <h3><%= initialData[i].Movie_name %> rating</h3>
+                  <p
+                    class="starability-result"
+                    data-rating="<%= review.Ratings %>"
+                  >
+                    Rated: 3 stars
+                  </p>
+                </div>
+
+                <div>
+                  <legend>Comment</legend>
+                  <textarea
+                    type="text"
+                    name="comment"
+                    id="<%= initialData[i].Movie_name %>-review"
+                  >
+<%= review.Comment %></textarea
+                  >
+                  <label for="<%= initialData[i].Movie_name %>-review"></label>
+                </div>
+                <% } %> <% }) %>
+              </div>
+
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-target="#watchlist-info<%= i %>"
+                  data-bs-toggle="modal"
+                  data-bs-dismiss="modal"
+                >
+                  Back to details
+                </button>
+                <button class="btn btn-success">Update comment</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <a
+        class="card-details d-flex justify-content-center align-items-center"
+        data-bs-toggle="modal"
+        href="#watchlist-info<%= i %>"
+        role="button"
+        id="show-info"
+      >
+        <span class="material-symbols-outlined mx-2"> info </span>
+        Show Info
+      </a>
     </div>
     <% } %>
   </div>
@@ -80,20 +264,24 @@ layout("/layouts/boilerplate2.ejs") %>
     <button class="button shadow fw-bolder" id="load-more">Load More</button>
   </div>
 </section>
-<%} else{ %>
+<% } else { %>
 <section
   class="wishlists px-4 py-4 d-flex justify-content-center align-items-center"
 >
   <h1>No More items to display</h1>
 </section>
-<%} %>
+<% } %>
 
 <script>
-   const headerData = <%- JSON.stringify(data1)%>;
-  const initialLoadData = <%- JSON.stringify(initialData) %>;
-  const data = <%- JSON.stringify(item) %>;
+  const headerData = <%- JSON.stringify(data1) %>;
+  const moreData = <%- JSON.stringify(initialData) %>;
+  const mainData = <%- JSON.stringify(item) %>;
+  const reviewItems = <%- JSON.stringify(reviews) %>;
+  const values = <%- JSON.stringify(item) %>;
   const totalItems = <%- totalItems %>;
   const items_per_page = <%- items_per_page %>;
+  const user = <%- JSON.stringify(usr) %>;
 </script>
 
-<!-- <script src="/Javascripts/wishlists.js"></script> -->
+<script src="/Javascripts/moreInfo.js"></script>
+<script src="/Javascripts/watchlists.js"></script>

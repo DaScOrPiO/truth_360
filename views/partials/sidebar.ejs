@@ -14,12 +14,14 @@
       <li class="items <%= currentPage === '/toprated' ? 'active-li' : '' %>">
         <a href="/toprated">Top Rated</a>
       </li>
+      <% if(currentUser){%>
       <li class="items <%= currentPage === '/wishlists' ? 'active-li' : '' %>">
         <a href="/wishlists">Wishlists</a>
       </li>
       <li class="items <%= currentPage === '/watchlists' ? 'active-li' : '' %>">
-        <a href="/watchlists">Watchlists</a>
+        <a href="/watchlists">Already Seen</a>
       </li>
+      <% }%>
     </ul>
   </nav>
 </aside>

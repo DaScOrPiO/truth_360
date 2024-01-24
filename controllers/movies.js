@@ -179,14 +179,17 @@ module.exports.showWishlists = async (req, res, next) => {
       res.redirect("/movies");
     } else {
       const data1 = items.findLast((el) => el);
-      const restOfItems = items.slice(1);
+      const restOfItems = items;
       const startingIndex = (page - 1) * items_per_page;
       const totalItems = items.length;
       const initialData = items.slice(
         startingIndex,
         startingIndex + items_per_page
       );
-      // console.log(initialData);
+
+      const reviews = await movieReview.find().populate("Author");
+      const usr = res.locals.currentUser || "";
+
       res.render("Pages/movies/wishlists", {
         currentPage: req.path,
         item: restOfItems,
@@ -194,6 +197,8 @@ module.exports.showWishlists = async (req, res, next) => {
         totalItems,
         initialData,
         items_per_page,
+        reviews,
+        usr,
       });
     }
   } catch (err) {
@@ -268,13 +273,18 @@ module.exports.showWatchlists = async (req, res, next) => {
     res.redirect("/movies");
   } else {
     const data1 = items.findLast((el) => el);
-    const restOfItems = items.slice(1);
+    const restOfItems = items;
     const startingIndex = (page - 1) * items_per_page;
     const totalItems = items.length;
     const initialData = items.slice(
       startingIndex,
       startingIndex + items_per_page
     );
+
+    const reviews = await movieReview.find().populate("Author");
+    console.log(reviews);
+    const usr = res.locals.currentUser || "";
+
     console.log(initialData);
     res.render("Pages/movies/watchlist", {
       currentPage: req.path,
@@ -283,6 +293,8 @@ module.exports.showWatchlists = async (req, res, next) => {
       totalItems,
       initialData,
       items_per_page,
+      reviews,
+      usr,
     });
   }
 };

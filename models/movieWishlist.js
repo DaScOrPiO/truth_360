@@ -8,7 +8,7 @@ const movieWishlistSchema = {
     ref: "User",
   },
   Movie_id: {
-    type: String,
+    type: Number,
     required: true,
   },
   MovieName: {

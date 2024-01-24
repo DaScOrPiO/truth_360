@@ -3,17 +3,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const loadMoreBtn = document.getElementById("load-more");
 
   let currentPage = 1;
-  let initialDisplay = initialLoadData.length;
+  let initialDisplay = moreData.length;
   let isDataAvailable = true;
-  console.log(totalItems);
 
   const loadMoreMovies = async () => {
     try {
       if (initialDisplay < totalItems) {
-        console.log("it ran");
         isDataAvailable = true;
         const remainingItems = totalItems - initialDisplay;
-        const moreItems = data.slice(
+        const moreItems = mainData.slice(
           initialDisplay,
           initialDisplay + Math.min(items_per_page, remainingItems)
         );
@@ -24,14 +22,108 @@ document.addEventListener("DOMContentLoaded", function () {
           card.style.width = "16rem";
 
           card.innerHTML = `
-              <img src="https://image.tmdb.org/t/p/original${movie.Poster_path}" class="card-img-top" alt="...">
+              <img src="https://image.tmdb.org/t/p/original${
+                movie.Poster_path
+              }" class="card-img-top" alt="...">
               
-              <form action="" class="card-details mb-3">
-        <button class="details-button d-flex justify-content-center">
-          <span class="material-symbols-outlined mx-2">info</span>
-          Show details
-        </button>
-      </form>
+              <div
+              class="modal fade"
+              id="wishlist-info${initialDisplay + i}"
+              aria-hidden="true"
+              aria-labelledby="wishlist-info-label"
+              tabindex="-1"
+            >
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="wishlist-info-label">Modal 1</h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body modal-flex">
+                    <div
+                      class="card mb-3 ${
+                        reviewItems.some(
+                          (el) =>
+                            el.Movie_id === movie.Movie_id &&
+                            reviewItems.length > 0
+                        )
+                          ? "review-space"
+                          : ""
+                      }"
+                    >
+                      <div>
+                        <img
+                          src="https://image.tmdb.org/t/p/w342${
+                            movie.Poster_path
+                          }"
+                          class="card-img-top"
+                          alt="..."
+                        />
+                      </div>
+                      <div class="card-body">
+                        <h5 class="card-title">${movie.MovieName}</h5>
+                        <p class="card-text">${movie.Movie_description}</p>
+                      </div>
+                    </div>
+      
+                    ${
+                      Array.isArray(reviewItems) && reviewItems.length > 0
+                        ? `<div
+                          class="review-container mb-3 ${
+                            reviewItems.some(
+                              (el) =>
+                                el.Movie_id === movie.Movie_id &&
+                                reviewItems.length > 0
+                            )
+                              ? "review-space"
+                              : ""
+                          }"
+                          id="reviews-container"
+                        >
+                          ${reviewItems
+                            .map((review) =>
+                              review.Author &&
+                              review.Movie_id === movie.Movie_id
+                                ? `<div class="card mb-3 mx-3">
+                                  <div class="card-body">
+                                    <h1 class="fs-5">Author: ${review.Author.username}</h1>
+                                    <p
+                                      class="starability-result"
+                                      data-rating="${review.Ratings}"
+                                    >
+                                      Rated: ${review.Ratings} stars
+                                    </p>
+                                    <p class="card-text">Comment: ${review.Comment}</p>
+                                  </div>
+                                </div>`
+                                : ""
+                            )
+                            .join("")}
+                          <button class="btn btn-primary mx-3" id="view-more">
+                            View More
+                          </button>
+                        </div>`
+                        : ""
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a
+              class="card-details d-flex justify-content-center align-items-center"
+              data-bs-toggle="modal"
+              href="#wishlist-info${initialDisplay + i}"
+              role="button"
+              id="show-info"
+            >
+              <span class="material-symbols-outlined mx-2"> info </span>
+              Show Info</a
+            >
 
       <div class="card-review" role="button">
       <button
@@ -141,7 +233,9 @@ document.addEventListener("DOMContentLoaded", function () {
                       value="1"
                       checked
                     />
-                    <label for="trending-rate1${initialDisplay + i}">1 star.</label>
+                    <label for="trending-rate1${
+                      initialDisplay + i
+                    }">1 star.</label>
 
                     <input
                       type="radio"
@@ -149,7 +243,9 @@ document.addEventListener("DOMContentLoaded", function () {
                       name="rating"
                       value="2"
                     />
-                    <label for="trending-rate2${initialDisplay + i}>">2 stars.</label>
+                    <label for="trending-rate2${
+                      initialDisplay + i
+                    }>">2 stars.</label>
 
                     <input
                       type="radio"
@@ -157,7 +253,9 @@ document.addEventListener("DOMContentLoaded", function () {
                       name="rating"
                       value="3"
                     />
-                    <label for="trending-rate3${initialDisplay + i}">3 stars.</label>
+                    <label for="trending-rate3${
+                      initialDisplay + i
+                    }">3 stars.</label>
 
                     <input
                       type="radio"
@@ -165,7 +263,9 @@ document.addEventListener("DOMContentLoaded", function () {
                       name="rating"
                       value="4"
                     />
-                    <label for="trending-rate4${initialDisplay + i}">4 stars.</label>
+                    <label for="trending-rate4${
+                      initialDisplay + i
+                    }">4 stars.</label>
 
                     <input
                       type="radio"
@@ -173,7 +273,9 @@ document.addEventListener("DOMContentLoaded", function () {
                       name="rating"
                       value="5"
                     />
-                    <label for="trending-rate5${initialDisplay + i}">5 stars.</label>
+                    <label for="trending-rate5${
+                      initialDisplay + i
+                    }">5 stars.</label>
 
                     <span class="starability-focus-ring"></span>
                   </fieldset>
@@ -249,11 +351,17 @@ document.addEventListener("DOMContentLoaded", function () {
         if (initialDisplay >= totalItems) {
           // No more data to load
           loadMoreBtn.classList.add("disabled-pointer");
-          console.log("This code ran");
           isDataAvailable = false;
         }
 
         currentPage++;
+      } else {
+        isDataAvailable = false;
+        loadMoreBtn.classList.add("disabled-pointer");
+        Swal.fire({
+          icon: "info",
+          title: "No more data to load.",
+        });
       }
     } catch (error) {
       console.error("Error fetching data:", error);
