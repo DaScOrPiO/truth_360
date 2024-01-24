@@ -404,7 +404,11 @@
       >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-            <form action="#">
+            <form
+              action="/edit_review?_method=PUT"
+              method="post"
+              enctype="multipart/form-data"
+            >
               <div class="modal-header">
                 <h5 class="modal-title" id="edit-movie-review-label">
                   Change review comment
@@ -430,16 +434,20 @@
                   </p>
                 </div>
 
+                <div class="d-none">
+                  <input type="text" name="id" value="<%= review._id %>" />
+                </div>
+
                 <div>
                   <legend>Comment</legend>
                   <textarea
                     type="text"
                     name="comment"
-                    id="<% data2[i].name %>-review"
+                    id="<%data2[i].name %>-review%>"
                   >
 <%= review.Comment %></textarea
                   >
-                  <label for="<% data2[i].name %>-review"></label>
+                  <label for="<%data2[i].name %>-review%>"></label>
                 </div>
                 <% } %> <% }) %>
                 <!-- Hide this modal and show the first with the button below. -->

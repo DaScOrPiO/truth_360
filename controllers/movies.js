@@ -262,42 +262,55 @@ module.exports.addReview = async (req, res, next) => {
 };
 
 module.exports.editReview = async (req, res, next) => {
-  const item = req.body;
-  const findReview = await movieReview.findByIdAndUpdate(item.id, {
-    Comment: item.comment,
-  });
+  try {
+    const item = req.body;
+    if (item && item.comment !== "") {
+      const findReview = await movieReview.findByIdAndUpdate(item.id, {
+        Comment: item.comment,
+      });
 
-  req.flash("success", "Action successful");
-  res.redirect("/movies");
+      req.flash("success", "Action successful");
+      res.redirect("/movies");
+    } else {
+      req.flash("error", "Failed, comment cannot be empty!");
+      res.redirect("/movies");
+    }
+  } catch (err) {
+    next(err);
+  }
 };
 
 module.exports.showWatchlists = async (req, res, next) => {
-  const items = await movieWatchlist
-    .find({ Owner: req.user._id })
-    .populate("Ratings");
+  try {
+    const items = await movieWatchlist
+      .find({ Owner: req.user._id })
+      .populate("Ratings");
 
-  const page = req.query.page || 1;
+    const page = req.query.page || 1;
 
-  const data1 = items.findLast((el) => el);
-  const restOfItems = items;
-  const startingIndex = (page - 1) * items_per_page;
-  const totalItems = items.length;
-  const initialData = items.slice(
-    startingIndex,
-    startingIndex + items_per_page
-  );
+    const data1 = items.findLast((el) => el);
+    const restOfItems = items;
+    const startingIndex = (page - 1) * items_per_page;
+    const totalItems = items.length;
+    const initialData = items.slice(
+      startingIndex,
+      startingIndex + items_per_page
+    );
 
-  const reviews = await movieReview.find().populate("Author");
-  const usr = res.locals.currentUser || "";
+    const reviews = await movieReview.find().populate("Author");
+    const usr = res.locals.currentUser || "";
 
-  res.render("Pages/movies/watchlist", {
-    currentPage: req.path,
-    data1,
-    item: restOfItems,
-    totalItems,
-    initialData,
-    items_per_page,
-    reviews,
-    usr,
-  });
+    res.render("Pages/movies/watchlist", {
+      currentPage: req.path,
+      data1,
+      item: restOfItems,
+      totalItems,
+      initialData,
+      items_per_page,
+      reviews,
+      usr,
+    });
+  } catch (err) {
+    next(err);
+  }
 };
