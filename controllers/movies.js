@@ -221,19 +221,6 @@ module.exports.removeFromWishlists = async (req, res, next) => {
 
 module.exports.addReview = async (req, res, next) => {
   try {
-    // const review = new movieReview({
-    //   Author: "65a6b6baf48093b920047e5c",
-    //   Ratings: 3,
-    //   Comment: "Dead movie",
-    //   Movie_id: 0,
-    //   Movie_poster: "/not-workin",
-    //   Movie_description: "sample movie",
-    //   Movie_name: "movie",
-    // });
-
-    // await review.save();
-    // res.send("ok");
-
     const {
       Movie_id,
       comment,
@@ -275,6 +262,27 @@ module.exports.editReview = async (req, res, next) => {
       req.flash("error", "Failed, comment cannot be empty!");
       res.redirect("/movies");
     }
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.deleteReview = async (req, res, next) => {
+  try {
+    const item = req.body;
+    const userId = req.user._id;
+    const movieID = Number(item.movie_id);
+    const reviewToBeDeleted = await movieReview.findOneAndDelete({
+      Author: userId,
+      _id: item.review_id,
+    });
+
+    const movieInWatchlist = await movieWatchlist.findOneAndDelete({
+      Movie_id: movieID,
+      Owner: userId,
+    });
+    req.flash("success", "Action successful");
+    res.redirect("/movies");
   } catch (err) {
     next(err);
   }

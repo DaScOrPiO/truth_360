@@ -13,6 +13,7 @@ const {
   addReview,
   showWatchlists,
   editReview,
+  deleteReview,
 } = require("../../controllers/movies");
 const {
   isLoggedIn,
@@ -39,6 +40,7 @@ router
   )
   .post("/remove_fromwishlist", isLoggedIn, upload.none(), removeFromWishlists)
   .post("/add_review", isLoggedIn, upload.none(), itemIsReviewed, addReview)
-  .put("/edit_review", isLoggedIn, upload.none(), editReview);
+  .put("/edit_review", isLoggedIn, upload.none(), editReview)
+  .delete("/delete_review", isLoggedIn, deleteReview);
 
 module.exports = router;

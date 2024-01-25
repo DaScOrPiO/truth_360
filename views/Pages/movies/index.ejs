@@ -382,12 +382,22 @@
               (review.Author && review.Author.equals &&
               review.Author.equals(currentUser) && review.Movie_id ===
               data2[i].id) { %>
-              <form action="">
+              <form action="/delete_review?_method=DELETE" method="post">
                 <div class="no-view">
                   <input
                     type="text"
                     name="ratings"
                     value="<%= review.Ratings %>"
+                  />
+                  <input
+                    type="text"
+                    name="review_id"
+                    value="<%= review._id %>"
+                  />
+                  <input
+                    type="text"
+                    name="movie_id"
+                    value="<%= data2[i].id %>"
                   />
                   <input
                     type="text"

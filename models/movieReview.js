@@ -65,4 +65,10 @@ MovieReviewSchema.post("save", async function () {
   }
 });
 
+MovieReviewSchema.post("findOneAndDelete", async function (doc) {
+  // const watchlist = await movieWatchlist.findOneAndDelete()
+
+  console.log(doc.movie_id, "in schema post method");
+});
+
 module.exports = mongoose.model("MovieReview", MovieReviewSchema);
