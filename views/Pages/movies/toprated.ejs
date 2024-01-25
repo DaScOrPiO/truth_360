@@ -305,7 +305,9 @@
               ></button>
             </div>
             <div class="modal-body modal-flex">
-              <div class="card mb-3 <%= reviews.some(el => el.Movie_id === data2[i].id && reviews.length > 0) ? 'review-space': '' %>">
+              <div
+                class="card mb-3 <%= reviews.some(el => el.Movie_id === data2[i].id && reviews.length > 0) ? 'review-space': '' %>"
+              >
                 <div>
                   <img
                     src="https://image.tmdb.org/t/p/w342<%= data2[i].poster_path %>"
@@ -380,12 +382,22 @@
               (review.Author && review.Author.equals &&
               review.Author.equals(currentUser) && review.Movie_id ===
               topRated[i].id) { %>
-              <form action="">
+              <form action="/delete_review?_method=DELETE" method="post">
                 <div class="no-view">
                   <input
                     type="text"
                     name="ratings"
                     value="<%= review.Ratings %>"
+                  />
+                  <input
+                    type="text"
+                    name="review_id"
+                    value="<%= review._id %>"
+                  />
+                  <input
+                    type="text"
+                    name="movie_id"
+                    value="<%= topRated[i].id %>"
                   />
                   <input
                     type="text"
@@ -409,7 +421,11 @@
       >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-            <form action="#">
+            <form
+              action="/edit_review?_method=PUT"
+              method="post"
+              enctype="multipart/form-data"
+            >
               <div class="modal-header">
                 <h5 class="modal-title" id="edit-movie-review-label">
                   Change review comment
@@ -435,16 +451,20 @@
                   </p>
                 </div>
 
+                <div class="d-none">
+                  <input type="text" name="id" value="<%= review._id %>" />
+                </div>
+
                 <div>
                   <legend>Comment</legend>
                   <textarea
                     type="text"
                     name="comment"
-                    id="<% topRated[i].original_title %>-review"
+                    id="<%topRated[i].original_title %>-review%>"
                   >
 <%= review.Comment %></textarea
                   >
-                  <label for="<% topRated[i].original_title %>-review"></label>
+                  <label for="<%topRated[i].original_title %>-review%>"></label>
                 </div>
                 <% } %> <% }) %>
                 <!-- Hide this modal and show the first with the button below. -->
@@ -530,7 +550,6 @@
                     />
                   </div>
 
-                  
                   <div class="mb-3">
                     <label for="movie_description">Movie Description</label>
                     <input
@@ -673,13 +692,13 @@
               value="<%= topRated[i].original_title %>"
             />
             <input
-            class="d-none"
-            type="text"
-            name="Movie_description"
-            value="<%= topRated[i].overview %>"
-            readonly
-            id="movie_description"
-          />
+              class="d-none"
+              type="text"
+              name="Movie_description"
+              value="<%= topRated[i].overview %>"
+              readonly
+              id="movie_description"
+            />
             <input
               type="text"
               class="d-none"

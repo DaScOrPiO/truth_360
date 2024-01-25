@@ -161,12 +161,22 @@
               reviews.length > 0) { %> <% reviews.forEach(review => { %> <% if
               (review.Movie_id === initialData[i].Movie_id &&
               review.Author.equals(currentUser)) { %>
-              <form action="">
+              <form action="/delete_review?_method=DELETE" method="post">
                 <div class="no-view">
                   <input
                     type="text"
                     name="ratings"
                     value="<%= review.Ratings %>"
+                  />
+                  <input
+                    type="text"
+                    name="review_id"
+                    value="<%= review._id %>"
+                  />
+                  <input
+                    type="text"
+                    name="movie_id"
+                    value="<%= initialData[i].Movie_id %>"
                   />
                   <input
                     type="text"
@@ -190,7 +200,11 @@
       >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-            <form action="#">
+            <form
+              action="/edit_review?_method=PUT"
+              method="post"
+              enctype="multipart/form-data"
+            >
               <div class="modal-header">
                 <h5 class="modal-title" id="edit-movie-review-label">
                   Change review comment
@@ -214,6 +228,10 @@
                   >
                     Rated: 3 stars
                   </p>
+                </div>
+
+                <div class="d-none">
+                  <input type="text" name="id" value="<%= review._id %>" />
                 </div>
 
                 <div>

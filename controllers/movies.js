@@ -221,19 +221,6 @@ module.exports.removeFromWishlists = async (req, res, next) => {
 
 module.exports.addReview = async (req, res, next) => {
   try {
-    // const review = new movieReview({
-    //   Author: "65a6b6baf48093b920047e5c",
-    //   Ratings: 3,
-    //   Comment: "Dead movie",
-    //   Movie_id: 0,
-    //   Movie_poster: "/not-workin",
-    //   Movie_description: "sample movie",
-    //   Movie_name: "movie",
-    // });
-
-    // await review.save();
-    // res.send("ok");
-
     const {
       Movie_id,
       comment,
@@ -261,17 +248,54 @@ module.exports.addReview = async (req, res, next) => {
   }
 };
 
-module.exports.showWatchlists = async (req, res, next) => {
-  const items = await movieWatchlist
-    .find({ Owner: req.user._id })
-    .populate("Ratings");
+module.exports.editReview = async (req, res, next) => {
+  try {
+    const item = req.body;
+    if (item && item.comment !== "") {
+      const findReview = await movieReview.findByIdAndUpdate(item.id, {
+        Comment: item.comment,
+      });
 
-  const page = req.query.page || 1;
+      req.flash("success", "Action successful");
+      res.redirect("/movies");
+    } else {
+      req.flash("error", "Failed, comment cannot be empty!");
+      res.redirect("/movies");
+    }
+  } catch (err) {
+    next(err);
+  }
+};
 
-  if (!items || items.length === 0) {
-    req.flash("error", "No items to display");
+module.exports.deleteReview = async (req, res, next) => {
+  try {
+    const item = req.body;
+    const userId = req.user._id;
+    const movieID = Number(item.movie_id);
+    const reviewToBeDeleted = await movieReview.findOneAndDelete({
+      Author: userId,
+      _id: item.review_id,
+    });
+
+    const movieInWatchlist = await movieWatchlist.findOneAndDelete({
+      Movie_id: movieID,
+      Owner: userId,
+    });
+    req.flash("success", "Action successful");
     res.redirect("/movies");
-  } else {
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.showWatchlists = async (req, res, next) => {
+  try {
+    const items = await movieWatchlist
+      .find({ Owner: req.user._id })
+      .populate("Ratings");
+
+    const page = req.query.page || 1;
+
     const data1 = items.findLast((el) => el);
     const restOfItems = items;
     const startingIndex = (page - 1) * items_per_page;
@@ -282,10 +306,8 @@ module.exports.showWatchlists = async (req, res, next) => {
     );
 
     const reviews = await movieReview.find().populate("Author");
-    console.log(reviews);
     const usr = res.locals.currentUser || "";
 
-    console.log(initialData);
     res.render("Pages/movies/watchlist", {
       currentPage: req.path,
       data1,
@@ -296,5 +318,7 @@ module.exports.showWatchlists = async (req, res, next) => {
       reviews,
       usr,
     });
+  } catch (err) {
+    next(err);
   }
 };

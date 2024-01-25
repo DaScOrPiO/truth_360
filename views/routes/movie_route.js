@@ -12,11 +12,14 @@ const {
   removeFromWishlists,
   addReview,
   showWatchlists,
+  editReview,
+  deleteReview,
 } = require("../../controllers/movies");
 const {
   isLoggedIn,
   itemIsReviewed,
   presentInWishlistsOrWatchlists,
+  presentinWatchlist,
 } = require("../../utils/middleware/middleware");
 
 router
@@ -24,7 +27,7 @@ router
   .get("/tvseries", showTvSeries)
   .get("/toprated", TvSeries)
   .get("/wishlists", isLoggedIn, showWishlists)
-  .get("/watchlists", isLoggedIn, showWatchlists);
+  .get("/watchlists", isLoggedIn, presentinWatchlist, showWatchlists);
 
 router
   .post("/", addMovieReview)
@@ -36,6 +39,8 @@ router
     addToWishlist
   )
   .post("/remove_fromwishlist", isLoggedIn, upload.none(), removeFromWishlists)
-  .post("/add_review", isLoggedIn, upload.none(), itemIsReviewed, addReview);
+  .post("/add_review", isLoggedIn, upload.none(), itemIsReviewed, addReview)
+  .put("/edit_review", isLoggedIn, upload.none(), editReview)
+  .delete("/delete_review", isLoggedIn, deleteReview);
 
 module.exports = router;

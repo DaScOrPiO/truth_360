@@ -147,12 +147,22 @@ document.addEventListener("DOMContentLoaded", function () {
                                 Edit your comment
                               </button>
 
-                              <form action="">
+                              <form action="/delete_review?_method=DELETE" method="post">
                               <div class="no-view">
                                 <input
                                   type="text"
                                   name="ratings"
                                   value="${review.Ratings}"
+                                />
+                                <input
+                                  type="text"
+                                  name="review_id"
+                                  value="${review._id}"
+                                />
+                                <input
+                                  type="text"
+                                  name="movie_id"
+                                  value="${movie.id}"
                                 />
                                 <input
                                   type="text"
@@ -181,7 +191,9 @@ document.addEventListener("DOMContentLoaded", function () {
             >
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                  <form action="#">
+                  <form action="/edit_review?_method=PUT"
+                        method="post"
+                        enctype="multipart/form-data">
                     <div class="modal-header">
                       <h5 class="modal-title" id="edit-movie-review-label">
                         Change review comment
@@ -209,6 +221,10 @@ document.addEventListener("DOMContentLoaded", function () {
                               <p class="starability-result" data-rating="${review.Ratings}">
                                 Rated: 3 stars
                               </p>
+                            </div>
+
+                            <div class="d-none">
+                              <input type="text" name="id" value="${review._id}" />
                             </div>
 
                             <div>
