@@ -1,336 +1,369 @@
 <%- layout("/layouts/boilerplate2.ejs") %>
 <link rel="stylesheet" href="/styles/ratings/rating.css" />
 
-<header class="upcoming-movies">
-  <div class="hamburger-menu" id="hamburger">
-    <i class="material-symbols-outlined icon-size hamburger-item"> menu </i>
-  </div>
-  <div
-    id="movie-image-slider"
-    class="carousel carousel-dark slide"
-    data-bs-ride="carousel"
-    data-bs-pause="false"
-  >
-    <div class="carousel-inner">
-      <h1 class="top">Upcoming Movies</h1>
-      <% for (let i = 0; i < data.length; i++) { %>
-      <div
-        class="carousel-item <%= i === 0 ? 'active' : '' %>"
-        data-bs-interval="3000"
-      >
-        <img
-          src="https://image.tmdb.org/t/p/original<%= data[i].poster_path %>"
-          class="d-block w-100 image"
-          alt="..."
-        />
-        <div class="button-container">
-          <form
-            action="/addtowishlist"
-            method="post"
-            class="form mx-4"
-            enctype="multipart/form-data"
-          >
-            <input
-              type="text"
-              class="d-none"
-              name="Movie_id"
-              id=""
-              value="<%= data[i].id %>"
-            />
-            <input
-              type="text"
-              class="d-none"
-              name="MovieName"
-              id=""
-              value="<%= data[i].original_title %>"
-            />
-            <input
-              type="text"
-              class="d-none"
-              name="Movie_description"
-              id=""
-              value="<%= data[i].overview %>"
-            />
-            <input
-              type="text"
-              class="d-none"
-              name="Poster_path"
-              id=""
-              value="<%= data[i].poster_path%>"
-            />
-            <button class="button fw-bolder d-flex">
-              <span class="material-symbols-outlined"> add </span>
-              Wishlist
-            </button>
-          </form>
-
-          <div class="form mx-4">
-            <button
-              class="button fw-bolder d-flex"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal<%= i %>"
-              data-bs-whatever="@getbootstrap"
-              id="review-button<%= i %>"
+<div>
+  <header class="upcoming-movies">
+    <div class="hamburger-menu" id="hamburger">
+      <i class="material-symbols-outlined icon-size hamburger-item"> menu </i>
+    </div>
+    <div
+      id="movie-image-slider"
+      class="carousel carousel-dark slide"
+      data-bs-ride="carousel"
+      data-bs-pause="false"
+    >
+      <div class="carousel-inner">
+        <h1 class="top">Upcoming Movies</h1>
+        <% for (let i = 0; i < data.length; i++) { %>
+        <div
+          class="carousel-item <%= i === 0 ? 'active' : '' %>"
+          data-bs-interval="3000"
+        >
+          <img
+            src="https://image.tmdb.org/t/p/original<%= data[i].poster_path %>"
+            class="d-block w-100 image"
+            alt="..."
+          />
+          <div class="button-container">
+            <form
+              action="/addtowishlist"
+              method="post"
+              class="form mx-4"
+              enctype="multipart/form-data"
             >
-              <span class="material-symbols-outlined"> star </span>
-              Review
-            </button>
+              <input
+                type="text"
+                class="d-none"
+                name="Movie_id"
+                id=""
+                value="<%= data[i].id %>"
+              />
+              <input
+                type="text"
+                class="d-none"
+                name="MovieName"
+                id=""
+                value="<%= data[i].original_title %>"
+              />
+              <input
+                type="text"
+                class="d-none"
+                name="Movie_description"
+                id=""
+                value="<%= data[i].overview %>"
+              />
+              <input
+                type="text"
+                class="d-none"
+                name="Poster_path"
+                id=""
+                value="<%= data[i].poster_path%>"
+              />
+              <button class="button fw-bolder d-flex">
+                <span class="material-symbols-outlined"> add </span>
+                Wishlist
+              </button>
+            </form>
 
-            <!-- modal for review -->
-            <div
-              class="modal fade"
-              id="exampleModal<%= i %>"
-              tabindex="-1"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
-              <form
-                action="/add_review"
-                method="post"
-                class="modal-dialog"
-                enctype="multipart/form-data"
+            <div class="form mx-4">
+              <button
+                class="button fw-bolder d-flex"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal<%= i %>"
+                data-bs-whatever="@getbootstrap"
+                id="review-button<%= i %>"
               >
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                      Write a review for <%= data[i].original_title %>
-                    </h5>
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
+                <span class="material-symbols-outlined"> star </span>
+                Review
+              </button>
+
+              <!-- modal for review -->
+              <div
+                class="modal fade"
+                id="exampleModal<%= i %>"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <form
+                  action="/add_review"
+                  method="post"
+                  class="modal-dialog"
+                  enctype="multipart/form-data"
+                >
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Write a review for <%= data[i].original_title %>
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="mb-3">
+                          <label for="movie_id">Movie id</label>
+                          <input
+                            class="form-control"
+                            type="text"
+                            name="Movie_id"
+                            value="<%= data[i].id %>"
+                            readonly
+                            id="movie_id"
+                          />
+                        </div>
+
+                        <div class="mb-3 d-none">
+                          <label for="movie_name">Movie name</label>
+                          <input
+                            class="form-control"
+                            type="text"
+                            name="Movie_name"
+                            value="<%= data[i].original_title %>"
+                            readonly
+                            id="movie_name"
+                          />
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="movie_description"
+                            >Movie description</label
+                          >
+                          <input
+                            class="form-control"
+                            type="text"
+                            name="Movie_description"
+                            value="<%= data[i].overview %>"
+                            readonly
+                            id="movie_description"
+                          />
+                        </div>
+                        <div class="mb-3 d-none">
+                          <label for="movie_poster">Movie poster</label>
+                          <input
+                            class="form-control"
+                            type="text"
+                            name="Movie_poster"
+                            value="<%= data[i].poster_path %>"
+                            readonly
+                            id="movie_poster"
+                          />
+                        </div>
+
+                        <div class="mb-3">
+                          <fieldset class="starability-grow">
+                            <legend>rating:</legend>
+                            <input
+                              type="radio"
+                              id="no-rate<%= i %>"
+                              class="input-no-rate"
+                              name="rating"
+                              value="1"
+                              aria-label="No rating."
+                              max="5"
+                            />
+
+                            <input
+                              type="radio"
+                              id="rate1<%= i %>"
+                              name="rating"
+                              value="1"
+                              checked
+                            />
+                            <label for="rate1<%= i %>">1 star.</label>
+
+                            <input
+                              type="radio"
+                              id="rate2<%= i %>"
+                              name="rating"
+                              value="2"
+                            />
+                            <label for="rate2<%= i %>">2 stars.</label>
+
+                            <input
+                              type="radio"
+                              id="rate3<%= i %>"
+                              name="rating"
+                              value="3"
+                            />
+                            <label for="rate3<%= i %>">3 stars.</label>
+
+                            <input
+                              type="radio"
+                              id="rate4<%= i %>"
+                              name="rating"
+                              value="4"
+                            />
+                            <label for="rate4<%= i %>">4 stars.</label>
+
+                            <input
+                              type="radio"
+                              id="rate5<%= i %>"
+                              name="rating"
+                              value="5"
+                            />
+                            <label for="rate5<%= i %>">5 stars.</label>
+
+                            <span class="starability-focus-ring"></span>
+                          </fieldset>
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="message-text" class="col-form-label"
+                            >Comment:</label
+                          >
+                          <textarea
+                            class="form-control"
+                            id="message-text"
+                            name="comment"
+                            placeholder="Enter comment"
+                          ></textarea>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button class="btn btn-success">Drop Review</button>
+                    </div>
                   </div>
-                  <div class="modal-body">
-                    <form>
-                      <div class="mb-3">
-                        <label for="movie_id">Movie id</label>
-                        <input
-                          class="form-control"
-                          type="text"
-                          name="Movie_id"
-                          value="<%= data[i].id %>"
-                          readonly
-                          id="movie_id"
-                        />
-                      </div>
-
-                      <div class="mb-3 d-none">
-                        <label for="movie_name">Movie name</label>
-                        <input
-                          class="form-control"
-                          type="text"
-                          name="Movie_name"
-                          value="<%= data[i].original_title %>"
-                          readonly
-                          id="movie_name"
-                        />
-                      </div>
-
-                      <div class="mb-3">
-                        <label for="movie_description">Movie description</label>
-                        <input
-                          class="form-control"
-                          type="text"
-                          name="Movie_description"
-                          value="<%= data[i].overview %>"
-                          readonly
-                          id="movie_description"
-                        />
-                      </div>
-                      <div class="mb-3 d-none">
-                        <label for="movie_poster">Movie poster</label>
-                        <input
-                          class="form-control"
-                          type="text"
-                          name="Movie_poster"
-                          value="<%= data[i].poster_path %>"
-                          readonly
-                          id="movie_poster"
-                        />
-                      </div>
-
-                      <div class="mb-3">
-                        <fieldset class="starability-grow">
-                          <legend>rating:</legend>
-                          <input
-                            type="radio"
-                            id="no-rate<%= i %>"
-                            class="input-no-rate"
-                            name="rating"
-                            value="1"
-                            aria-label="No rating."
-                            max="5"
-                          />
-
-                          <input
-                            type="radio"
-                            id="rate1<%= i %>"
-                            name="rating"
-                            value="1"
-                            checked
-                          />
-                          <label for="rate1<%= i %>">1 star.</label>
-
-                          <input
-                            type="radio"
-                            id="rate2<%= i %>"
-                            name="rating"
-                            value="2"
-                          />
-                          <label for="rate2<%= i %>">2 stars.</label>
-
-                          <input
-                            type="radio"
-                            id="rate3<%= i %>"
-                            name="rating"
-                            value="3"
-                          />
-                          <label for="rate3<%= i %>">3 stars.</label>
-
-                          <input
-                            type="radio"
-                            id="rate4<%= i %>"
-                            name="rating"
-                            value="4"
-                          />
-                          <label for="rate4<%= i %>">4 stars.</label>
-
-                          <input
-                            type="radio"
-                            id="rate5<%= i %>"
-                            name="rating"
-                            value="5"
-                          />
-                          <label for="rate5<%= i %>">5 stars.</label>
-
-                          <span class="starability-focus-ring"></span>
-                        </fieldset>
-                      </div>
-
-                      <div class="mb-3">
-                        <label for="message-text" class="col-form-label"
-                          >Comment:</label
-                        >
-                        <textarea
-                          class="form-control"
-                          id="message-text"
-                          name="comment"
-                          placeholder="Enter comment"
-                        ></textarea>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn btn-danger"
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                    <button class="btn btn-success">Drop Review</button>
-                  </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>
+        <% } %>
       </div>
-      <% } %>
-    </div>
-    <button
-      class="carousel-control-prev"
-      type="button"
-      data-bs-target="#movie-image-slider"
-      data-bs-slide="prev"
-    >
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button
-      class="carousel-control-next"
-      type="button"
-      data-bs-target="#movie-image-slider"
-      data-bs-slide="next"
-    >
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-
-  <div class="search-container">
-    <div class="input-group mb-3">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Search movie"
-        aria-label="Recipient's username"
-        aria-describedby="button-addon2"
-      />
-      <button class="button" type="button" id="button-addon2">Search</button>
-    </div>
-  </div>
-</header>
-
-<section class="trending-movies py-2 px-2">
-  <h1>Trending This Week</h1>
-  <div class="content-container d-flex flex-wrap" id="content-container">
-    <% for(let i = 0; i < data2.length; i++) {%>
-    <div class="card mx-auto mb-3" style="width: 16rem">
-      <img
-        src="https://image.tmdb.org/t/p/original<%= data2[i].poster_path %>"
-        class="card-img-top"
-        alt="..."
-      />
-
-      <!-- New code here -->
-      <div
-        class="modal fade"
-        id="movie-info<%= i %>"
-        aria-hidden="true"
-        aria-labelledby="movie-info-label"
-        tabindex="-1"
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#movie-image-slider"
+        data-bs-slide="prev"
       >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="movie-info-label">Modal 1</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body modal-flex">
-              <div
-                class="card mb-3 <%= reviews.some(el => el.Movie_id === data2[i].id && reviews.length > 0) ? 'review-space': '' %>"
-              >
-                <div>
-                  <img
-                    src="https://image.tmdb.org/t/p/w342<%= data2[i].poster_path %>"
-                    class="card-img-top"
-                    alt="..."
-                  />
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title"><%= data2[i].original_title %></h5>
-                  <p class="card-text"><%= data2[i].overview %></p>
-                </div>
-              </div>
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#movie-image-slider"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
 
-              <% if (Array.isArray(reviews) && reviews.length > 0) { %>
-              <div
-                class="review-container mb-3 <%= reviews.some(el => el.Movie_id === data2[i].id && reviews.length > 0) ? 'review-space': '' %>"
-                id="reviews-container"
-              >
-                <% reviews.forEach(review => { %> <% if (review.Author &&
-                review.Movie_id === data2[i].id) { %>
-                <div class="card mb-3 mx-3">
+    <div class="search-container">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          name="movie_name"
+          id="search"
+          placeholder="Search movie"
+          aria-label="movie-search"
+          aria-describedby="button-addon2"
+        />
+        <button class="button" type="button" id="button-addon2">Search</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="trending-movies py-2 px-2">
+    <h1>Trending This Week</h1>
+    <div class="content-container d-flex flex-wrap" id="content-container">
+      <% for(let i = 0; i < data2.length; i++) {%>
+      <div class="card mx-auto mb-3" style="width: 16rem">
+        <img
+          src="https://image.tmdb.org/t/p/original<%= data2[i].poster_path %>"
+          class="card-img-top"
+          alt="..."
+        />
+
+        <!-- New code here -->
+        <div
+          class="modal fade"
+          id="movie-info<%= i %>"
+          aria-hidden="true"
+          aria-labelledby="movie-info-label"
+          tabindex="-1"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="movie-info-label">Modal 1</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body modal-flex">
+                <div
+                  class="card mb-3 <%= reviews.some(el => el.Movie_id === data2[i].id && reviews.length > 0) ? 'review-space': '' %>"
+                >
+                  <div>
+                    <img
+                      src="https://image.tmdb.org/t/p/w342<%= data2[i].poster_path %>"
+                      class="card-img-top"
+                      alt="..."
+                    />
+                  </div>
                   <div class="card-body">
-                    <h1 class="fs-5">Author: <%= review.Author.username %></h1>
+                    <h5 class="card-title"><%= data2[i].original_title %></h5>
+                    <p class="card-text"><%= data2[i].overview %></p>
+                  </div>
+                </div>
+
+                <% if (Array.isArray(reviews) && reviews.length > 0) { %>
+                <div
+                  class="review-container mb-3 <%= reviews.some(el => el.Movie_id === data2[i].id && reviews.length > 0) ? 'review-space': '' %>"
+                  id="reviews-container"
+                >
+                  <% reviews.forEach(review => { %> <% if (review.Author &&
+                  review.Movie_id === data2[i].id) { %>
+                  <div class="card mb-3 mx-3">
+                    <div class="card-body">
+                      <h1 class="fs-5">
+                        Author: <%= review.Author.username %>
+                      </h1>
+                      <p
+                        class="starability-result"
+                        data-rating="<%= review.Ratings %>"
+                      >
+                        Rated: <%= review.Ratings %> stars
+                      </p>
+                      <p class="card-text">Comment: <%= review.Comment %></p>
+                    </div>
+                  </div>
+                  <% } %> <% }) %>
+                  <button class="btn btn-primary mx-3" id="view-more">
+                    View More
+                  </button>
+                </div>
+                <% } %>
+
+                <!-- Show a second modal and hide this one with the button below. -->
+              </div>
+              <div class="modal-footer" id="modal-footer">
+                <% if (currentUser && Array.isArray(reviews) && reviews.length >
+                0) { %> <% reviews.forEach(review => { %> <% if (review.Author
+                && review.Author.equals && review.Author.equals(currentUser) &&
+                review.Movie_id === data2[i].id) { %>
+                <div class="card mb-3 w-100">
+                  <div class="card-body">
+                    <h1 class="fs-5">Your Review</h1>
                     <p
                       class="starability-result"
                       data-rating="<%= review.Ratings %>"
@@ -340,401 +373,382 @@
                     <p class="card-text">Comment: <%= review.Comment %></p>
                   </div>
                 </div>
-                <% } %> <% }) %>
-                <button class="btn btn-primary mx-3" id="view-more">
-                  View More
-                </button>
-              </div>
-              <% } %>
-
-              <!-- Show a second modal and hide this one with the button below. -->
-            </div>
-            <div class="modal-footer" id="modal-footer">
-              <% if (currentUser && Array.isArray(reviews) && reviews.length >
-              0) { %> <% reviews.forEach(review => { %> <% if (review.Author &&
-              review.Author.equals && review.Author.equals(currentUser) &&
-              review.Movie_id === data2[i].id) { %>
-              <div class="card mb-3 w-100">
-                <div class="card-body">
-                  <h1 class="fs-5">Your Review</h1>
-                  <p
-                    class="starability-result"
-                    data-rating="<%= review.Ratings %>"
-                  >
-                    Rated: <%= review.Ratings %> stars
-                  </p>
-                  <p class="card-text">Comment: <%= review.Comment %></p>
-                </div>
-              </div>
-              <% } %> <% }) %> <% } %> <% reviews.forEach(review => { %> <%
-              if(review.Movie_id === data2[i].id &&
-              review.Author.equals(currentUser)) { %>
-              <button
-                class="btn btn-primary"
-                data-bs-target="#edit-movie-review<%= i %>"
-                data-bs-toggle="modal"
-                data-bs-dismiss="modal"
-              >
-                Edit your comment
-              </button>
-              <% } %> <% }) %> <% if (currentUser && Array.isArray(reviews) &&
-              reviews.length > 0) { %> <% reviews.forEach(review => { %> <% if
-              (review.Author && review.Author.equals &&
-              review.Author.equals(currentUser) && review.Movie_id ===
-              data2[i].id) { %>
-              <form action="/delete_review?_method=DELETE" method="post">
-                <div class="no-view">
-                  <input
-                    type="text"
-                    name="ratings"
-                    value="<%= review.Ratings %>"
-                  />
-                  <input
-                    type="text"
-                    name="review_id"
-                    value="<%= review._id %>"
-                  />
-                  <input
-                    type="text"
-                    name="movie_id"
-                    value="<%= data2[i].id %>"
-                  />
-                  <input
-                    type="text"
-                    name="comment"
-                    value="<%= review.Comment %>"
-                  />
-                </div>
-                <button class="btn btn-danger">Delete your review</button>
-              </form>
-              <% } %> <% }) %> <% } %>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="modal fade"
-        id="edit-movie-review<%= i %>"
-        aria-hidden="true"
-        aria-labelledby="edit-movie-review-label"
-        tabindex="-1"
-      >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <form
-              action="/edit_review?_method=PUT"
-              method="post"
-              enctype="multipart/form-data"
-            >
-              <div class="modal-header">
-                <h5 class="modal-title" id="edit-movie-review-label">
-                  Change review comment
-                </h5>
+                <% } %> <% }) %> <% } %> <% reviews.forEach(review => { %> <%
+                if(review.Movie_id === data2[i].id &&
+                review.Author.equals(currentUser)) { %>
                 <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <% reviews.forEach(review => { %> <% if(review.Movie_id ===
-                data2[i].id && review.Author.equals(currentUser)) { %>
-                <div class="mb-3">
-                  <!-- still working here -->
-                  <h3><%= data2[i].original_title%> rating</h3>
-                  <p
-                    class="starability-result"
-                    data-rating="<%=review.Ratings %>"
-                  >
-                    Rated: 3 stars
-                  </p>
-                </div>
-
-                <div class="d-none">
-                  <input type="text" name="id" value="<%= review._id %>" />
-                </div>
-
-                <div>
-                  <legend>Comment</legend>
-                  <textarea
-                    type="text"
-                    name="comment"
-                    id="<%data2[i].original_title %>-review%>"
-                  >
-<%= review.Comment %></textarea
-                  >
-                  <label for="<%data2[i].original_title %>-review%>"></label>
-                </div>
-                <% } %> <% }) %>
-                <!-- Hide this modal and show the first with the button below. -->
-              </div>
-
-              <div class="modal-footer">
-                <button
-                  type="button"
                   class="btn btn-primary"
-                  data-bs-target="#movie-info<%= i %>"
+                  data-bs-target="#edit-movie-review<%= i %>"
                   data-bs-toggle="modal"
                   data-bs-dismiss="modal"
                 >
-                  Back to details
+                  Edit your comment
                 </button>
-                <button class="btn btn-success">Update comment</button>
+                <% } %> <% }) %> <% if (currentUser && Array.isArray(reviews) &&
+                reviews.length > 0) { %> <% reviews.forEach(review => { %> <% if
+                (review.Author && review.Author.equals &&
+                review.Author.equals(currentUser) && review.Movie_id ===
+                data2[i].id) { %>
+                <form action="/delete_review?_method=DELETE" method="post">
+                  <div class="no-view">
+                    <input
+                      type="text"
+                      name="ratings"
+                      value="<%= review.Ratings %>"
+                    />
+                    <input
+                      type="text"
+                      name="review_id"
+                      value="<%= review._id %>"
+                    />
+                    <input
+                      type="text"
+                      name="movie_id"
+                      value="<%= data2[i].id %>"
+                    />
+                    <input
+                      type="text"
+                      name="comment"
+                      value="<%= review.Comment %>"
+                    />
+                  </div>
+                  <button class="btn btn-danger">Delete your review</button>
+                </form>
+                <% } %> <% }) %> <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="modal fade"
+          id="edit-movie-review<%= i %>"
+          aria-hidden="true"
+          aria-labelledby="edit-movie-review-label"
+          tabindex="-1"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <form
+                action="/edit_review?_method=PUT"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <div class="modal-header">
+                  <h5 class="modal-title" id="edit-movie-review-label">
+                    Change review comment
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <% reviews.forEach(review => { %> <% if(review.Movie_id ===
+                  data2[i].id && review.Author.equals(currentUser)) { %>
+                  <div class="mb-3">
+                    <!-- still working here -->
+                    <h3><%= data2[i].original_title%> rating</h3>
+                    <p
+                      class="starability-result"
+                      data-rating="<%=review.Ratings %>"
+                    >
+                      Rated: 3 stars
+                    </p>
+                  </div>
+
+                  <div class="d-none">
+                    <input type="text" name="id" value="<%= review._id %>" />
+                  </div>
+
+                  <div>
+                    <legend>Comment</legend>
+                    <textarea
+                      type="text"
+                      name="comment"
+                      id="<%data2[i].original_title %>-review%>"
+                    >
+<%= review.Comment %></textarea
+                    >
+                    <label for="<%data2[i].original_title %>-review%>"></label>
+                  </div>
+                  <% } %> <% }) %>
+                  <!-- Hide this modal and show the first with the button below. -->
+                </div>
+
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-target="#movie-info<%= i %>"
+                    data-bs-toggle="modal"
+                    data-bs-dismiss="modal"
+                  >
+                    Back to details
+                  </button>
+                  <button class="btn btn-success">Update comment</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <a
+          class="card-details d-flex justify-content-center align-items-center show-info"
+          data-bs-toggle="modal"
+          href="#movie-info<%= i %>"
+          role="button"
+          id="show-info"
+        >
+          <span class="material-symbols-outlined mx-2"> info </span>
+          Show Info</a
+        >
+        <!-- End of new code -->
+
+        <div class="card-review" role="button">
+          <button
+            class="card-review-button d-flex justify-content-center align-items-center"
+            data-bs-toggle="modal"
+            data-bs-target="#movie-review-modal<%= i %>"
+            data-bs-whatever="@getbootstrap"
+            id="review-button<%= i %>"
+          >
+            <span class="material-symbols-outlined"> star </span>
+            Review
+          </button>
+
+          <!-- modal for review -->
+          <div
+            class="modal fade"
+            id="movie-review-modal<%= i %>"
+            tabindex="-1"
+            aria-labelledby="movie-review"
+            aria-hidden="true"
+          >
+            <form
+              action="/add_review"
+              method="post"
+              class="modal-dialog"
+              enctype="multipart/form-data"
+            >
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="movie-review">
+                    Write a review for <%= data2[i].original_title %>
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="mb-3">
+                      <label for="movie_id">Movie id</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="Movie_id"
+                        value="<%= data2[i].id %>"
+                        readonly
+                        id="movie_id"
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="movie_description">Movie Description</label>
+                      <input
+                        class="form-control text-truncate"
+                        type="text"
+                        name="Movie_description"
+                        value="<%= data2[i].overview %>"
+                        readonly
+                        id="movie_description"
+                      />
+                    </div>
+
+                    <div class="mb-3 no-view">
+                      <label for="movie_poster">Movie Poster</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="Movie_poster"
+                        value="<%= data2[i].poster_path %>"
+                        readonly
+                        id="movie_poster"
+                      />
+                    </div>
+
+                    <div class="mb-3 no-view">
+                      <label for="movie_name">Movie name</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="Movie_name"
+                        value="<%= data2[i].original_title %>"
+                        readonly
+                        id="movie_name"
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <fieldset class="starability-grow">
+                        <legend>rating:</legend>
+                        <input
+                          type="radio"
+                          id="trending-no-rate<%= i %>"
+                          class="input-no-rate"
+                          name="rating"
+                          value="1"
+                          aria-label="No rating."
+                          max="5"
+                        />
+
+                        <input
+                          type="radio"
+                          id="trending-rate1<%= i %>"
+                          name="rating"
+                          value="1"
+                          checked
+                        />
+                        <label for="trending-rate1<%= i %>">1 star.</label>
+
+                        <input
+                          type="radio"
+                          id="trending-rate2<%= i %>"
+                          name="rating"
+                          value="2"
+                        />
+                        <label for="trending-rate2<%= i %>">2 stars.</label>
+
+                        <input
+                          type="radio"
+                          id="trending-rate3<%= i %>"
+                          name="rating"
+                          value="3"
+                        />
+                        <label for="trending-rate3<%= i %>">3 stars.</label>
+
+                        <input
+                          type="radio"
+                          id="trending-rate4<%= i %>"
+                          name="rating"
+                          value="4"
+                        />
+                        <label for="trending-rate4<%= i %>">4 stars.</label>
+
+                        <input
+                          type="radio"
+                          id="trending-rate5<%= i %>"
+                          name="rating"
+                          value="5"
+                        />
+                        <label for="trending-rate5<%= i %>">5 stars.</label>
+
+                        <span class="starability-focus-ring"></span>
+                      </fieldset>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="message-text" class="col-form-label"
+                        >Comment:</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="message-text"
+                        name="comment"
+                        placeholder="Enter comment"
+                      ></textarea>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button class="btn btn-success">Drop Review</button>
+                </div>
               </div>
             </form>
           </div>
         </div>
-      </div>
-      <a
-        class="card-details d-flex justify-content-center align-items-center"
-        data-bs-toggle="modal"
-        href="#movie-info<%= i %>"
-        role="button"
-        id="show-info"
-      >
-        <span class="material-symbols-outlined mx-2"> info </span>
-        Show Info</a
-      >
-      <!-- End of new code -->
 
-      <div class="card-review" role="button">
-        <button
-          class="card-review-button d-flex justify-content-center align-items-center"
-          data-bs-toggle="modal"
-          data-bs-target="#movie-review-modal<%= i %>"
-          data-bs-whatever="@getbootstrap"
-          id="review-button<%= i %>"
-        >
-          <span class="material-symbols-outlined"> star </span>
-          Review
-        </button>
-
-        <!-- modal for review -->
-        <div
-          class="modal fade"
-          id="movie-review-modal<%= i %>"
-          tabindex="-1"
-          aria-labelledby="movie-review"
-          aria-hidden="true"
-        >
+        <div class="card-wishlist" role="button">
           <form
-            action="/add_review"
+            action="/addtowishlist"
             method="post"
-            class="modal-dialog"
             enctype="multipart/form-data"
           >
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="movie-review">
-                  Write a review for <%= data2[i].original_title %>
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="mb-3">
-                    <label for="movie_id">Movie id</label>
-                    <input
-                      class="form-control"
-                      type="text"
-                      name="Movie_id"
-                      value="<%= data2[i].id %>"
-                      readonly
-                      id="movie_id"
-                    />
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="movie_description">Movie Description</label>
-                    <input
-                      class="form-control text-truncate"
-                      type="text"
-                      name="Movie_description"
-                      value="<%= data2[i].overview %>"
-                      readonly
-                      id="movie_description"
-                    />
-                  </div>
-
-                  <div class="mb-3 no-view">
-                    <label for="movie_poster">Movie Poster</label>
-                    <input
-                      class="form-control"
-                      type="text"
-                      name="Movie_poster"
-                      value="<%= data2[i].poster_path %>"
-                      readonly
-                      id="movie_poster"
-                    />
-                  </div>
-
-                  <div class="mb-3 no-view">
-                    <label for="movie_name">Movie name</label>
-                    <input
-                      class="form-control"
-                      type="text"
-                      name="Movie_name"
-                      value="<%= data2[i].original_title %>"
-                      readonly
-                      id="movie_name"
-                    />
-                  </div>
-
-                  <div class="mb-3">
-                    <fieldset class="starability-grow">
-                      <legend>rating:</legend>
-                      <input
-                        type="radio"
-                        id="trending-no-rate<%= i %>"
-                        class="input-no-rate"
-                        name="rating"
-                        value="1"
-                        aria-label="No rating."
-                        max="5"
-                      />
-
-                      <input
-                        type="radio"
-                        id="trending-rate1<%= i %>"
-                        name="rating"
-                        value="1"
-                        checked
-                      />
-                      <label for="trending-rate1<%= i %>">1 star.</label>
-
-                      <input
-                        type="radio"
-                        id="trending-rate2<%= i %>"
-                        name="rating"
-                        value="2"
-                      />
-                      <label for="trending-rate2<%= i %>">2 stars.</label>
-
-                      <input
-                        type="radio"
-                        id="trending-rate3<%= i %>"
-                        name="rating"
-                        value="3"
-                      />
-                      <label for="trending-rate3<%= i %>">3 stars.</label>
-
-                      <input
-                        type="radio"
-                        id="trending-rate4<%= i %>"
-                        name="rating"
-                        value="4"
-                      />
-                      <label for="trending-rate4<%= i %>">4 stars.</label>
-
-                      <input
-                        type="radio"
-                        id="trending-rate5<%= i %>"
-                        name="rating"
-                        value="5"
-                      />
-                      <label for="trending-rate5<%= i %>">5 stars.</label>
-
-                      <span class="starability-focus-ring"></span>
-                    </fieldset>
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="message-text" class="col-form-label"
-                      >Comment:</label
-                    >
-                    <textarea
-                      class="form-control"
-                      id="message-text"
-                      name="comment"
-                      placeholder="Enter comment"
-                    ></textarea>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button class="btn btn-success">Drop Review</button>
-              </div>
-            </div>
+            <input
+              type="text"
+              class="d-none"
+              name="Movie_id"
+              id=""
+              value="<%= data2[i].id %>"
+            />
+            <input
+              type="text"
+              class="d-none"
+              name="MovieName"
+              id=""
+              value="<%= data2[i].original_title %>"
+            />
+            <input
+              class="d-none"
+              type="text"
+              name="Movie_description"
+              value="<%= data2[i].overview %>"
+              readonly
+              id="movie_description"
+            />
+            <input
+              type="text"
+              class="d-none"
+              name="Poster_path"
+              id=""
+              value="<%= data2[i].poster_path%>"
+            />
+            <button
+              class="fw-bolder d-flex justify-content-center card-wishlist-btn"
+            >
+              <span class="material-symbols-outlined"> add </span>
+              Wishlist
+            </button>
           </form>
         </div>
       </div>
-
-      <div class="card-wishlist" role="button">
-        <form
-          action="/addtowishlist"
-          method="post"
-          enctype="multipart/form-data"
-        >
-          <input
-            type="text"
-            class="d-none"
-            name="Movie_id"
-            id=""
-            value="<%= data2[i].id %>"
-          />
-          <input
-            type="text"
-            class="d-none"
-            name="MovieName"
-            id=""
-            value="<%= data2[i].original_title %>"
-          />
-          <input
-            class="d-none"
-            type="text"
-            name="Movie_description"
-            value="<%= data2[i].overview %>"
-            readonly
-            id="movie_description"
-          />
-          <input
-            type="text"
-            class="d-none"
-            name="Poster_path"
-            id=""
-            value="<%= data2[i].poster_path%>"
-          />
-          <button
-            class="fw-bolder d-flex justify-content-center card-wishlist-btn"
-          >
-            <span class="material-symbols-outlined"> add </span>
-            Wishlist
-          </button>
-        </form>
-      </div>
+      <% }%>
     </div>
-    <% }%>
-  </div>
 
-  <div class="d-flex justify-content-center align-items-center w-100">
-    <button class="button shadow fw-bolder" id="load-more">Load More</button>
-  </div>
-</section>
+    <div class="d-flex justify-content-center align-items-center w-100">
+      <button class="button shadow fw-bolder" id="load-more">Load More</button>
+    </div>
+  </section>
 
-<script>
-  const key = '<%-process.env.movieKey %>';
-  const reviewItems = <%- JSON.stringify(reviews) %>;
-  const mainData = <%- JSON.stringify(trendingMovies) %>;
-  const values = <%- JSON.stringify(data) %>;
-  const moreData = <%- JSON.stringify(data2) %>;
-  let totalItems = <%- totalItems %>;
-  let items_per_page = <%- items_per_page %>;
-  const user = <%- JSON.stringify(usr) %>;
-</script>
-<script src="/Javascripts/moreInfo.js"></script>
-<script src="/Javascripts/movies.js"></script>
+  <section
+    class="search-section d-flex flex-wrap justify-content-center px-5 py-3 rounded-3 d-none"
+    id="search-section"
+  ></section>
 
-<script src="/Javascripts/sliderPause.js"></script>
+  <script>
+    const key = '<%-process.env.movieKey %>';
+    const reviewItems = <%- JSON.stringify(reviews) %>;
+    const mainData = <%- JSON.stringify(trendingMovies) %>;
+    const values = <%- JSON.stringify(data) %>;
+    const moreData = <%- JSON.stringify(data2) %>;
+    let totalItems = <%- totalItems %>;
+    let items_per_page = <%- items_per_page %>;
+    const user = <%- JSON.stringify(usr) %>;
+  </script>
+  <script src="/Javascripts/moreInfo.js"></script>
+  <script src="/Javascripts/movies.js"></script>
+  <script src="/Javascripts/movies-search.js"></script>
+
+  <script src="/Javascripts/sliderPause.js"></script>
+</div>

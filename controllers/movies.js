@@ -5,6 +5,8 @@ const axios = require("axios");
 
 const items_per_page = 10;
 const key = process.env.movieKey;
+
+// movies section
 module.exports.showMovies = async (req, res, next) => {
   try {
     const page = req.query.page || 1;
@@ -43,15 +45,6 @@ module.exports.showMovies = async (req, res, next) => {
         usr,
       });
     }
-  } catch (err) {
-    next(err);
-  }
-};
-
-module.exports.addMovieReview = async (req, res, next) => {
-  try {
-    console.log("hello World");
-    res.send("hello world");
   } catch (err) {
     next(err);
   }

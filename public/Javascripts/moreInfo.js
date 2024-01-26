@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const contentContainer = document.getElementById("content-container");
   const reviewContainer = document.getElementById("reviews-container");
+  const searchSection = document.getElementById("search-section");
   const moreButtons = document.querySelectorAll('[id^="view-more"]');
   const reviewsPerPage = 5;
   let currentIndex = 0;
@@ -20,22 +21,35 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     // Check if there are more than 5 reviews for the current movie
-    const displayStyle = movieReviews.length > reviewsPerPage ? "block" : "none";
+    const displayStyle =
+      movieReviews.length > reviewsPerPage ? "block" : "none";
 
     // delegation to set display style for all "View More" buttons using event delegation
     contentContainer
       .querySelectorAll('[id^="view-more"]')
       .forEach((el) => (el.style.display = displayStyle));
-    // } else {
-    //   // Hide all buttons if movieIndex is out of bounds
-    //   contentContainer
-    //   .querySelectorAll('[id^="view-more"]')
-    //   .forEach((el) => (el.style.display = "none"));
-    // }
+
+    searchSection
+      .querySelectorAll('[id^="view-more"]')
+      .forEach((el) => (el.style.display = displayStyle));
   };
 
   // Add event listener to the common ancestor ("contentContainer") for "Show Info" and "View More" buttons
   contentContainer.addEventListener("click", (event) => {
+    const target = event.target;
+
+    if (target.id && target.id.startsWith("show-info")) {
+      // Extract the movie index from the button's id
+      const movieIndex = parseInt(target.id.replace("show-info", ""), 10);
+      shouldButtonDisplay(movieIndex);
+    }
+
+    if (target.id && target.id.startsWith("view-more")) {
+      handleViewMore();
+    }
+  });
+
+  searchSection.addEventListener("click", (event) => {
     const target = event.target;
 
     if (target.id && target.id.startsWith("show-info")) {

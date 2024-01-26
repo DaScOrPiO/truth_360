@@ -30,7 +30,6 @@ router
   .get("/watchlists", isLoggedIn, presentinWatchlist, showWatchlists);
 
 router
-  .post("/", addMovieReview)
   .post(
     "/addtowishlist",
     isLoggedIn,
