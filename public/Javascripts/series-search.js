@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   searchButton.addEventListener("click", function () {
     const series_name = input.value;
-    console.log(series_name);
     searchMovies(series_name);
   });
 

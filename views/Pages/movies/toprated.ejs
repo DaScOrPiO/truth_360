@@ -265,8 +265,10 @@
       <input
         type="text"
         class="form-control"
-        placeholder="Search movie"
-        aria-label="Recipient's username"
+        name="movie_name"
+        id="search"
+        placeholder="Search Movie and Tv-series"
+        aria-label="movie-search"
         aria-describedby="button-addon2"
       />
       <button class="button" type="button" id="button-addon2">Search</button>
@@ -724,7 +726,13 @@
   </div>
 </section>
 
+<section
+  class="search-section d-flex flex-wrap justify-content-center px-5 py-3 rounded-3 d-none"
+  id="search-section"
+></section>
+
 <script>
+    const key = '<%-process.env.movieKey %>';
   const moreData = <%- JSON.stringify(topRated) %>;
   const reviewItems = <%- JSON.stringify(reviews) %>;
   const values = <%- JSON.stringify(data1) %>;
@@ -735,4 +743,5 @@
 </script>
 <script src="/Javascripts/moreInfo.js"></script>
 <script src="/Javascripts/toprated.js"></script>
+<script src="/Javascripts/movies&series.js"></script>
 <script src="/Javascripts/sliderPause.js"></script>
