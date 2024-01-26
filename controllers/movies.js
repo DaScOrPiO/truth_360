@@ -199,6 +199,23 @@ module.exports.showWishlists = async (req, res, next) => {
   }
 };
 
+module.exports.searchWishlists = async (req, res, next) => {
+  try {
+    const { movie_name } = req.query;
+    const regex = new RegExp(movie_name, "i");
+
+    const inWishlist = await movieWishlist.find({
+      MovieName: { $regex: regex },
+      Owner: req.user._id,
+    });
+    console.log(inWishlist);
+
+    return res.json(inWishlist);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports.removeFromWishlists = async (req, res, next) => {
   try {
     const queryData = req.body;
