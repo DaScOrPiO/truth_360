@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   searchButton.addEventListener("click", function () {
     const movie_name = input.value;
-    console.log(movie_name);
     searchMovies(movie_name);
   });
 
@@ -17,6 +16,11 @@ document.addEventListener("DOMContentLoaded", function () {
       const response = await fetch(search);
 
       if (!response.ok) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Network problem :(",
+        });
         throw new Error("Network response was not ok");
       }
 
@@ -525,6 +529,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       }
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Problem fetching data :(",
+      });
       console.error("Error fetching data:", error);
     }
   };
