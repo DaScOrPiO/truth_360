@@ -11,6 +11,7 @@
 
 .filter-search>h2 {
     color: aqua;
+    font-weight: 700;
 }
 
 .filter-search-btn {
@@ -35,16 +36,38 @@
 
 .input-1 {
     width: 100%;
-    border-bottom: 1px solid aqua;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     margin: 10% 4%;
     padding: 5% 2%;
+    color: aqua;
 }
 
 #checkbox-container {
     display: inline-block;
+}
+
+.input {
+    border: 1px solid aqua;
+    accent-color: aqua;
+}
+
+#lang {
+    border: none;
+    color: aqua;
+}
+
+#includeAdult {
+    outline: none;
+    border: none;
+}
+
+.input:focus {
+    outline: none;
+    border: none;
+    border-bottom: 2px solid aqua;
+    transition: .2s ease-in;
 }
 
 @media screen and (max-width: 1023px) {

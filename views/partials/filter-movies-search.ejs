@@ -4,13 +4,13 @@
   <h2 class="fs-3">Filter Your movie search</h2>
   <div class="inputs-container">
     <div class="input-1" id="checkbox-container">
-        <input class="mx-2" type="checkbox" name="include_adult" id="includeAdult" />
+        <input class="mx-2 input" type="checkbox" name="include_adult" id="includeAdult" />
         <label for="includeAdult" class="mb-2">Include adult scene</label>
     </div>
 
     <div class="input-1">
         <label for="lang" class="mb-2">Language</label>
-      <select name="language" id="lang">
+      <select name="language" id="lang" class="input">
         <option value="">Choose a language</option>
         <option value="en">English</option>
         <option value="es">Spanish</option>
@@ -37,16 +37,16 @@
 
     <div class="input-1">
         <label for="release_year" class="mb-2">Year</label>
-      <input type="text" name="primary_release_year" id="release_year" />
+      <input type="text" name="primary_release_year" id="release_year" class="input" />
     </div>
 
     <div class="input-1">
         <label for="location" class="mb-2">Location</label>
-      <input type="text" name="region" id="location" />
+      <input type="text" name="region" id="location" class="input" />
     </div>
 
     <div class="d-flex px-2 justify-content-center">
-      <button class="btn btn-primary confirm-btn">Confirm</button>
+      <button class="btn btn-success confirm-btn">Confirm</button>
     </div>
   </div>
 </aside>
