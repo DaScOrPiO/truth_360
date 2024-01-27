@@ -3,14 +3,32 @@ document.addEventListener("DOMContentLoaded", function () {
   const input = document.getElementById("search");
   const searchContainer = document.getElementById("search-section");
   const pageModal = document.querySelector(".page-modal");
+  const include_adult = document.getElementById("includeAdult");
+  const language = document.getElementById("lang");
+  const primary_release_year = document.getElementById("release_year");
+  const region = document.getElementById("location");
 
   searchButton.addEventListener("click", function () {
     const series_name = input.value;
-    searchMovies(series_name);
+    if (!input.value || input.value === "") {
+      Swal.fire({
+        icon: "info",
+        title: "Include a show name!",
+      });
+    } else {
+      searchMovies(series_name);
+    }
   });
 
   const searchMovies = async (query) => {
-    const search = `https://api.themoviedb.org/3/search/tv?api_key=${key}&query=${query}`;
+    const include_adultQuery = include_adult.checked;
+    const languageQuery = language.value === "" ? null : language.value;
+    const primary_release_yearQuery =
+      primary_release_year.value === "" ? null : primary_release_year.value;
+    const regionQuery = region.value === "" ? null : region.value;
+
+    const additionalQuery = `&include_adult=${include_adultQuery}&language=${languageQuery}&primary_release_year=${primary_release_yearQuery}&region=${regionQuery}`;
+    const search = `https://api.themoviedb.org/3/search/tv?api_key=${key}&query=${query} + ${additionalQuery}`;
 
     try {
       const response = await fetch(search);
