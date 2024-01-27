@@ -208,7 +208,6 @@ module.exports.searchWishlists = async (req, res, next) => {
       MovieName: { $regex: regex },
       Owner: req.user._id,
     });
-    console.log(inWishlist);
 
     return res.json(inWishlist);
   } catch (err) {
@@ -328,6 +327,22 @@ module.exports.showWatchlists = async (req, res, next) => {
       reviews,
       usr,
     });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.searchWatchlist = async (req, res, next) => {
+  try {
+    const { movie_name } = req.query;
+    const regex = new RegExp(movie_name, "i");
+
+    const inWatchlist = await movieWatchlist.find({
+      Movie_name: { $regex: regex },
+      Owner: req.user._id,
+    });
+
+    return res.json(inWatchlist);
   } catch (err) {
     next(err);
   }

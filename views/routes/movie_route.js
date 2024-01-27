@@ -15,6 +15,7 @@ const {
   editReview,
   deleteReview,
   searchWishlists,
+  searchWatchlist,
 } = require("../../controllers/movies");
 const {
   isLoggedIn,
@@ -29,7 +30,8 @@ router
   .get("/toprated", TvSeries)
   .get("/wishlists", isLoggedIn, showWishlists)
   .get("/watchlists", isLoggedIn, presentinWatchlist, showWatchlists)
-  .get("/search_wishlist", isLoggedIn, searchWishlists);
+  .get("/search_wishlist", isLoggedIn, searchWishlists)
+  .get("/search_watchlist", isLoggedIn, searchWatchlist);
 
 router
   .post(

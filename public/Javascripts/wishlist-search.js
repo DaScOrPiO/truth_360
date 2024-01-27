@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       const data = await response.json();
-      console.log(data);
 
       if (data && data.length > 0) {
         searchContainer.innerHTML = "";
@@ -248,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
         title: "Oops...",
         text: "Problem fetching data :(",
       });
-      console.error("Error fetching data:", error);
+      console.error("Error fetching data:", err);
     }
   };
 
