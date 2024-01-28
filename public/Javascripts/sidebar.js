@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("Hello World");
   const hamburger = document.getElementById("hamburger");
   const sidebar = document.getElementById("sidebar");
   const hamburger_item = document.querySelector(".hamburger-item");

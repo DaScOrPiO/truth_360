@@ -258,8 +258,10 @@
       <input
         type="text"
         class="form-control"
-        placeholder="Search movie"
-        aria-label="Recipient's username"
+        name="series_name"
+        id="search"
+        placeholder="Search Tv-series"
+        aria-label="series-search"
         aria-describedby="button-addon2"
       />
       <button class="button" type="button" id="button-addon2">Search</button>
@@ -716,6 +718,16 @@
     <button class="button shadow fw-bolder" id="load-more">Load More</button>
   </div>
 </section>
+
+<section
+  class="search-section d-flex flex-wrap justify-content-center px-5 py-3 rounded-3 d-none"
+  id="search-section"
+></section>
+
+<div class="filter-search-btn">
+  <i class="material-symbols-outlined fs-1 filter-icon"> filter_list </i>
+</div>
+
 <script>
    const key = '<%-process.env.movieKey %>';
   const values = <%- JSON.stringify(data1) %>;
@@ -728,4 +740,5 @@
 </script>
 <script src="/Javascripts/moreInfo.js"></script>
 <script src="/Javascripts/tvseries.js"></script>
+<script src="/Javascripts/series-search.js"></script>
 <script src="/Javascripts/sliderPause.js"></script>

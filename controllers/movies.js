@@ -5,6 +5,8 @@ const axios = require("axios");
 
 const items_per_page = 10;
 const key = process.env.movieKey;
+
+// movies section
 module.exports.showMovies = async (req, res, next) => {
   try {
     const page = req.query.page || 1;
@@ -43,15 +45,6 @@ module.exports.showMovies = async (req, res, next) => {
         usr,
       });
     }
-  } catch (err) {
-    next(err);
-  }
-};
-
-module.exports.addMovieReview = async (req, res, next) => {
-  try {
-    console.log("hello World");
-    res.send("hello world");
   } catch (err) {
     next(err);
   }
@@ -206,6 +199,22 @@ module.exports.showWishlists = async (req, res, next) => {
   }
 };
 
+module.exports.searchWishlists = async (req, res, next) => {
+  try {
+    const { movie_name } = req.query;
+    const regex = new RegExp(movie_name, "i");
+
+    const inWishlist = await movieWishlist.find({
+      MovieName: { $regex: regex },
+      Owner: req.user._id,
+    });
+
+    return res.json(inWishlist);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports.removeFromWishlists = async (req, res, next) => {
   try {
     const queryData = req.body;
@@ -318,6 +327,22 @@ module.exports.showWatchlists = async (req, res, next) => {
       reviews,
       usr,
     });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.searchWatchlist = async (req, res, next) => {
+  try {
+    const { movie_name } = req.query;
+    const regex = new RegExp(movie_name, "i");
+
+    const inWatchlist = await movieWatchlist.find({
+      Movie_name: { $regex: regex },
+      Owner: req.user._id,
+    });
+
+    return res.json(inWatchlist);
   } catch (err) {
     next(err);
   }
