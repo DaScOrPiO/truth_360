@@ -20,6 +20,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  document.addEventListener("keypress", function (e) {
+    const series_name = input.value;
+    if (e.key === "Enter" && document.activeElement === input) {
+      if (!series_name || series_name === "") {
+        Swal.fire({
+          icon: "info",
+          title: "Include a movie name!",
+        });
+      } else {
+        searchMovies(series_name);
+      }
+    }
+  });
+
   const searchMovies = async (query) => {
     const include_adultQuery = include_adult.checked;
     const languageQuery = language.value === "" ? null : language.value;
@@ -122,7 +136,9 @@ document.addEventListener("DOMContentLoaded", function () {
                               />
                             </div>
                             <div class="card-body">
-                              <h5 class="card-title fw-bolder fs-2">${movie.name}</h5>
+                              <h5 class="card-title fw-bolder fs-2">${
+                                movie.name
+                              }</h5>
                               <p class="card-text">${movie.overview}</p>
                             </div>
                           </div>

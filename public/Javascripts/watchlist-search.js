@@ -6,10 +6,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
   searchButton.addEventListener("click", function () {
     const movie_name = input.value;
-    searchWishlists(movie_name);
+    if (!movie_name || movie_name === "") {
+      Swal.fire({
+        icon: "info",
+        title: "Include a movie name!",
+      });
+    } else {
+      searchWatchlists(movie_name);
+    }
   });
 
-  const searchWishlists = async (query) => {
+  document.addEventListener("keypress", function (e) {
+    const movie_name = input.value;
+    if (e.key === "Enter" && document.activeElement === input) {
+      if (!movie_name || movie_name === "") {
+        Swal.fire({
+          icon: "info",
+          title: "Include a movie name!",
+        });
+      } else {
+        searchWatchlists(movie_name);
+      }
+    }
+  });
+
+  const searchWatchlists = async (query) => {
     const search = `/search_watchlist?movie_name=${query}`;
 
     try {
