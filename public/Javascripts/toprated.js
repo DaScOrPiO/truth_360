@@ -25,9 +25,14 @@ document.addEventListener("DOMContentLoaded", function () {
           card.style.width = "16rem";
 
           card.innerHTML = `
-            <img src="https://image.tmdb.org/t/p/original${
-              movie.poster_path
-            }" class="card-img-top" alt="...">
+          <img src="${
+            movie.poster_path &&
+            movie.poster_path !== null &&
+            movie.poster_path !== ""
+              ? "https://image.tmdb.org/t/p/original" + movie.poster_path ||
+                movie.backdrop_path
+              : "/images/no-img.jpg"
+          }" class="card-img-top" alt="Movie-poster">
 
             <!-- New code here -->
             <div
@@ -58,16 +63,20 @@ document.addEventListener("DOMContentLoaded", function () {
                         : ""
                     }">
                       <div>
-                        <img
-                          src="https://image.tmdb.org/t/p/w342${
-                            movie.poster_path
-                          }"
+                      <img src="${
+                        movie.poster_path &&
+                        movie.poster_path !== null &&
+                        movie.poster_path !== ""
+                          ? "https://image.tmdb.org/t/p/original" +
+                              movie.poster_path || movie.backdrop_path
+                          : "/images/no-img.jpg"
+                      }"
                           class="card-img-top"
                           alt="..."
                         />
                       </div>
                       <div class="card-body">
-                        <h5 class="card-title">${movie.original_title}</h5>
+                        <h5 class="card-title fw-bolder fs-2">${movie.original_title}</h5>
                         <p class="card-text">${movie.overview}</p>
                       </div>
                     </div>

@@ -14,30 +14,17 @@
       <h1 class="top">Recently Added</h1>
       <div class="carousel-item active" data-bs-interval="3000">
         <img
-          src="https://image.tmdb.org/t/p/original<%= data1.Movie_poster %>"
+          src="<%= data1.Movie_poster 
+        && data1.Movie_poster !== null
+      && data1.Movie_poster
+      !== '' ? 
+      'https://image.tmdb.org/t/p/original' + data1.Movie_poster
+      : '/images/no-img.jpg' %>"
           class="d-block w-100 image"
-          alt="..."
+          alt="movie-poster"
         />
       </div>
     </div>
-    <button
-      class="carousel-control-prev"
-      type="button"
-      data-bs-target="#carouselExampleDark"
-      data-bs-slide="prev"
-    >
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button
-      class="carousel-control-next"
-      type="button"
-      data-bs-target="#carouselExampleDark"
-      data-bs-slide="next"
-    >
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
   </div>
 
   <div class="search-container">
@@ -63,9 +50,14 @@
     <% for (let i = 0; i < initialData.length; i++) { %>
     <div class="card mx-auto my-4 px-4 py-2" style="width: 16rem">
       <img
-        src="https://image.tmdb.org/t/p/original<%= initialData[i].Movie_poster %>"
+        src="<%= initialData[i].Movie_poster 
+        && initialData[i].Movie_poster !== null
+      && initialData[i].Movie_poster
+      !== '' ? 
+      'https://image.tmdb.org/t/p/original' + initialData[i].Movie_poster
+      : '/images/no-img.jpg' %>"
         class="card-img-top"
-        alt="..."
+        alt="movie-poster"
       />
 
       <div
@@ -92,13 +84,19 @@
               >
                 <div>
                   <img
-                    src="https://image.tmdb.org/t/p/w342<%= initialData[i].Movie_poster %>"
+                    src="<%= initialData[i].Movie_poster 
+                  && initialData[i].Movie_poster !== null
+                && initialData[i].Movie_poster
+                !== '' ? 
+                'https://image.tmdb.org/t/p/original' + initialData[i].Movie_poster
+                : '/images/no-img.jpg' %>"
+                    F
                     class="card-img-top"
-                    alt="..."
+                    alt="Movie-poster"
                   />
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title"><%= initialData[i].Movie_name %></h5>
+                  <h5 class="card-title fw-bolder fs-2"><%= initialData[i].Movie_name %></h5>
                   <p class="card-text">
                     <%= initialData[i].Movie_description %>
                   </p>

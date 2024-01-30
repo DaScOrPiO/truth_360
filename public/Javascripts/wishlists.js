@@ -22,9 +22,13 @@ document.addEventListener("DOMContentLoaded", function () {
           card.style.width = "16rem";
 
           card.innerHTML = `
-              <img src="https://image.tmdb.org/t/p/original${
-                movie.Poster_path
-              }" class="card-img-top" alt="...">
+          <img src="${
+            movie.Poster_path &&
+            movie.Poster_path !== null &&
+            movie.Poster_path !== ""
+              ? "https://image.tmdb.org/t/p/original" + movie.Poster_path
+              : "/images/no-img.jpg"
+          }" class="card-img-top" alt="...">
               
               <div
               class="modal fade"
@@ -57,16 +61,19 @@ document.addEventListener("DOMContentLoaded", function () {
                       }"
                     >
                       <div>
-                        <img
-                          src="https://image.tmdb.org/t/p/w342${
-                            movie.Poster_path
-                          }"
+                      <img src="${
+                        movie.Poster_path &&
+                        movie.Poster_path !== null &&
+                        movie.Poster_path !== ""
+                          ? "https://image.tmdb.org/t/p/original" + movie.Poster_path
+                          : "/images/no-img.jpg"
+                      }"
                           class="card-img-top"
                           alt="..."
                         />
                       </div>
                       <div class="card-body">
-                        <h5 class="card-title">${movie.MovieName}</h5>
+                        <h5 class="card-title fw-bolder fs-2">${movie.MovieName}</h5>
                         <p class="card-text">${movie.Movie_description}</p>
                       </div>
                     </div>
@@ -336,7 +343,7 @@ document.addEventListener("DOMContentLoaded", function () {
           id=""
           value="${movie.Poster_path}"
         />
-        <button class="card-review-button d-flex justify-content-center">
+        <button class="card-wishlist-btn d-flex justify-content-center">
           <span class="material-symbols-outlined mx-2">delete</span>
           Remove Item
         </button>
