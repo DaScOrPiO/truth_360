@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         moreItems.forEach((movie, i) => {
           const card = document.createElement("div");
-          card.classList.add("card", "mx-auto", "mb-3");
+          card.classList.add("card", "mx-auto", "my-4", "px-4", "py-2");
           card.style.width = "16rem";
 
           card.innerHTML = `

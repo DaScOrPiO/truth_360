@@ -1,7 +1,7 @@
 .filter-search {
     width: 25%;
     height: 100vh;
-    background-color: #fff;
+    background-color: #585555;
     position: fixed;
     overflow-y: auto;
     right: 0;
@@ -10,7 +10,7 @@
 }
 
 .filter-search>h2 {
-    color: aqua;
+    color: #76c1cc;
     font-weight: 700;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .filter-icon {
-    color: aqua;
+    color: #76c1cc;
 }
 
 .input-1 {
@@ -41,7 +41,7 @@
     justify-content: flex-start;
     margin: 10% 4%;
     padding: 5% 2%;
-    color: aqua;
+    color: #76c1cc;
 }
 
 #checkbox-container {
@@ -49,13 +49,13 @@
 }
 
 .input {
-    border: 1px solid aqua;
-    accent-color: aqua;
+    border: 1px solid #76c1cc;
+    accent-color: #76c1cc;
 }
 
 #lang {
     border: none;
-    color: aqua;
+    color: #76c1cc;
 }
 
 #includeAdult {
@@ -66,7 +66,7 @@
 .input:focus {
     outline: none;
     border: none;
-    border-bottom: 2px solid aqua;
+    border-bottom: 2px solid #76c1cc;
     transition: .2s ease-in;
 }
 

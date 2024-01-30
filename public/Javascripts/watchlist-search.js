@@ -54,22 +54,174 @@ document.addEventListener("DOMContentLoaded", function () {
           const modalId = `wishlist-search${i}`;
 
           card.innerHTML = `
-          <img src="https://image.tmdb.org/t/p/w342${movie.Movie_poster}"
-              class="card-img-top"
-              alt="..."
-            />
-      
-            <div
-              class="modal fade"
-              id="watchlist-search${i}"
-              aria-hidden="true"
-              aria-labelledby="wishlist-info-label"
-              tabindex="-1"
-            >
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
+          <img src="https://image.tmdb.org/t/p/original${
+            movie.Movie_poster
+          }" class="card-img-top" alt="...">
+
+          <!-- New code here -->
+          <div
+            class="modal fade"
+            id="watchlist-search-info${i}"
+            aria-hidden="true"
+            aria-labelledby="watchlist-info-label"
+            tabindex="-1"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="watchlist-info-label">Modal 1</h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body modal-flex">
+                  <div class="card mb-3 ${
+                    reviewItems.some(
+                      (el) =>
+                        el.Movie_id === movie.Movie_id && reviewItems.length > 0
+                    )
+                      ? "card-space"
+                      : ""
+                  }">
+                    <div>
+                      <img
+                        src="https://image.tmdb.org/t/p/w342${
+                          movie.Movie_poster
+                        }"
+                        class="card-img-top"
+                        alt="..."
+                      />
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">${movie.Movie_name}</h5>
+                      <p class="card-text">${movie.Movie_description}</p>
+                    </div>
+                  </div>
+                  ${
+                    Array.isArray(reviewItems) && reviewItems.length > 0
+                      ? `
+                        <div class="review-container ${
+                          reviewItems.some(
+                            (el) =>
+                              el.Movie_id === movie.Movie_id &&
+                              reviewItems.length > 0
+                          )
+                            ? "review-space"
+                            : ""
+                        } mb-3" id="reviews-container">
+                        ${reviewItems
+                          .filter(
+                            (review) =>
+                              review.Author &&
+                              review.Movie_id === movie.Movie_id
+                          )
+                          .map(
+                            (review) => `
+                            <div class="card mb-3 mx-3">
+                              <div class="card-body">
+                                <h1 class="fs-5">Author: ${review.Author.username}</h1>
+                                <p class="starability-result" data-rating="${review.Ratings}">
+                                  Rated: ${review.Ratings} stars
+                                </p>
+                                <p class="card-text">Comment: ${review.Comment}</p>
+                              </div>
+                            </div>
+                          `
+                          )
+                          .join("")}
+                        <button class="btn btn-primary mx-3" id="view-more">
+                          View More
+                        </button>
+                      </div>`
+                      : ""
+                  }
+                </div>    
+                <div class="modal-footer" id="modal-footer">
+                  ${
+                    user && Array.isArray(reviewItems) && reviewItems.length > 0
+                      ? reviewItems
+                          .filter(
+                            (review) =>
+                              review.Author &&
+                              review.Author._id &&
+                              review.Author._id.toString() === user._id &&
+                              review.Movie_id === movie.Movie_id
+                          )
+                          .map(
+                            (review) => `
+                              <div class="card mb-3 w-100">
+                                <div class="card-body">
+                                  <h1 class="fs-5">Your Review</h1>
+                                  <p class="starability-result" data-rating="${review.Ratings}">
+                                    Rated: ${review.Ratings} stars
+                                  </p>
+                                  <p class="card-text">Comment: ${review.Comment}</p>
+                                </div>
+                              </div>
+
+                              <button
+                              class="btn btn-primary"
+                              data-bs-target="#edit-watchlist-search-review${i}"
+                              data-bs-toggle="modal"
+                              data-bs-dismiss="modal"
+                            >
+                              Edit your comment
+                            </button>
+
+                            <form action="/delete_review?_method=DELETE" method="post">
+                            <div class="no-view">
+                              <input
+                                type="text"
+                                name="ratings"
+                                value="${review.Ratings}"
+                              />
+                              <input
+                                type="text"
+                                name="review_id"
+                                value="${review._id}"
+                              />
+                              <input
+                                type="text"
+                                name="movie_id"
+                                value="${movie.id}"
+                              />
+                              <input
+                                type="text"
+                                name="comment"
+                                value="${review.Comment}"
+                              />
+                            </div>
+                            <button class="btn btn-danger">Delete your review</button>
+                          </form>
+                            `
+                          )
+                          .join("")
+                      : ""
+                  }
+                </div>      
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="modal fade"
+            id="edit-watchlist-search-review${i}"
+            aria-hidden="true"
+            aria-labelledby="edit-movie-review-label"
+            tabindex="-1"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <form action="/edit_review?_method=PUT"
+                      method="post"
+                      enctype="multipart/form-data">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="wishlist-info-label">Modal 1</h5>
+                    <h5 class="modal-title" id="edit-movie-review-label">
+                      Change review comment
+                    </h5>
                     <button
                       type="button"
                       class="btn-close"
@@ -77,296 +229,69 @@ document.addEventListener("DOMContentLoaded", function () {
                       aria-label="Close"
                     ></button>
                   </div>
-                  <div class="modal-body modal-flex">
-                    <div
-                      class="card mb-3 ${
-                        reviewItems.some(
-                          (el) =>
-                            el.Movie_id === movie.Movie_id &&
-                            reviewItems.length > 0
-                        )
-                          ? "review-space"
-                          : ""
-                      }"
-                    >
-                      <div>
-                      <img src="https://image.tmdb.org/t/p/w342${
-                        movie.Movie_poster
-                      }"
-                          class="card-img-top"
-                          alt="..."
-                        />
-                      </div>
-                      <div class="card-body">
-                        <h5 class="card-title">${movie.Movie_name}</h5>
-                        <p class="card-text">${movie.Movie_description}</p>
-                      </div>
-                    </div>
-      
-                    <!-- working here -->
-                    ${
-                      Array.isArray(reviewItems) && reviewItems.length > 0
-                        ? `
-                    <div
-                      class="review-container mb-3 ${
-                        reviewItems.some(
-                          (el) =>
-                            el.Movie_id === movie.Movie_id &&
-                            reviewItems.length > 0
-                        )
-                          ? "review-space"
-                          : ""
-                      }"
-                      id="reviews-container"
-                    >
-                      ${reviewItems
-                        .map((review) =>
-                          review.Author && review.Movie_id === movie.Movie_id
-                            ? `
-                      <div class="card mb-3 mx-3">
-                        <div class="card-body">
-                          <h1 class="fs-5">Author: ${review.Author.username}</h1>
-                          <p
-                            class="starability-result"
-                            data-rating="${review.Ratings}"
-                          >
-                            Rated: ${review.Ratings} stars
-                          </p>
-                          <p class="card-text">Comment: ${review.Comment}</p>
-                        </div>
-                      </div>
-                      `
-                            : ""
-                        )
-                        .join(" ")}
-                      <button class="btn btn-primary mx-3" id="view-more">
-                        View More
-                      </button>
-                    </div>
-                    `
-                        : ""
-                    }
+                  <div class="modal-body">
+                    ${reviewItems
+                      .filter(
+                        (review) =>
+                          review.Movie_id === movie.Movie_id &&
+                          review.Author._id &&
+                          review.Author._id.toString() === user._id
+                      )
+                      .map(
+                        (review) => `
+                          <div class="mb-3">
+                            <!-- still working here -->
+                            <h3>${movie.Movie_name} rating</h3>
+                            <p class="starability-result" data-rating="${review.Ratings}">
+                              Rated: 3 stars
+                            </p>
+                          </div>
+
+                          <div class="d-none">
+                            <input type="text" name="id" value="${review._id}" />
+                          </div>
+
+                          <div>
+                            <legend>Comment</legend>
+                            <textarea
+                              type="text"
+                              name="comment"
+                              id="${movie.Movie_name}-review"
+                            >${review.Comment}</textarea>
+                            <label for="${movie.Movie_name}-review"></label>
+                          </div>
+                        `
+                      )}
+                    <!-- Hide this modal and show the first with the button below. -->
                   </div>
-                </div>
-              </div>
-            </div>
-            <a
-              class="card-details d-flex justify-content-center align-items-center"
-              data-bs-toggle="modal"
-              href="#watchlist-search${i}"
-              role="button"
-              id="show-info"
-            >
-              <span class="material-symbols-outlined mx-2"> info </span>
-              Show Info</a
-            >
-      
-            <div class="card-review" role="button">
-              <button
-                class="card-review-button d-flex justify-content-center align-items-center"
-                data-bs-toggle="modal"
-                data-bs-target="#watchlist-review-search${i}"
-                data-bs-whatever="@getbootstrap"
-                id="review-button${i}"
-              >
-                <span class="material-symbols-outlined"> star </span>
-                Review
-              </button>
-      
-              <!-- modal for review -->
-              <div
-                class="modal fade"
-                id="watchlist-review-search${i}"
-                tabindex="-1"
-                aria-labelledby="movie-review"
-                aria-hidden="true"
-              >
-                <form
-                  action="/add_review"
-                  method="post"
-                  class="modal-dialog"
-                  enctype="multipart/form-data"
-                >
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="movie-review">
-                        Write a review for ${movie.Movie_name}
-                      </h5>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <div class="modal-body">
-                      <form>
-                        <div class="mb-3">
-                          <label for="movie_id">Movie id</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            name="Movie_id"
-                            value="${movie.Movie_id}"
-                            readonly
-                            id="movie_id"
-                          />
-                        </div>
-      
-                        <div class="mb-3">
-                          <label for="movie_description">Movie Description</label>
-                          <input
-                            class="form-control text-truncate"
-                            type="text"
-                            name="Movie_description"
-                            value="${movie.Movie_description}"
-                            readonly
-                            id="movie_description"
-                          />
-                        </div>
-      
-                        <div class="mb-3 no-view">
-                          <label for="movie_poster">Movie Poster</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            name="Movie_poster"
-                            value="${movie.Movie_poster}"
-                            readonly
-                            id="movie_poster"
-                          />
-                        </div>
-      
-                        <div class="mb-3 no-view">
-                          <label for="movie_name">Movie name</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            name="Movie_name"
-                            value="${movie.Movie_name}"
-                            readonly
-                            id="movie_name"
-                          />
-                        </div>
-      
-                        <div class="mb-3">
-                          <fieldset class="starability-grow">
-                            <legend>rating:</legend>
-                            <input
-                              type="radio"
-                              id="trending-no-rate${i}"
-                              class="input-no-rate"
-                              name="rating"
-                              value="1"
-                              aria-label="No rating."
-                              max="5"
-                            />
-      
-                            <input
-                              type="radio"
-                              id="trending-rate1${i}"
-                              name="rating"
-                              value="1"
-                              checked
-                            />
-                            <label for="trending-rate1${i}">1 star.</label>
-      
-                            <input
-                              type="radio"
-                              id="trending-rate2${i}"
-                              name="rating"
-                              value="2"
-                            />
-                            <label for="trending-rate2${i}">2 stars.</label>
-      
-                            <input
-                              type="radio"
-                              id="trending-rate3${i}"
-                              name="rating"
-                              value="3"
-                            />
-                            <label for="trending-rate3${i}">3 stars.</label>
-      
-                            <input
-                              type="radio"
-                              id="trending-rate4${i}"
-                              name="rating"
-                              value="4"
-                            />
-                            <label for="trending-rate4${i}">4 stars.</label>
-      
-                            <input
-                              type="radio"
-                              id="trending-rate5${i}"
-                              name="rating"
-                              value="5"
-                            />
-                            <label for="trending-rate5${i}">5 stars.</label>
-      
-                            <span class="starability-focus-ring"></span>
-                          </fieldset>
-                        </div>
-      
-                        <div class="mb-3">
-                          <label for="message-text" class="col-form-label"
-                            >Comment:</label
-                          >
-                          <textarea
-                            class="form-control"
-                            id="message-text"
-                            name="comment"
-                            placeholder="Enter comment"
-                          ></textarea>
-                        </div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-danger"
-                        data-bs-dismiss="modal"
-                      >
-                        Close
-                      </button>
-                      <button class="btn btn-success">Drop Review</button>
-                    </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      data-bs-target="#watchlist-search-info${i}"
+                      data-bs-toggle="modal"
+                      data-bs-dismiss="modal"
+                    >
+                      Back to details
+                    </button>
+                    <button class="btn btn-success">Update comment</button>
                   </div>
                 </form>
               </div>
             </div>
-      
-            <form
-              action="/remove_fromwishlist"
-              method="post"
-              class="card-review"
-              enctype="multipart/form-data"
-            >
-              <input
-                type="text"
-                class="d-none"
-                name="Movie_id"
-                id=""
-                value="${movie.Movie_id}"
-              />
-              <input
-                type="text"
-                class="d-none"
-                name="MovieName"
-                id=""
-                value="${movie.Movie_name}"
-              />
-              <input
-                type="text"
-                class="d-none"
-                name="Poster_path"
-                id=""
-                value="${movie.Movie_poster}"
-              />
-              <button class="card-review-button d-flex justify-content-center">
-                <span class="material-symbols-outlined mx-2">delete</span>
-                Remove Item
-              </button>
-            </form>`;
+          </div>
+          <a
+            class="card-details d-flex justify-content-center align-items-center"
+            data-bs-toggle="modal"
+            href="#watchlist-search-info${i}"
+            role="button"
+            id="show-info"
+          >
+            <span class="material-symbols-outlined mx-2"> info </span>
+            Show Info</a
+          >
+          <!-- End of new code -->
+        `;
           searchContainer.appendChild(card);
           searchContainer.classList.remove("d-none");
           pageModal.classList.remove("no-view");
