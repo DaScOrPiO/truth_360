@@ -2,41 +2,52 @@
   <!-- <div class="close" id="close"><i class="material-symbols-outlined fw-bolder fs-2"> close </i></div> -->
   <nav class="items-container">
     <ul class="link-items">
-      <a class="items <%= currentPage === '/' ? 'active-li' : '' %>" href="/"
-        >Home</a
-      >
+      <a class="items <%= currentPage === '/' ? 'active-li' : '' %>" href="/">
+        <span class="material-symbols-outlined"> home </span>
+        Home
+      </a>
 
       <a
         class="items <%= currentPage === '/movies' ? 'active-li' : '' %>"
         href="/movies"
-        >Movies</a
       >
+        <span class="material-symbols-outlined"> theaters </span>
+        Movies
+      </a>
 
       <a
         class="items <%= currentPage === '/tvseries' ? 'active-li' : '' %>"
         href="/tvseries"
-        >Tv Series</a
       >
+        <span class="material-symbols-outlined"> smart_display </span>
+        Tv Series
+      </a>
 
       <a
         class="items <%= currentPage === '/toprated' ? 'active-li' : '' %>"
         href="/toprated"
-        >Top Rated</a
       >
+        <span class="material-symbols-outlined"> monitoring </span>
+        Top Rated
+      </a>
 
       <% if(currentUser){%>
 
       <a
         class="items <%= currentPage === '/wishlists' ? 'active-li' : '' %>"
         href="/wishlists"
-        >Wishlists</a
       >
+        <span class="material-symbols-outlined"> playlist_add_check </span>
+        Wishlists
+      </a>
 
       <a
         class="items <%= currentPage === '/watchlists' ? 'active-li' : '' %>"
         href="/watchlists"
-        >Already Seen</a
       >
+        <span class="material-symbols-outlined"> visibility </span>
+        Already Seen
+      </a>
 
       <% }%>
     </ul>

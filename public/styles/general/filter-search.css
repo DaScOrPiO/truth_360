@@ -7,6 +7,7 @@
     right: 0;
     z-index: 5;
     box-shadow: 0px 0px 10px 1px #000000, 0px 0px 10px 1px #ffffff;
+    background: linear-gradient(155deg, #585555 0%, #a4a7aa 250%);
 }
 
 .filter-search>h2 {
@@ -68,6 +69,20 @@
     border: none;
     border-bottom: 2px solid #76c1cc;
     transition: .2s ease-in;
+}
+
+.confirm-btn, .clear-btn {
+    background-color: #76c1cc;
+    color: #fff;
+    padding: 2% 8%;
+    outline: none;
+    border: none;
+}
+
+.confirm-btn:hover, .clear-btn:hover{
+    background-color: transparent;
+    transform: translateY(10%);
+    transition: .5s ease-in;
 }
 
 @media screen and (max-width: 1023px) {

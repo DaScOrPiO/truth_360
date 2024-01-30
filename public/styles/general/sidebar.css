@@ -4,6 +4,7 @@
     background-color: #585555;
     position: fixed;
     overflow-y: auto;
+    /* background: linear-gradient(155deg, #585555 0%, #a4a 250%); */
 }
 
 .items-container {
