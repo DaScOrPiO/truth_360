@@ -57,8 +57,9 @@
 }
 
 .active-li {
-    border-left: 2px solid #a4a7aa; /* Add your desired style here */
-  }
+    border-left: 2px solid #a4a7aa;
+    /* Add your desired style here */
+}
 
 @media screen and (min-width: 1024px) {
     .no-display {
@@ -78,6 +79,8 @@
         width: 80%;
         height: 100%;
         z-index: 5;
+        transition: transform 0.8s ease;
+        transform: translateX(0%);
     }
 
     .sidebar-container>.close {
@@ -88,7 +91,8 @@
     }
 
     .no-display {
-        display: none;
+        transition: transform 0.8s ease;
+        transform: translateX(-100%);
     }
 
     .hamburger-menu {
