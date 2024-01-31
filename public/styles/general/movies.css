@@ -75,7 +75,7 @@ body {
   border-radius: 2rem;
   padding: 2% 16%;
   background-color: transparent;
-  color: aqua;
+  color: #76c1cc;
   margin: 0 4%;
 }
 
@@ -88,7 +88,7 @@ body {
 }
 
 .card-details, .card-wishlist-btn, .card-review>.card-review-button, .card-wishlist-btn, .card-details:hover {
-  background-color: aqua;
+  background-color: #76c1cc;
   border: 1px solid aliceblue;
   padding: 2% 16%;
   margin: 2%;
@@ -146,7 +146,7 @@ body {
   top: 0%;
   left: 0;
   z-index: 2;
-  color: aqua;
+  color: #76c1cc;
   font-weight: 700;
   margin: 0 4%;
 }
@@ -155,7 +155,7 @@ body {
 .trending-series>h1,
 .top-rated>h1,
 .wishlists>h1 {
-  color: aqua;
+  color: #76c1cc;
 }
 
 .disabled-pointer {
@@ -185,12 +185,22 @@ body {
   background-color: #000 !important;
 }
 
+.sweet-alert-btn {
+  background: none !important;
+  background-color: #76c1cc !important;
+  color: #fff !important;
+  border: none !important;
+  outline: none !important;
+  /* Add any other styles you want to customize */
+}
+
+
 @media screen and (max-width: 767px) {
   .main-content {
     width: 100%;
     margin: 0;
     /* z-index: 8; */
-    /* background-color: aqua; */
+    /* background-color: #76c1cc; */
   }
 
   .trending-movies>.content-container,

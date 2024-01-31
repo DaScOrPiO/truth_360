@@ -222,6 +222,8 @@ module.exports.removeFromWishlists = async (req, res, next) => {
       Movie_id: queryData.Movie_id,
       Owner: req.user._id,
     });
+
+    req.flash("success", "Action successful")
     res.redirect("/movies");
   } catch (err) {
     next(err);

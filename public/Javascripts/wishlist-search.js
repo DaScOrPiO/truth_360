@@ -6,7 +6,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
   searchButton.addEventListener("click", function () {
     const movie_name = input.value;
-    searchWishlists(movie_name);
+    if (!movie_name || movie_name === "") {
+      Swal.fire({
+        icon: "info",
+        title: "Include a movie name!",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
+      });
+    } else {
+      searchWishlists(movie_name);
+    }
+  });
+
+  document.addEventListener("keypress", function (e) {
+    const movie_name = input.value;
+    if (e.key === "Enter" && document.activeElement === input) {
+      if (!movie_name || movie_name === "") {
+        Swal.fire({
+          icon: "info",
+          title: "Include a movie name!",
+          customClass: {
+            confirmButton: "sweet-alert-btn",
+          },
+          showConfirmButton: true,
+          confirmButtonText: "OK",
+        });
+      } else {
+        searchWishlists(movie_name);
+      }
+    }
   });
 
   const searchWishlists = async (query) => {
@@ -19,6 +50,11 @@ document.addEventListener("DOMContentLoaded", function () {
           icon: "error",
           title: "Oops...",
           text: "Network problem :(",
+          customClass: {
+            confirmButton: "sweet-alert-btn",
+          },
+          showConfirmButton: true,
+          confirmButtonText: "OK",
         });
         throw new Error("Network response was not ok");
       }
@@ -47,12 +83,15 @@ document.addEventListener("DOMContentLoaded", function () {
           card.classList.add("card", "mx-auto", "my-4", "px-4", "py-2");
           card.style.width = "16rem";
 
-          const imgSrc = `https://image.tmdb.org/t/p/original${
-            movie.Poster_path || movie.backdrop_poster
-          }`;
           const modalId = `wishlist-search${i}`;
 
-          card.innerHTML = `<img src="${imgSrc}" class="card-img-top" alt="...">
+          card.innerHTML = ` <img src="${
+            movie.Poster_path &&
+            movie.Poster_path !== null &&
+            movie.Poster_path !== ""
+              ? "https://image.tmdb.org/t/p/original" + movie.Poster_path
+              : "/images/no-img.jpg"
+          }" class="card-img-top" alt="...">
     
           <div class="modal fade" id="${modalId}" aria-hidden="true" aria-labelledby="wishlist-info-label" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -71,12 +110,19 @@ document.addEventListener("DOMContentLoaded", function () {
                       : ""
                   }">
                     <div>
-                      <img src="https://image.tmdb.org/t/p/w342${
-                        movie.Poster_path
-                      }" class="card-img-top" alt="...">
+                    <img src="${
+                      movie.Poster_path &&
+                      movie.Poster_path !== null &&
+                      movie.Poster_path !== ""
+                        ? "https://image.tmdb.org/t/p/original" +
+                          movie.Poster_path
+                        : "/images/no-img.jpg"
+                    }" class="card-img-top" alt="...">
                     </div>
                     <div class="card-body">
-                      <h5 class="card-title">${movie.MovieName}</h5>
+                      <h5 class="card-title fw-bolder fs-2">${
+                        movie.MovieName
+                      }</h5>
                       <p class="card-text">${movie.Movie_description}</p>
                     </div>
                   </div>
@@ -220,7 +266,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <input type="text" class="d-none" name="Poster_path" id="" value="${
               movie.Poster_path
             }" />
-            <button class="card-review-button d-flex justify-content-center">
+            <button class="card-wishlist-btn d-flex justify-content-center">
               <span class="material-symbols-outlined mx-2">delete</span>
               Remove Item
             </button>
@@ -238,7 +284,12 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         Swal.fire({
           icon: "info",
-          title: "Cannot find movie.",
+          title: "Cannot find movie :(",
+          customClass: {
+            confirmButton: "sweet-alert-btn",
+          },
+          showConfirmButton: true,
+          confirmButtonText: "OK",
         });
       }
     } catch (err) {
@@ -246,6 +297,11 @@ document.addEventListener("DOMContentLoaded", function () {
         icon: "error",
         title: "Oops...",
         text: "Problem fetching data :(",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
       });
       console.error("Error fetching data:", err);
     }

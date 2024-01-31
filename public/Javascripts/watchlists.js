@@ -15,17 +15,20 @@ document.addEventListener("DOMContentLoaded", function () {
           initialDisplay,
           initialDisplay + Math.min(items_per_page, remainingItems)
         );
-        console.log(moreItems);
 
         moreItems.forEach((movie, i) => {
           const card = document.createElement("div");
-          card.classList.add("card", "mx-auto", "mb-3");
+          card.classList.add("card", "mx-auto", "my-4", "px-4", "py-2");
           card.style.width = "16rem";
 
           card.innerHTML = `
-              <img src="https://image.tmdb.org/t/p/original${
-                movie.Movie_poster
-              }" class="card-img-top" alt="...">
+          <img src="${
+            movie.Movie_poster &&
+            movie.Movie_poster !== null &&
+            movie.Movie_poster !== ""
+              ? "https://image.tmdb.org/t/p/original" + movie.Movie_poster
+              : "/images/no-img.jpg"
+          }" class="card-img-top" alt="Movie-poster">
   
               <!-- New code here -->
               <div
@@ -57,16 +60,22 @@ document.addEventListener("DOMContentLoaded", function () {
                           : ""
                       }">
                         <div>
-                          <img
-                            src="https://image.tmdb.org/t/p/w342${
+                        <img src="${
+                          movie.Movie_poster &&
+                          movie.Movie_poster !== null &&
+                          movie.Movie_poster !== ""
+                            ? "https://image.tmdb.org/t/p/original" +
                               movie.Movie_poster
-                            }"
+                            : "/images/no-img.jpg"
+                        }" 
                             class="card-img-top"
-                            alt="..."
+                            alt="Movie-poster"
                           />
                         </div>
                         <div class="card-body">
-                          <h5 class="card-title">${movie.Movie_name}</h5>
+                          <h5 class="card-title fw-bolder fs-2">${
+                            movie.Movie_name
+                          }</h5>
                           <p class="card-text">${movie.Movie_description}</p>
                         </div>
                       </div>
@@ -289,9 +298,24 @@ document.addEventListener("DOMContentLoaded", function () {
         Swal.fire({
           icon: "info",
           title: "No more data to load.",
+          customClass: {
+            confirmButton: "sweet-alert-btn",
+          },
+          showConfirmButton: true,
+          confirmButtonText: "OK",
         });
       }
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Problem fetching data :(",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
+      });
       console.error("Error fetching data:", error);
     }
   };
@@ -301,6 +325,11 @@ document.addEventListener("DOMContentLoaded", function () {
       Swal.fire({
         icon: "info",
         title: "No more data to load.",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
       });
     } else {
       loadMoreMovies();

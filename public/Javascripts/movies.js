@@ -18,13 +18,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         moreItems.forEach((movie, i) => {
           const card = document.createElement("div");
-          card.classList.add("card", "mx-auto", "mb-3");
+          card.classList.add("card", "mx-auto", "my-4", "px-4", "py-2");
           card.style.width = "16rem";
 
           card.innerHTML = `
-            <img src="https://image.tmdb.org/t/p/original${
-              movie.poster_path
-            }" class="card-img-top" alt="...">
+          <img src="${
+            movie.poster_path &&
+            movie.poster_path !== null &&
+            movie.poster_path !== ""
+              ? "https://image.tmdb.org/t/p/original" + movie.poster_path ||
+                movie.backdrop_path
+              : "/images/no-img.jpg"
+          }" class="card-img-top" alt="Movie-poster">
 
             <!-- New code here -->
             <div
@@ -49,23 +54,28 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="card mb-3 ${
                       reviewItems.some(
                         (el) =>
-                          el.Movie_id === movie.id &&
-                          reviewItems.length > 0
+                          el.Movie_id === movie.id && reviewItems.length > 0
                       )
                         ? "card-space"
                         : ""
                     }">
                       <div>
-                        <img
-                          src="https://image.tmdb.org/t/p/w342${
-                            movie.poster_path
-                          }"
+                      <img src="${
+                        movie.poster_path &&
+                        movie.poster_path !== null &&
+                        movie.poster_path !== ""
+                          ? "https://image.tmdb.org/t/p/original" +
+                              movie.poster_path || movie.backdrop_path
+                          : "/images/no-img.jpg"
+                      }"
                           class="card-img-top"
-                          alt="..."
+                          alt="poster"
                         />
                       </div>
                       <div class="card-body">
-                        <h5 class="card-title">${movie.original_title}</h5>
+                        <h5 class="card-title fw-bolder fs-2">${
+                          movie.original_title
+                        }</h5>
                         <p class="card-text">${movie.overview}</p>
                       </div>
                     </div>
@@ -521,6 +531,11 @@ document.addEventListener("DOMContentLoaded", function () {
       Swal.fire({
         icon: "info",
         title: "No more data to load.",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
       });
     } else {
       loadMoreMovies();

@@ -39,7 +39,9 @@ router.post(
     failureRedirect: "/login",
   }),
   async (req, res) => {
-    req.flash("success", "welcome back");
+    req.method === "GET"
+      ? req.flash("success", "welcome back")
+      : req.flash("error", "Action failed! Go to route and retry");
     const redirect = res.locals.returnTo || "/";
     res.redirect(redirect);
   }

@@ -2,25 +2,53 @@
   <!-- <div class="close" id="close"><i class="material-symbols-outlined fw-bolder fs-2"> close </i></div> -->
   <nav class="items-container">
     <ul class="link-items">
-      <li class="items <%= currentPage === '/' ? 'active-li' : '' %>">
-        <a href="/">Home</a>
-      </li>
-      <li class="items <%= currentPage === '/movies' ? 'active-li' : '' %>">
-        <a href="/movies">Movies</a>
-      </li>
-      <li class="items <%= currentPage === '/tvseries' ? 'active-li' : '' %>">
-        <a href="/tvseries">Tv Series</a>
-      </li>
-      <li class="items <%= currentPage === '/toprated' ? 'active-li' : '' %>">
-        <a href="/toprated">Top Rated</a>
-      </li>
+      <a class="items <%= currentPage === '/' ? 'active-li' : '' %>" href="/">
+        <i class="material-symbols-outlined"> home </i>
+        Home
+      </a>
+
+      <a
+        class="items <%= currentPage === '/movies' ? 'active-li' : '' %>"
+        href="/movies"
+      >
+        <i class="material-symbols-outlined"> theaters </i>
+        Movies
+      </a>
+
+      <a
+        class="items <%= currentPage === '/tvseries' ? 'active-li' : '' %>"
+        href="/tvseries"
+      >
+        <i class="material-symbols-outlined"> smart_display </i>
+        Tv Series
+      </a>
+
+      <a
+        class="items <%= currentPage === '/toprated' ? 'active-li' : '' %>"
+        href="/toprated"
+      >
+        <i class="material-symbols-outlined"> monitoring </i>
+        Top Rated
+      </a>
+
       <% if(currentUser){%>
-      <li class="items <%= currentPage === '/wishlists' ? 'active-li' : '' %>">
-        <a href="/wishlists">Wishlists</a>
-      </li>
-      <li class="items <%= currentPage === '/watchlists' ? 'active-li' : '' %>">
-        <a href="/watchlists">Already Seen</a>
-      </li>
+
+      <a
+        class="items <%= currentPage === '/wishlists' ? 'active-li' : '' %>"
+        href="/wishlists"
+      >
+        <i class="material-symbols-outlined"> playlist_add_check </i>
+        Wishlists
+      </a>
+
+      <a
+        class="items <%= currentPage === '/watchlists' ? 'active-li' : '' %>"
+        href="/watchlists"
+      >
+        <i class="material-symbols-outlined"> visibility </i>
+        Already Seen
+      </a>
+
       <% }%>
     </ul>
   </nav>

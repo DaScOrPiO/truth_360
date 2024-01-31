@@ -1,16 +1,19 @@
 .filter-search {
     width: 25%;
     height: 100vh;
-    background-color: #fff;
+    background-color: #585555;
     position: fixed;
     overflow-y: auto;
     right: 0;
     z-index: 5;
     box-shadow: 0px 0px 10px 1px #000000, 0px 0px 10px 1px #ffffff;
+    background: linear-gradient(155deg, #585555 0%, #a4a7aa 250%);
+    transition: transform 0.8s ease;
+    transform: translateX(0%);
 }
 
 .filter-search>h2 {
-    color: aqua;
+    color: #76c1cc;
     font-weight: 700;
 }
 
@@ -31,7 +34,7 @@
 }
 
 .filter-icon {
-    color: aqua;
+    color: #76c1cc;
 }
 
 .input-1 {
@@ -41,7 +44,7 @@
     justify-content: flex-start;
     margin: 10% 4%;
     padding: 5% 2%;
-    color: aqua;
+    color: #76c1cc;
 }
 
 #checkbox-container {
@@ -49,13 +52,13 @@
 }
 
 .input {
-    border: 1px solid aqua;
-    accent-color: aqua;
+    border: 1px solid #76c1cc;
+    accent-color: #76c1cc;
 }
 
 #lang {
     border: none;
-    color: aqua;
+    color: #76c1cc;
 }
 
 #includeAdult {
@@ -66,8 +69,27 @@
 .input:focus {
     outline: none;
     border: none;
-    border-bottom: 2px solid aqua;
+    border-bottom: 2px solid #76c1cc;
     transition: .2s ease-in;
+}
+
+.confirm-btn, .clear-btn {
+    background-color: #76c1cc;
+    color: #fff;
+    padding: 2% 8%;
+    outline: none;
+    border: none;
+}
+
+.confirm-btn:hover, .clear-btn:hover {
+    background-color: transparent;
+    transform: translateY(10%);
+    transition: .5s ease-in;
+}
+
+.hide {
+    transition: transform 0.8s ease;
+    transform: translateX(110%);
 }
 
 @media screen and (max-width: 1023px) {

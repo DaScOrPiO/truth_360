@@ -14,9 +14,33 @@ document.addEventListener("DOMContentLoaded", function () {
       Swal.fire({
         icon: "info",
         title: "Include a movie name!",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
       });
     } else {
       searchMovies(series_name);
+    }
+  });
+
+  document.addEventListener("keypress", function (e) {
+    const series_name = input.value;
+    if (e.key === "Enter" && document.activeElement === input) {
+      if (!series_name || series_name === "") {
+        Swal.fire({
+          icon: "info",
+          title: "Include a movie name!",
+          customClass: {
+            confirmButton: "sweet-alert-btn",
+          },
+          showConfirmButton: true,
+          confirmButtonText: "OK",
+        });
+      } else {
+        searchMovies(series_name);
+      }
     }
   });
 
@@ -38,6 +62,11 @@ document.addEventListener("DOMContentLoaded", function () {
           icon: "error",
           title: "Oops...",
           text: "Network problem :(",
+          customClass: {
+            confirmButton: "sweet-alert-btn",
+          },
+          showConfirmButton: true,
+          confirmButtonText: "OK",
         });
         throw new Error("Network response was not ok");
       }
@@ -70,9 +99,14 @@ document.addEventListener("DOMContentLoaded", function () {
           card.style.width = "16rem";
 
           card.innerHTML = `
-                  <img src="https://image.tmdb.org/t/p/original${
-                    movie.poster_path || movie.backdrop_path
-                  }" class="card-img-top" alt="Movie-poster" style="height: 90%;">
+          <img src="${
+            movie.poster_path &&
+            movie.poster_path !== null &&
+            movie.poster_path !== ""
+              ? "https://image.tmdb.org/t/p/original" + movie.poster_path ||
+                movie.backdrop_path
+              : "/images/no-img.jpg"
+          }" class="card-img-top" alt="Movie-poster" style="height: 90%;">
       
                   <!-- New code here -->
                   <div
@@ -104,16 +138,22 @@ document.addEventListener("DOMContentLoaded", function () {
                               : ""
                           }">
                             <div>
-                              <img
-                                src="https://image.tmdb.org/t/p/w342${
-                                  movie.poster_path
-                                }"
+                            <img src="${
+                              movie.poster_path &&
+                              movie.poster_path !== null &&
+                              movie.poster_path !== ""
+                                ? "https://image.tmdb.org/t/p/original" +
+                                    movie.poster_path || movie.backdrop_path
+                                : "/images/no-img.jpg"
+                            }"
                                 class="card-img-top"
-                                alt="..."
+                                alt="poster"
                               />
                             </div>
                             <div class="card-body">
-                              <h5 class="card-title">${movie.name}</h5>
+                              <h5 class="card-title fw-bolder fs-2">${
+                                movie.name
+                              }</h5>
                               <p class="card-text">${movie.overview}</p>
                             </div>
                           </div>
@@ -546,14 +586,24 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         Swal.fire({
           icon: "info",
-          title: "Cannot find movie.",
+          title: "Cannot find movie :(",
+          customClass: {
+            confirmButton: "sweet-alert-btn",
+          },
+          showConfirmButton: true,
+          confirmButtonText: "OK",
         });
       }
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "problem fetching data :(",
+        text: "Problem fetching data :(",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
       });
       console.error("Error fetching data:", error);
     }

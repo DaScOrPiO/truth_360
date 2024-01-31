@@ -19,9 +19,14 @@
         data-bs-interval="3000"
       >
         <img
-          src="https://image.tmdb.org/t/p/original<%= data1[i].poster_path %>"
+          src="<%= data1[i].poster_path 
+          && data1[i].poster_path !== null
+        && data1[i].poster_path 
+        !== '' ? 
+        'https://image.tmdb.org/t/p/original' + data1[i].poster_path || data1[i].backdrop_path
+        : '/images/no-bg.jpg' %>"
           class="d-block w-100 image"
-          alt="..."
+          alt="Tv-show poster"
         />
         <div class="button-container">
           <form
@@ -273,9 +278,14 @@
   <h1>Trending This Week</h1>
   <div class="content-container d-flex flex-wrap" id="content-container">
     <% for(let i = 0; i < trendingSeries.length; i++) {%>
-    <div class="card mx-auto mb-3" style="width: 16rem">
+    <div class="card mx-auto my-4 px-4 py-2" style="width: 16rem">
       <img
-        src="https://image.tmdb.org/t/p/original<%= data2[i].poster_path %>"
+        src="<%= data2[i].poster_path 
+          && data2[i].poster_path !== null
+        && data2[i].poster_path 
+        !== '' ? 
+        'https://image.tmdb.org/t/p/original' + data2[i].poster_path || data2[i].backdrop_path
+        : '/images/no-img.jpg' %>"
         class="card-img-top"
         alt="..."
       />
@@ -305,13 +315,18 @@
               >
                 <div>
                   <img
-                    src="https://image.tmdb.org/t/p/w342<%= data2[i].poster_path %>"
+                    src="<%= data2[i].poster_path 
+                    && data2[i].poster_path !== null
+                  && data2[i].poster_path 
+                  !== '' ? 
+                  'https://image.tmdb.org/t/p/original' + data2[i].poster_path || data2[i].backdrop_path
+                  : '/images/no-img.jpg' %>"
                     class="card-img-top"
                     alt="..."
                   />
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title"><%= data2[i].name %></h5>
+                  <h5 class="card-title fw-bolder fs-2"><%= data2[i].name %></h5>
                   <p class="card-text"><%= data2[i].overview %></p>
                 </div>
               </div>

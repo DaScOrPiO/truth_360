@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener("click", (e) => {
     if (
       !hamburger.contains(e.target) &&
-      //   !sidebar.contains(e.target) &&
       !sidebar.classList.contains("no-display")
     ) {
       sidebar.classList.add("no-display");
