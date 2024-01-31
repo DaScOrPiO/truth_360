@@ -9,13 +9,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const region = document.getElementById("location");
 
   filterSearch_btn.addEventListener("click", () => {
-    filterSearch_container.classList.remove("d-none");
-    filterSearch_btn.classList.add("d-none");
+    filterSearch_container.classList.remove("hide");
+    filterSearch_btn.classList.add("hide");
   });
 
   confirmButton.addEventListener("click", () => {
-    filterSearch_container.classList.add("d-none");
-    filterSearch_btn.classList.remove("d-none");
+    filterSearch_container.classList.add("hide");
+    filterSearch_btn.classList.remove("hide");
   });
 
   clearButton.addEventListener("click", () => {
@@ -31,11 +31,11 @@ document.addEventListener("DOMContentLoaded", function () {
       !filterSearch_btn.contains(e.target)
     ) {
       if (
-        !filterSearch_container.classList.contains("d-none") &&
-        filterSearch_btn.classList.contains("d-none")
+        !filterSearch_container.classList.contains("hide") &&
+        filterSearch_btn.classList.contains("hide")
       ) {
-        filterSearch_container.classList.add("d-none");
-        filterSearch_btn.classList.remove("d-none");
+        filterSearch_container.classList.add("hide");
+        filterSearch_btn.classList.remove("hide");
         include_adult.checked = false;
         primary_release_year.value = "";
         language.value = "";

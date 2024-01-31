@@ -531,6 +531,11 @@ document.addEventListener("DOMContentLoaded", function () {
       Swal.fire({
         icon: "info",
         title: "No more data to load.",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
       });
     } else {
       loadMoreMovies();

@@ -185,6 +185,16 @@ body {
   background-color: #000 !important;
 }
 
+.sweet-alert-btn {
+  background: none !important;
+  background-color: #76c1cc !important;
+  color: #fff !important;
+  border: none !important;
+  outline: none !important;
+  /* Add any other styles you want to customize */
+}
+
+
 @media screen and (max-width: 767px) {
   .main-content {
     width: 100%;

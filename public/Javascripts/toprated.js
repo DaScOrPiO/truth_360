@@ -5,9 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentPage = 1;
   let initialDisplay = moreData.length;
   let isDataAvailable = true;
-  console.log(moreData.map((el) => el.id));
-  console.log(user);
-  console.log(reviewItems.map((el) => el));
 
   const loadMoreMovies = async () => {
     try {
@@ -76,7 +73,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         />
                       </div>
                       <div class="card-body">
-                        <h5 class="card-title fw-bolder fs-2">${movie.original_title}</h5>
+                        <h5 class="card-title fw-bolder fs-2">${
+                          movie.original_title
+                        }</h5>
                         <p class="card-text">${movie.overview}</p>
                       </div>
                     </div>
@@ -523,6 +522,16 @@ document.addEventListener("DOMContentLoaded", function () {
         currentPage++;
       }
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Problem fetching data :(",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
+      });
       console.error("Error fetching data:", error);
     }
   };
@@ -532,6 +541,11 @@ document.addEventListener("DOMContentLoaded", function () {
       Swal.fire({
         icon: "info",
         title: "No more data to load.",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
       });
     } else {
       loadMoreMovies();

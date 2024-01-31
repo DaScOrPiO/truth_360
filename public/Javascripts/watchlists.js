@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
           initialDisplay,
           initialDisplay + Math.min(items_per_page, remainingItems)
         );
-        console.log(moreItems);
 
         moreItems.forEach((movie, i) => {
           const card = document.createElement("div");
@@ -74,7 +73,9 @@ document.addEventListener("DOMContentLoaded", function () {
                           />
                         </div>
                         <div class="card-body">
-                          <h5 class="card-title fw-bolder fs-2">${movie.Movie_name}</h5>
+                          <h5 class="card-title fw-bolder fs-2">${
+                            movie.Movie_name
+                          }</h5>
                           <p class="card-text">${movie.Movie_description}</p>
                         </div>
                       </div>
@@ -297,9 +298,24 @@ document.addEventListener("DOMContentLoaded", function () {
         Swal.fire({
           icon: "info",
           title: "No more data to load.",
+          customClass: {
+            confirmButton: "sweet-alert-btn",
+          },
+          showConfirmButton: true,
+          confirmButtonText: "OK",
         });
       }
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Problem fetching data :(",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
+      });
       console.error("Error fetching data:", error);
     }
   };
@@ -309,6 +325,11 @@ document.addEventListener("DOMContentLoaded", function () {
       Swal.fire({
         icon: "info",
         title: "No more data to load.",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
       });
     } else {
       loadMoreMovies();

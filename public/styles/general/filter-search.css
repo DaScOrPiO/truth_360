@@ -8,6 +8,8 @@
     z-index: 5;
     box-shadow: 0px 0px 10px 1px #000000, 0px 0px 10px 1px #ffffff;
     background: linear-gradient(155deg, #585555 0%, #a4a7aa 250%);
+    transition: transform 0.8s ease;
+    transform: translateX(0%);
 }
 
 .filter-search>h2 {
@@ -79,10 +81,15 @@
     border: none;
 }
 
-.confirm-btn:hover, .clear-btn:hover{
+.confirm-btn:hover, .clear-btn:hover {
     background-color: transparent;
     transform: translateY(10%);
     transition: .5s ease-in;
+}
+
+.hide {
+    transition: transform 0.8s ease;
+    transform: translateX(100%);
 }
 
 @media screen and (max-width: 1023px) {

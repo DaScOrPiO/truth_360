@@ -10,6 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
       Swal.fire({
         icon: "info",
         title: "Include a movie name!",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
       });
     } else {
       searchWishlists(movie_name);
@@ -23,6 +28,11 @@ document.addEventListener("DOMContentLoaded", function () {
         Swal.fire({
           icon: "info",
           title: "Include a movie name!",
+          customClass: {
+            confirmButton: "sweet-alert-btn",
+          },
+          showConfirmButton: true,
+          confirmButtonText: "OK",
         });
       } else {
         searchWishlists(movie_name);
@@ -40,6 +50,11 @@ document.addEventListener("DOMContentLoaded", function () {
           icon: "error",
           title: "Oops...",
           text: "Network problem :(",
+          customClass: {
+            confirmButton: "sweet-alert-btn",
+          },
+          showConfirmButton: true,
+          confirmButtonText: "OK",
         });
         throw new Error("Network response was not ok");
       }
@@ -269,7 +284,12 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         Swal.fire({
           icon: "info",
-          title: "Cannot find movie.",
+          title: "Cannot find movie :(",
+          customClass: {
+            confirmButton: "sweet-alert-btn",
+          },
+          showConfirmButton: true,
+          confirmButtonText: "OK",
         });
       }
     } catch (err) {
@@ -277,6 +297,11 @@ document.addEventListener("DOMContentLoaded", function () {
         icon: "error",
         title: "Oops...",
         text: "Problem fetching data :(",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
       });
       console.error("Error fetching data:", err);
     }

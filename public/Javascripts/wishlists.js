@@ -65,7 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         movie.Poster_path &&
                         movie.Poster_path !== null &&
                         movie.Poster_path !== ""
-                          ? "https://image.tmdb.org/t/p/original" + movie.Poster_path
+                          ? "https://image.tmdb.org/t/p/original" +
+                            movie.Poster_path
                           : "/images/no-img.jpg"
                       }"
                           class="card-img-top"
@@ -73,7 +74,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         />
                       </div>
                       <div class="card-body">
-                        <h5 class="card-title fw-bolder fs-2">${movie.MovieName}</h5>
+                        <h5 class="card-title fw-bolder fs-2">${
+                          movie.MovieName
+                        }</h5>
                         <p class="card-text">${movie.Movie_description}</p>
                       </div>
                     </div>
@@ -368,9 +371,24 @@ document.addEventListener("DOMContentLoaded", function () {
         Swal.fire({
           icon: "info",
           title: "No more data to load.",
+          customClass: {
+            confirmButton: "sweet-alert-btn",
+          },
+          showConfirmButton: true,
+          confirmButtonText: "OK",
         });
       }
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Problem fetching data :(",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
+      });
       console.error("Error fetching data:", error);
     }
   };
@@ -380,6 +398,11 @@ document.addEventListener("DOMContentLoaded", function () {
       Swal.fire({
         icon: "info",
         title: "No more data to load.",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
       });
     } else {
       loadMoreMovies();
