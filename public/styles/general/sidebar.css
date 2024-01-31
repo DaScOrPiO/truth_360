@@ -58,7 +58,6 @@
 
 .active-li {
     border-left: 2px solid #a4a7aa;
-    /* Add your desired style here */
 }
 
 @media screen and (min-width: 1024px) {

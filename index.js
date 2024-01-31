@@ -75,7 +75,7 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds", reviewRoutes);
 app.use("/", movieRoutes);
 
-app.get("/", (req, res) => res.render("index"));
+app.get("/", (req, res) => res.render("index", { currentPage: req.path }));
 
 app.use((err, req, res, next) => {
   const { message = "Something went wrong!", code = 500 } = err;

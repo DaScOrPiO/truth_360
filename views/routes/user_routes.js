@@ -6,7 +6,7 @@ const passport = require("passport");
 const { storeReturnTo } = require("../../utils/middleware/middleware");
 
 router.get("/register", (req, res) => {
-  res.render("Pages/user/register");
+  res.render("Pages/user/register", { currentPage: req.path });
 });
 
 router.post("/register", async (req, res, next) => {
@@ -28,7 +28,7 @@ router.post("/register", async (req, res, next) => {
 });
 
 router.get("/login", async (req, res) => {
-  res.render("Pages/user/login");
+  res.render("Pages/user/login", { currentPage: req.path });
 });
 
 router.post(

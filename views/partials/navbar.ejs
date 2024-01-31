@@ -1,31 +1,24 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Truth 360</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/campgrounds">Add/review Location</a>
-        <a class="nav-link" href="/movies">Add/review Movies</a>
+<nav>
+  <div class="navigation-container">
+    <ul class="list-container no-display">
+      <div class="nav-main">
+        <a href="/">Home</a>
+        <a class=" <%= currentPage === '/' ? 'active-li' : '' %>" href="/campgrounds">All Locations</a>
+        <a href="/movies">Explore Movies</a>
       </div>
 
-      <div class="navbar-nav mx-auto">
+      <div class="nav-auth">
         <% if(!currentUser) {%>
-        <a class="nav-link" href="/login">Login</a>
-        <a class="nav-link" href="/register">Register</a>
+        <a class=" <%= currentPage === '/login' ? 'active-li' : '' %>" href="/login">Login</a>
+        <a class=" <%= currentPage === '/register' ? 'active-li' : '' %>" href="/register">Register</a>
         <% } else {%>
-        <a class="nav-link" href="/logout">Logout</a>
+        <a href="/logout">Logout</a>
         <% } %>
       </div>
+    </ul>
+
+    <div class="hamburger-menu" id="hamburger">
+      <i class="material-symbols-outlined icon-size hamburger-item"> menu </i>
     </div>
   </div>
 </nav>

@@ -5,7 +5,7 @@ const geoService = mapService({ accessToken: process.env.Campgroud_map_token });
 
 module.exports.displayallCampgrounds = async (req, res) => {
   const campgrounds = await Campground.find({});
-  res.render("pages/campgrounds/index", { campgrounds });
+  res.render("pages/campgrounds/index", { campgrounds,  currentPage: req.path, });
 };
 
 module.exports.displayNewCampgroundsPage = async (req, res) => {
