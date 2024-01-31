@@ -118,8 +118,21 @@
     display: flex;
 }
 
+.custom-alert{
+    z-index: 50;
+    position: fixed;
+    bottom: 2%;
+    left: 5%;
+    width: 20%;
+}
+
 @media screen and (max-width: 767px) {
     .screen-message {
         width: 100%;
     }
+
+    .custom-alert{
+        width: 50%;
+    }
+    
 }
