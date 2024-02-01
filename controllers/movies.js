@@ -140,15 +140,6 @@ module.exports.TvSeries = async (req, res, next) => {
 
 module.exports.addToWishlist = async (req, res, next) => {
   try {
-    // const addNew = new movieWishlist({
-    //   Owner: userId,
-    //   Movie_id: item.Movie_id,
-    //   MovieName: item.MovieName,
-    //   Poster_path: item.Poster_path,
-    // });
-    // await addNew.save();
-    // console.log(req.body);
-
     const item = req.body;
     const userId = req.user._id;
 

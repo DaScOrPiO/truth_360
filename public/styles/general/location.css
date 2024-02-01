@@ -1,0 +1,44 @@
+body {
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.button {
+    background-color: #76c1cc;
+    color: #fff;
+    padding: 2% 8%;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    border-radius: 0.8rem;
+}
+
+.button:hover {
+    background-color: transparent;
+    color: #76c1cc;
+    transform: translateY(10%);
+    transition: .5s ease-in;
+}
+
+#load-more {
+    border: 1px solid aliceblue;
+    border-radius: 2rem;
+    padding: 2% 16%;
+    background-color: transparent;
+    color: #76c1cc;
+    margin: 0 4%;
+}
+
+.sweet-alert-btn {
+    background: none !important;
+    background-color: #76c1cc !important;
+    color: #fff !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.disabled-pointer {
+    cursor: not-allowed;
+    opacity: 0.2;
+}

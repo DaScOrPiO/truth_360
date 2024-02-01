@@ -3,13 +3,31 @@ const { cloudinary } = require("../cloudinary");
 const mapService = require("@mapbox/mapbox-sdk/services/geocoding");
 const geoService = mapService({ accessToken: process.env.Campgroud_map_token });
 
+const items_per_page = 10;
+
 module.exports.displayallCampgrounds = async (req, res) => {
+  const page = req.query.page || 1;
   const campgrounds = await Campground.find({});
-  res.render("pages/campgrounds/index", { campgrounds,  currentPage: req.path, });
+
+  const startingIndex = (page - 1) * items_per_page;
+  const totalItems = campgrounds.length;
+  const data2 = campgrounds
+    .slice(startingIndex, startingIndex + items_per_page)
+    .map((el) => el);
+
+  const currentIndex = 0;
+  res.render("pages/campgrounds/index", {
+    campgrounds,
+    currentPage: req.path,
+    currentIndex,
+    data2,
+    items_per_page,
+    totalItems,
+  });
 };
 
 module.exports.displayNewCampgroundsPage = async (req, res) => {
-  res.render("pages/campgrounds/new");
+  res.render("pages/campgrounds/new", { currentPage: req.path });
 };
 
 module.exports.addNewCampground = async (req, res, next) => {
@@ -48,7 +66,7 @@ module.exports.displayOneCampground = async (req, res, next) => {
       })
       .populate("author");
     if (!item) return req.flash("error", "Cannot find page");
-    res.render("pages/campgrounds/show", { item });
+    res.render("pages/campgrounds/show", { item, currentPage: req.path });
   } catch (err) {
     next(err);
   }
@@ -61,7 +79,7 @@ module.exports.editCampground = async (req, res, next) => {
       req.flash("error", "Cannot find page");
     } else {
       req.flash("success", "Campground edit successful");
-      res.render("pages/campgrounds/edit", { item });
+      res.render("pages/campgrounds/edit", { item, currentPage: req.path });
     }
   } catch (err) {
     next(err);
