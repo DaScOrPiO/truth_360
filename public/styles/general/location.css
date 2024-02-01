@@ -15,10 +15,9 @@ body {
 }
 
 .button:hover {
-    background-color: transparent;
-    color: #76c1cc;
-    transform: translateY(10%);
-    transition: .5s ease-in;
+    color: #fff;
+    transform: translateY(10%) !important;
+    transition: transform .5s ease-in !important;
 }
 
 #load-more {
@@ -41,4 +40,30 @@ body {
 .disabled-pointer {
     cursor: not-allowed;
     opacity: 0.2;
+}
+
+.review-container {
+    height: 150vh;
+    overflow-y: auto;
+}
+
+@media screen and (min-width: 1024px) {
+    .review-container {
+        height: 150vh;
+        overflow-y: auto;
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    .review-container {
+        height: 60vh;
+        overflow-y: auto;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .review-container {
+        height: 80vh;
+        overflow-y: auto;
+    }
 }

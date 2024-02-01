@@ -92,9 +92,9 @@
 }
 
 .active-session-btn>.home-button {
-    background-color: #585555;
+    background-color: #76c1cc;
     padding: 2% 8%;
-    color: #76c1cc;
+    color: #fff;
     border: none;
     border-radius: 0.8rem;
     cursor: pointer;
@@ -118,11 +118,11 @@
     transition: transform .8s ease;
 }
 
-.active-session-btn{
+.active-session-btn {
     display: flex;
 }
 
-.custom-alert{
+.custom-alert {
     z-index: 50;
     position: fixed;
     bottom: 2%;
@@ -135,8 +135,8 @@
         width: 100%;
     }
 
-    .custom-alert{
+    .custom-alert {
         width: 50%;
     }
-    
+
 }
