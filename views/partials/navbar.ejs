@@ -2,17 +2,48 @@
   <div class="navigation-container">
     <ul class="list-container no-display">
       <div class="nav-main">
-        <a href="/">Home</a>
-        <a class=" <%= currentPage === '/' ? 'active-li' : '' %>" href="/locations">All Locations</a>
-        <a href="/movies">Explore Movies</a>
+        <a class="d-flex justify-content-center align-items-center" href="/">
+          <i class="material-symbols-outlined mx-2"> home </i>
+          Home
+        </a>
+
+        <a
+          class="d-flex justify-content-center align-items-center <%= currentPage === '/' ? 'active-li' : '' %>"
+          href="/locations"
+        >
+          <i class="material-symbols-outlined mx-2"> pin_drop </i>
+          All Locations
+        </a>
+
+        <a class="d-flex justify-content-center align-items-center" href="/movies">
+          <i class="material-symbols-outlined mx-2"> theaters </i>
+          Explore Movies
+        </a>
       </div>
 
       <div class="nav-auth">
         <% if(!currentUser) {%>
-        <a class=" <%= currentPage === '/login' ? 'active-li' : '' %>" href="/login">Login</a>
-        <a class=" <%= currentPage === '/register' ? 'active-li' : '' %>" href="/register">Register</a>
+        <a
+          class="d-flex justify-content-center align-items-center <%= currentPage === '/login' ? 'active-li' : '' %>"
+          href="/login"
+        >
+          <i class="material-symbols-outlined mx-2"> login </i>
+          Login
+        </a>
+
+        <a
+          class="d-flex justify-content-center align-items-center <%= currentPage === '/register' ? 'active-li' : '' %>"
+          href="/register"
+        >
+          <i class="material-symbols-outlined mx-2"> how_to_reg </i>
+          Register
+        </a>
         <% } else {%>
-        <a href="/logout">Logout</a>
+
+        <a class="d-flex justify-content-center align-items-center" href="/logout">
+          <i class="material-symbols-outlined mx-2"> logout </i>
+          Logout
+        </a>
         <% } %>
       </div>
     </ul>

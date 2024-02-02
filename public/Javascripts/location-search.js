@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchContainer = document.querySelector(".search-container");
   const searchIcon = document.querySelector(".search-icon");
   const searchInput = document.querySelector(".search-input");
-  const searchButton = document.querySelector(".button-x");
+  const searchButton = document.querySelector("#button-addon2");
   const inputContainer = document.querySelector(".input-container");
   const searchSection = document.getElementById("search-section");
 
@@ -49,8 +49,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  console.log(searchButton);
   searchButton.addEventListener("click", () => {
     const location_name = searchInput.value;
+    console.log("working");
 
     if (location_name === "" || !location_name) {
       Swal.fire({
