@@ -48,4 +48,6 @@ router
   )
   .delete(isLoggedIn, isAuthor, campgroundController.deleteCampground);
 
+router.get("/search_locations", campgroundController.searchLocations);
+
 module.exports = router;

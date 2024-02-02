@@ -1,6 +1,7 @@
 const Campground = require("../models/campgrounds");
 const { cloudinary } = require("../cloudinary");
 const mapService = require("@mapbox/mapbox-sdk/services/geocoding");
+const campgrounds = require("../models/campgrounds");
 const geoService = mapService({ accessToken: process.env.Campgroud_map_token });
 
 const items_per_page = 10;
@@ -112,6 +113,21 @@ module.exports.updateCampground = async (req, res, next) => {
     res.redirect("/campgrounds");
   } catch (err) {
     next();
+  }
+};
+
+module.exports.searchLocations = async (req, res, next) => {
+  try {
+    const { location_name } = req.query;
+    const regex = new RegExp(location_name, "i");
+
+    const locationSearch = await campgrounds.find({
+      title: { $regex: regex },
+    });
+
+    return res.json(locationSearch);
+  } catch (err) {
+    next(err);
   }
 };
 
