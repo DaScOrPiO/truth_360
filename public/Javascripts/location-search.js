@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   searchContainer.addEventListener("click", () => {
     inputContainer.classList.remove("no-view");
     searchIcon.classList.add("no-view");
+    searchInput.value = "";
   });
 
   document.addEventListener("click", (e) => {
@@ -19,6 +20,31 @@ document.addEventListener("DOMContentLoaded", function () {
       ) {
         inputContainer.classList.add("no-view");
         searchIcon.classList.remove("no-view");
+      }
+    }
+
+    if (!searchSection.contains(e.target)) {
+      if (!searchSection.classList.contains("d-none")) {
+        searchSection.classList.add("d-none");
+      }
+    }
+  });
+
+  document.addEventListener("keypress", (e) => {
+    const location_name = searchInput.value;
+    if (e.key === "Enter" && document.activeElement === searchInput) {
+      if (!location_name || location_name === "") {
+        Swal.fire({
+          icon: "info",
+          title: "Include a location name!",
+          customClass: {
+            confirmButton: "sweet-alert-btn",
+          },
+          showConfirmButton: true,
+          confirmButtonText: "OK",
+        });
+      } else {
+        searchLocation(location_name);
       }
     }
   });

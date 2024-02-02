@@ -70,11 +70,11 @@ app.use((req, res, next) => {
   next();
 });
 
+// app.use("/", campgroundRoutes);
 app.use("/", userRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds", reviewRoutes);
 app.use("/", movieRoutes);
-app.use("/", campgroundRoutes);
 
 app.get("/", (req, res) => res.render("index", { currentPage: req.path }));
 

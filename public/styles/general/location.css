@@ -112,4 +112,11 @@ body {
         width: 60%;
         left: 42%;
     }
+
+    .search-section {
+        width: 95%;
+        height: 95vh;
+        top: 2%;
+        transform: translate(2%);
+    }
 }
