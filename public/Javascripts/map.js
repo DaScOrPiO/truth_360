@@ -8,7 +8,7 @@ const map = new mapboxgl.Map({
 
 map.addControl(new mapboxgl.NavigationControl());
 const popup = new mapboxgl.Popup({
-  closeButton: false,
+  closeButton: true,
   closeOnClick: false,
 });
 

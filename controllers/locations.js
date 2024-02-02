@@ -1,24 +1,24 @@
-const Campground = require("../models/campgrounds");
+const Location = require("../models/locations");
 const { cloudinary } = require("../cloudinary");
 const mapService = require("@mapbox/mapbox-sdk/services/geocoding");
-const campgrounds = require("../models/campgrounds");
+const locations = require("../models/locations");
 const geoService = mapService({ accessToken: process.env.Campgroud_map_token });
 
 const items_per_page = 10;
 
-module.exports.displayallCampgrounds = async (req, res) => {
+module.exports.displayallLocation = async (req, res) => {
   const page = req.query.page || 1;
-  const campgrounds = await Campground.find({});
+  const locations = await Location.find({});
 
   const startingIndex = (page - 1) * items_per_page;
-  const totalItems = campgrounds.length;
-  const data2 = campgrounds
+  const totalItems = locations.length;
+  const data2 = locations
     .slice(startingIndex, startingIndex + items_per_page)
     .map((el) => el);
 
   const currentIndex = 0;
-  res.render("pages/campgrounds/index", {
-    campgrounds,
+  res.render("pages/locations/index", {
+    locations,
     currentPage: req.path,
     currentIndex,
     data2,
@@ -27,11 +27,11 @@ module.exports.displayallCampgrounds = async (req, res) => {
   });
 };
 
-module.exports.displayNewCampgroundsPage = async (req, res) => {
-  res.render("pages/campgrounds/new", { currentPage: req.path });
+module.exports.displayNewLocationPage = async (req, res) => {
+  res.render("pages/locations/new", { currentPage: req.path });
 };
 
-module.exports.addNewCampground = async (req, res, next) => {
+module.exports.addNewLocation = async (req, res, next) => {
   try {
     const { item } = req.body;
     const getLocation = await geoService
@@ -45,20 +45,20 @@ module.exports.addNewCampground = async (req, res, next) => {
       filename: val.filename,
     }));
     item.author = req.user._id;
-    const newItem = new Campground(item);
+    const newItem = new Location(item);
     newItem.geometry = getLocation.body.features[0].geometry;
     newItem.images = filesParams;
     await newItem.save();
     req.flash("success", "Addition Successful");
-    res.redirect("/campgrounds");
+    res.redirect("/locations");
   } catch (err) {
     next(err);
   }
 };
 
-module.exports.displayOneCampground = async (req, res, next) => {
+module.exports.displayOneLocation = async (req, res, next) => {
   try {
-    const item = await Campground.findById(req.params.id)
+    const item = await Location.findById(req.params.id)
       .populate({
         path: "ratings",
         populate: {
@@ -67,29 +67,29 @@ module.exports.displayOneCampground = async (req, res, next) => {
       })
       .populate("author");
     if (!item) return req.flash("error", "Cannot find page");
-    res.render("pages/campgrounds/show", { item, currentPage: req.path });
+    res.render("pages/locations/show", { item, currentPage: req.path });
   } catch (err) {
     next(err);
   }
 };
 
-module.exports.editCampground = async (req, res, next) => {
+module.exports.editLocation = async (req, res, next) => {
   try {
-    const item = await Campground.findById(req.params.id);
+    const item = await Location.findById(req.params.id);
     if (!item) {
       req.flash("error", "Cannot find page");
     } else {
-      req.flash("success", "Campground edit successful");
-      res.render("pages/campgrounds/edit", { item, currentPage: req.path });
+      req.flash("success", "Location edit successful");
+      res.render("pages/locations/edit", { item, currentPage: req.path });
     }
   } catch (err) {
     next(err);
   }
 };
 
-module.exports.updateCampground = async (req, res, next) => {
+module.exports.updateLocation = async (req, res, next) => {
   try {
-    const item = await Campground.findByIdAndUpdate(
+    const item = await Location.findByIdAndUpdate(
       req.params.id,
       req.body.item
     );
@@ -109,19 +109,19 @@ module.exports.updateCampground = async (req, res, next) => {
         $pull: { images: { filename: { $in: req.body.deleteImages } } },
       });
     }
-    req.flash("success", "Campground update successful");
-    res.redirect("/campgrounds");
+    req.flash("success", "Location update successful");
+    res.redirect("/locations");
   } catch (err) {
     next();
   }
 };
 
-module.exports.searchLocations = async (req, res, next) => {
+module.exports.searchLocation = async (req, res, next) => {
   try {
     const { location_name } = req.query;
     const regex = new RegExp(location_name, "i");
 
-    const locationSearch = await campgrounds.find({
+    const locationSearch = await locations.find({
       title: { $regex: regex },
     });
 
@@ -131,12 +131,12 @@ module.exports.searchLocations = async (req, res, next) => {
   }
 };
 
-module.exports.deleteCampground = async (req, res, next) => {
+module.exports.deleteLocation = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const removedItem = await Campground.findByIdAndRemove(id);
-    req.flash("success", "Campground delete successful");
-    res.redirect("/campgrounds");
+    const removedItem = await Location.findByIdAndRemove(id);
+    req.flash("success", "Location delete successful");
+    res.redirect("/locations");
   } catch (err) {
     next(err);
   }

@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const searchLocation = async (query) => {
-    const search = `/search_locations?location_name=${query}`;
+    const search = `/locations/search_locations?location_name=${query}`;
 
     const response = await fetch(search);
     if (!response.ok) {
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p class="card-text">
                   <small class="text-muted">${location.location}</small>
                 </p>
-                <a class="button" href="campgrounds/${location._id}/show">View ${location.title}</a>
+                <a class="button" href="locations/${location._id}/show">View ${location.title}</a>
               </div>
             </div>
           </div>

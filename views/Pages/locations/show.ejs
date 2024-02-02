@@ -61,12 +61,12 @@
       </ul>
       <%if(currentUser && item.author._id.equals(currentUser._id)) {%>
       <div class="card-body">
-        <a class="card-link btn btn-info" href="/campgrounds/<%=item._id%>/edit"
+        <a class="card-link btn btn-info" href="/locations/<%=item._id%>/edit"
           >Edit</a
         >
         <form
           class="d-inline"
-          action="/campgrounds/<%=item._id%>?_method=DELETE"
+          action="/locations/<%=item._id%>?_method=DELETE"
           method="POST"
         >
           <button class="btn btn-danger">Delete</button>
@@ -81,7 +81,7 @@
     <%if(currentUser) {%>
     <h1>Leave a review</h1>
     <form
-      action="/campgrounds/<%=item._id%>/reviews"
+      action="/locations/<%=item._id%>/reviews"
       method="post"
       class="un-validated mb-3"
       novalidate
@@ -145,7 +145,7 @@
         <p class="card-text">Review: <%= review.description %></p>
         <%if(currentUser && review.author.equals(currentUser._id)) {%>
         <form
-          action="/campgrounds/<%=item.id%>/<%= review._id%>/review?_method=DELETE"
+          action="/locations/<%=item.id%>/<%= review._id%>/review?_method=DELETE"
           method="post"
         >
           <button class="btn-sm btn-danger">Delete</button>
