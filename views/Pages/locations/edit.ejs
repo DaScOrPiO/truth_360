@@ -1,11 +1,10 @@
 <% layout("layouts/boilerplate") %>
 
 <div class="row">
-  <h1 class="text-center">New Campground</h1>
-  <hr />
+  <h1 class="text-center px-5 py-3">Edit <%= item.title %></h1>
   <div class="col-md-6 offset-md-3">
     <form
-      action="/campgrounds"
+      action="/locations/<%=item._id%>?_method=PATCH"
       method="POST"
       class="un-validated"
       novalidate
@@ -18,6 +17,7 @@
           type="text"
           id="title"
           name="item[title]"
+          value="<%=item.title %>"
           required
         />
       </div>
@@ -28,20 +28,24 @@
           type="text"
           id="location"
           name="item[location]"
+          value="<%=item.location %>"
           required
         />
       </div>
-      <div class="mb-3">
-        <label class="form-label" for="image">Image Url</label>
+
+      <div class="mb-3 custom-file">
+        <label for="formFileMultiple" class="form-label custom-file-label"
+          >Upload more images</label
+        >
         <input
-          class="form-control"
+          class="form-control custom-file-input"
           type="file"
-          id="image"
+          id="images"
           name="image"
-          required
           multiple
         />
       </div>
+
       <div class="mb-3">
         <label class="form-label" for="price">Campground Price</label>
         <div class="input-group">
@@ -54,6 +58,7 @@
             aria-label="price"
             aria-describedby="price-label"
             name="item[price]"
+            value="<%=item.price %>"
             required
           />
         </div>
@@ -67,28 +72,48 @@
           id="description"
           name="item[description]"
           required
-        ></textarea>
+        >
+<%= item.description%></textarea
+        >
       </div>
+
       <div class="mb-3">
-        <button class="btn btn-success">Add Campground</button>
+        <% item.images.forEach((image, i) => { %>
+        <img
+          src="<%=image.thumbnail %>"
+          class="img-thumbnail"
+          height="200"
+          alt=""
+        />
+        <div
+          class="btn-group"
+          role="group"
+          aria-label="Basic checkbox toggle button group"
+        >
+          <input
+            type="checkbox"
+            id="image-<%=i %>"
+            name="deleteImages[]"
+            value="<%=image.filename%>"
+            autocomplete="off"
+          />
+          <label for="image-<%=i %>">delete-item</label>
+        </div>
+        <%}) %>
+      </div>
+
+      <div class="mb-3">
+        <button class="btn btn-info">Update Campground</button>
       </div>
     </form>
-    <a href="/campgrounds">All Campgrounds</a>
+    <div class="d-flex justify-content-center">
+      <a
+        class="button my-5 d-flex justify-content-center align-items-center w-50"
+        href="/locations"
+      >
+        <i class="material-symbols-outlined mx-2"> arrow_back </i>
+        Back
+      </a>
+    </div>
   </div>
 </div>
-
-<!-- <h1>Add new campground</h1>
-
-<form action="/campgrounds" method="post">
-  <div>
-    <label for="title">Title</label>
-    <input type="text" name="item[title]" id="title" value="" />
-  </div>
-  <hr />
-
-  <div>
-    <label for="location">Location</label>
-    <input type="text" name="item[location]" id="location" value="" />
-  </div>
-  <button>Submit</button>
-</form> -->

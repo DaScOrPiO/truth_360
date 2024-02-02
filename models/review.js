@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const Campground = require("./campgrounds");
 
 const reviewSchema = new Schema({
   rating: Number,

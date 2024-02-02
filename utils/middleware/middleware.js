@@ -1,4 +1,4 @@
-const Campgrounds = require("../../models/campgrounds");
+const Campgrounds = require("../../models/locations");
 const Reviews = require("../../models/review");
 const movieReview = require("../../models/movieReview");
 const movieWatchlist = require("../../models/movieWatchlist");

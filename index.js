@@ -14,7 +14,7 @@ const User = require("./models/user");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const userRoutes = require("./views/routes/user_routes");
-const campgroundRoutes = require("./views/routes/campground_routes");
+const locationRoutes = require("./views/routes/location_routes");
 const reviewRoutes = require("./views/routes/review_routes");
 const movieRoutes = require("./views/routes/movie_route");
 const session = require("express-session");
@@ -70,12 +70,13 @@ app.use((req, res, next) => {
   next();
 });
 
+// app.use("/", campgroundRoutes);
 app.use("/", userRoutes);
-app.use("/campgrounds", campgroundRoutes);
-app.use("/campgrounds", reviewRoutes);
+app.use("/locations", locationRoutes);
+app.use("/locations", reviewRoutes);
 app.use("/", movieRoutes);
 
-app.get("/", (req, res) => res.render("index"));
+app.get("/", (req, res) => res.render("index", { currentPage: req.path }));
 
 app.use((err, req, res, next) => {
   const { message = "Something went wrong!", code = 500 } = err;

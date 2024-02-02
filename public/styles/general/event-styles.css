@@ -12,32 +12,35 @@
 }
 
 .to-signup, .to-login {
-    background-color: #92c7f5;
-    padding: 2% 4%;
-    color: aliceblue;
-    border: 0.1rem solid #92c7f5;
-    border-radius: 2rem;
+    background-color: #76c1cc;
+    padding: 2% 8%;
+    color: #fff;
+    border: none;
+    border-radius: 0.8rem;
     cursor: pointer;
 }
 
-.to-signup:hover, .to-login:hover{
-    background-color: transparent;
+.to-signup:hover, .to-login:hover {
+    background-color: #76c1cc;
+    border: none;
+    transform: translateY(10%);
+    transition: transform .8s ease;
 }
 
 @media screen and (min-width: 1024px) {
-    .customized-card{
+    .customized-card {
         width: 500px;
     }
 }
 
 @media screen and (max-width: 1023px) {
-    .items{
+    .items {
         width: 500px;
     }
 }
 
 @media screen and (max-width: 767px) {
-    .items{
+    .items {
         width: 400px;
     }
 }

@@ -79,24 +79,24 @@
 
 .screen-message>.p1 {
     color: aliceblue;
-    font-size: 2rem;
+    font-size: 1.2rem;
 }
 
 .screen-message>.home-button {
-    background-color: transparent;
-    padding: 2% 2%;
-    color: aliceblue;
-    border: 1px solid aliceblue;
-    border-radius: 2rem;
+    background-color: #76c1cc;
+    padding: 2% 8%;
+    color: #fff;
+    border: none;
+    border-radius: 0.8rem;
     cursor: pointer;
 }
 
 .active-session-btn>.home-button {
-    background-color: transparent;
-    padding: 2% 2%;
-    color: aliceblue;
-    border: 1px solid aliceblue;
-    border-radius: 2rem;
+    background-color: #76c1cc;
+    padding: 2% 8%;
+    color: #fff;
+    border: none;
+    border-radius: 0.8rem;
     cursor: pointer;
     margin: 0 2%;
     text-decoration: none;
@@ -105,20 +105,24 @@
 }
 
 .screen-message>.home-button:hover {
-    background-color: #92c7f5;
+    /* background-color: #76c1cc; */
     border: none;
+    transform: translateY(10%);
+    transition: transform .8s ease;
 }
 
 .active-session-btn>.home-button:hover {
-    background-color: #92c7f5;
+    background-color: #76c1cc;
     border: none;
+    transform: translateY(10%);
+    transition: transform .8s ease;
 }
 
-.active-session-btn{
+.active-session-btn {
     display: flex;
 }
 
-.custom-alert{
+.custom-alert {
     z-index: 50;
     position: fixed;
     bottom: 2%;
@@ -131,8 +135,8 @@
         width: 100%;
     }
 
-    .custom-alert{
+    .custom-alert {
         width: 50%;
     }
-    
+
 }

@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Campground = require("../../models/campgrounds");
-const Review = require("../../models/review");
-const campgroundController = require("../../controllers/campgrounds");
+const locationController = require("../../controllers/locations");
 const { isLoggedIn, isAuthor } = require("../../utils/middleware/middleware");
 const multer = require("multer");
 const { storage } = require("../../cloudinary");
@@ -14,26 +12,29 @@ const {
 // Show all campgrounds & Add new campground
 router
   .route("/")
-  .get(campgroundController.displayallCampgrounds)
+  .get(locationController.displayallLocation)
   .post(
     isLoggedIn,
     upload.array("image"),
     validateCampgrounds,
-    campgroundController.addNewCampground
+    locationController.addNewLocation
   );
 
 // Render for for creating new campground
-router.get("/new", isLoggedIn, campgroundController.displayNewCampgroundsPage);
+router.get("/new", isLoggedIn, locationController.displayNewLocationPage);
 
 // Show one campground
-router.get("/:id/show", campgroundController.displayOneCampground);
+router.get("/:id/show", locationController.displayOneLocation);
+
+// Search locations
+router.get("/search_locations", locationController.searchLocation);
 
 // Edit campground
 router.get(
   "/:id/edit",
   isLoggedIn,
   isAuthor,
-  campgroundController.editCampground
+  locationController.editLocation
 );
 
 // Update Campground & delete
@@ -44,8 +45,8 @@ router
     isAuthor,
     upload.array("image"),
     validateCampgrounds,
-    campgroundController.updateCampground
+    locationController.updateLocation
   )
-  .delete(isLoggedIn, isAuthor, campgroundController.deleteCampground);
+  .delete(isLoggedIn, isAuthor, locationController.deleteLocation);
 
 module.exports = router;
