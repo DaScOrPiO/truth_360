@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!series_name || series_name === "") {
       Swal.fire({
         icon: "info",
-        title: "Include a show name",
+        title: "Include a tv-show name",
         customClass: {
           confirmButton: "sweet-alert-btn",
         },
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!series_name || series_name === "") {
         Swal.fire({
           icon: "info",
-          title: "Include a show name!",
+          title: "Include a tv-show name!",
           customClass: {
             confirmButton: "sweet-alert-btn",
           },
@@ -584,7 +584,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         Swal.fire({
           icon: "info",
-          title: "Cannot find movie :(",
+          title: "Cannot find tv-show :(",
           customClass: {
             confirmButton: "sweet-alert-btn",
           },

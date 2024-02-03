@@ -147,7 +147,7 @@ module.exports.addToWishlist = async (req, res, next) => {
     addNew.Owner = userId;
     await addNew.save();
     req.flash("success", "Action Successful");
-    res.redirect("/movies");
+    res.redirect(res.locals.redirect);
   } catch (err) {
     next(err);
   }
@@ -157,10 +157,12 @@ module.exports.showWishlists = async (req, res, next) => {
   try {
     const items = await movieWishlist.find({ Owner: req.user._id });
     const page = req.query.page || 1;
+    const refererUrl = new URL(req.headers.referer);
+    const redirectTo = refererUrl.pathname.split("/").pop();
 
     if (!items || items.length === 0) {
       req.flash("error", "No items to display");
-      res.redirect("/movies");
+      res.redirect(redirectTo);
     } else {
       const data1 = items.findLast((el) => el);
       const restOfItems = items;
@@ -214,8 +216,8 @@ module.exports.removeFromWishlists = async (req, res, next) => {
       Owner: req.user._id,
     });
 
-    req.flash("success", "Action successful")
-    res.redirect("/movies");
+    req.flash("success", "Action successful");
+    res.redirect(res.locals.redirect);
   } catch (err) {
     next(err);
   }
@@ -244,7 +246,7 @@ module.exports.addReview = async (req, res, next) => {
     });
     await review.save();
     req.flash("success", "Action successful");
-    res.redirect("/movies");
+    res.redirect(res.locals.redirect);
   } catch (err) {
     next(err);
   }
@@ -259,10 +261,10 @@ module.exports.editReview = async (req, res, next) => {
       });
 
       req.flash("success", "Action successful");
-      res.redirect("/movies");
+      res.redirect(res.locals.redirect);
     } else {
       req.flash("error", "Failed, comment cannot be empty!");
-      res.redirect("/movies");
+      res.redirect(res.locals.redirect);
     }
   } catch (err) {
     next(err);
@@ -284,7 +286,7 @@ module.exports.deleteReview = async (req, res, next) => {
       Owner: userId,
     });
     req.flash("success", "Action successful");
-    res.redirect("/movies");
+    res.redirect(res.locals.redirect);
   } catch (err) {
     next(err);
   }

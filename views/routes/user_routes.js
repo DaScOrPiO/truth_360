@@ -3,7 +3,10 @@ const router = express.Router();
 const User = require("../../models/user");
 const ErrorMessage = require("../../utils/validation/ErrorMessage");
 const passport = require("passport");
-const { storeReturnTo } = require("../../utils/middleware/middleware");
+const {
+  storeReturnTo,
+  redirectUrl,
+} = require("../../utils/middleware/middleware");
 
 router.get("/register", (req, res) => {
   res.render("Pages/user/register", { currentPage: req.path });
@@ -34,6 +37,7 @@ router.get("/login", async (req, res) => {
 router.post(
   "/login",
   storeReturnTo,
+  redirectUrl,
   passport.authenticate("local", {
     failureFlash: true,
     failureRedirect: "/login",
