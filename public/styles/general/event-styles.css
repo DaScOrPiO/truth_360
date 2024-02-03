@@ -1,8 +1,30 @@
+html{
+    overflow-x: hidden;
+}
+
 .login, .register {
     min-height: 100vh;
-    background: url("../../images/login-bg.jpg");
+    background: url("../../images/world.jpg");
     background-size: cover;
     color: #fff;
+    animation: slideshow 60s infinite ease-in;
+}
+
+@keyframes slideshow {
+    20% {
+        background: url("../../images/world.jpg") no-repeat;
+        background-size: cover;
+    }
+
+    80% {
+        background: url("../../images/world2.jpg") no-repeat;
+        background-size: cover;
+    }
+
+    90% {
+        background: url("../../images/login-bg.jpg") no-repeat;
+        background-size: cover;
+    }
 }
 
 .customized-card {

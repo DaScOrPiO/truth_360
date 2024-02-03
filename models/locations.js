@@ -52,9 +52,12 @@ const campgroundSchema = new Schema(
 );
 
 campgroundSchema.virtual("properties.popMarkup").get(function () {
+  const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${this.location}`;
+
   return `<strong>
   <a  class="button-map d-flex justify-content-center mb-2"  href=locations/${this._id}/show>${this.title}</a>
   <p class="fs-6 fw-lighter">${this.description}</p>
+  <a class="button-map fs-6 fw-lighter" href="${googleMapsLink}" target="_blank">Get there</a>
   </strong>`;
 });
 

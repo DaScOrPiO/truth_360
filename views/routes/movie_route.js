@@ -22,6 +22,7 @@ const {
   itemIsReviewed,
   presentInWishlistsOrWatchlists,
   presentinWatchlist,
+  redirectUrl
 } = require("../../utils/middleware/middleware");
 
 router
@@ -37,13 +38,14 @@ router
   .post(
     "/addtowishlist",
     isLoggedIn,
+    redirectUrl,
     upload.none(),
     presentInWishlistsOrWatchlists,
     addToWishlist
   )
-  .post("/remove_fromwishlist", isLoggedIn, upload.none(), removeFromWishlists)
-  .post("/add_review", isLoggedIn, upload.none(), itemIsReviewed, addReview)
-  .put("/edit_review", isLoggedIn, upload.none(), editReview)
-  .delete("/delete_review", isLoggedIn, deleteReview);
+  .post("/remove_fromwishlist", isLoggedIn, redirectUrl, upload.none(), removeFromWishlists)
+  .post("/add_review", isLoggedIn, redirectUrl, upload.none(), itemIsReviewed, addReview)
+  .put("/edit_review", isLoggedIn, redirectUrl, upload.none(), editReview)
+  .delete("/delete_review", redirectUrl, isLoggedIn, deleteReview);
 
 module.exports = router;

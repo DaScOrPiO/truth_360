@@ -81,7 +81,9 @@ app.get("/", (req, res) => res.render("index", { currentPage: req.path }));
 app.use((err, req, res, next) => {
   const { message = "Something went wrong!", code = 500 } = err;
   req.flash("error", `${message}`);
-  res.status(code).redirect("/campgrounds");
+  req.method === "GET"
+    ? res.status(code).redirect(req.originalUrl)
+    : res.status(code).redirect("/");
   // res.status(code).render("pages/campgrounds/error", { err });
   console.log(message, code);
 });

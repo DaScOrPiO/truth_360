@@ -1,4 +1,4 @@
-const Campgrounds = require("../../models/locations");
+const Locations = require("../../models/locations");
 const Reviews = require("../../models/review");
 const movieReview = require("../../models/movieReview");
 const movieWatchlist = require("../../models/movieWatchlist");
@@ -8,7 +8,11 @@ module.exports.isLoggedIn = async (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
   } else {
-    req.method === "GET" ? req.session.returnTo = req.originalUrl : req.session.returnTo = "/"
+    const refererUrl = new URL(req.headers.referer);
+    const redirectTo = refererUrl.pathname.split("/").pop();
+    req.method === "GET"
+      ? (req.session.returnTo = req.originalUrl)
+      : (req.session.returnTo = redirectTo);
     req.flash("error", "Please login to perform action!");
     res.redirect("/login");
   }
@@ -23,10 +27,10 @@ module.exports.storeReturnTo = (req, res, next) => {
 
 module.exports.isAuthor = async (req, res, next) => {
   const { id } = req.params;
-  const item = await Campgrounds.findById(id);
+  const item = await Locations.findById(id);
   if (!item.author.equals(req.user._id)) {
     req.flash("error", "You do not have permission to do that!");
-    return res.redirect("/campgrounds");
+    return res.redirect("/locations");
   }
   next();
 };
@@ -36,13 +40,23 @@ module.exports.isReviewAuthor = async (req, res, next) => {
   const item = await Reviews.findById(reviewId);
   if (!item.author.equals(req.user._id)) {
     req.flash("error", "Sorry You do not have permission to do that");
-    return res.redirect(`/campgrounds/${itemId}/show`);
+    return res.redirect(`/locations/${itemId}/show`);
   }
+  next();
+};
+
+module.exports.redirectUrl = async (req, res, next) => {
+  const refererUrl = new URL(req.headers.referer);
+  const redirectTo = refererUrl.pathname.split("/").pop();
+  res.locals.redirect = redirectTo;
   next();
 };
 
 module.exports.itemIsReviewed = async (req, res, next) => {
   const { Movie_id } = req.body;
+  console.log("item is reviewed ran");
+  const refererUrl = new URL(req.headers.referer);
+  const redirectTo = refererUrl.pathname.split("/").pop();
   const hasReview = await movieReview.findOne({
     Author: req.user._id,
     Movie_id: Movie_id,
@@ -52,7 +66,7 @@ module.exports.itemIsReviewed = async (req, res, next) => {
       "error",
       "You have previously reviewed this movie, edit review instead!"
     );
-    res.redirect("/movies");
+    res.redirect(res.locals.redirect);
   } else {
     next();
   }
@@ -73,10 +87,10 @@ module.exports.presentInWishlistsOrWatchlists = async (req, res, next) => {
   });
   if (inWatchlist) {
     req.flash("error", "Item among movies you've seen");
-    res.redirect("/movies");
+    res.redirect(res.locals.redirect);
   } else if (isPresent && isPresent.Movie_id === Number(item.Movie_id)) {
     req.flash("error", "item has been previously added");
-    res.redirect("/movies");
+    res.redirect(res.locals.redirect);
   } else {
     next();
   }
@@ -89,7 +103,7 @@ module.exports.presentinWatchlist = async (req, res, next) => {
 
   if (!items || items.length === 0) {
     req.flash("error", "No items to display");
-    res.redirect("/movies");
+    res.redirect(res.locals.redirect);
   } else {
     next();
   }

@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="watchlist-info-label">Modal 1</h5>
+                      <h5 class="modal-title fw-bolder" id="watchlist-info-label">${movie.Movie_name} Info</h5>
                       <button
                         type="button"
                         class="btn-close"
@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             (review) => `
                               <div class="mb-3">
                                 <!-- still working here -->
-                                <h3>${movie.Movie_name} rating</h3>
+                                <h3>Your rating</h3>
                                 <p class="starability-result" data-rating="${review.Ratings}">
                                   Rated: 3 stars
                                 </p>
@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
                               </div>
   
                               <div>
-                                <legend>Comment</legend>
+                                <legend>Your comment</legend>
                                 <textarea
                                   type="text"
                                   name="comment"
