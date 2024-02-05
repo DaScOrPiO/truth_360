@@ -122,6 +122,19 @@ body {
   box-shadow: -3px 3px 29px 9px #00ffff, -2px -2px 33px 4px #68686a;
 }
 
+.button-trailer {
+  color: #76c1cc;
+  text-decoration: none;
+}
+
+.button-trailer:hover {
+  color: #76c1cc;
+}
+
+.gold{
+  color: #f5bd23;
+}
+
 .search-container {
   width: 80%;
   position: absolute;
