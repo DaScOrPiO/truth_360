@@ -124,6 +124,14 @@ document.addEventListener("DOMContentLoaded", function () {
                         movie.MovieName
                       }</h5>
                       <p class="card-text">${movie.Movie_description}</p>
+                      <small class="text-muted">
+                      <a
+                        class="button-trailer"
+                        href="https://www.youtube.com/results?search_query=${movie.MovieName}+trailer"
+                        target="_blank"
+                        >Watch trailer</a
+                      >
+                    </small>
                     </div>
                   </div>
     
