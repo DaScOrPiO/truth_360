@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="wishlist-info-label">Modal 1</h5>
+                  <h5 class="modal-title fw-bolder" id="wishlist-info-label">${movie.MovieName} Info</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body modal-flex">
@@ -124,6 +124,14 @@ document.addEventListener("DOMContentLoaded", function () {
                         movie.MovieName
                       }</h5>
                       <p class="card-text">${movie.Movie_description}</p>
+                      <small class="text-muted">
+                      <a
+                        class="button-trailer"
+                        href="https://www.youtube.com/results?search_query=${movie.MovieName}+trailer"
+                        target="_blank"
+                        >Watch trailer</a
+                      >
+                    </small>
                     </div>
                   </div>
     
