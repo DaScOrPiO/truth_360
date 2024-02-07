@@ -65,7 +65,9 @@ campgroundSchema.post("findOneAndRemove", async function (item) {
   try {
     if (item) {
       await Review.deleteMany({ _id: { $in: item.ratings } });
-      await cloudinary.uploader.destroy(item.images.filename);
+      for (let file of item.images) {
+        await cloudinary.uploader.destroy(file.filename);
+      }
     }
   } catch (err) {
     console.log(err);
