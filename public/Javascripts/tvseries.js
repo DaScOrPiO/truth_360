@@ -374,6 +374,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
 
                 <div class="mb-3 no-view">
+                  <label for="movie_poster">Tmdb rating</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="Tmdb_rating"
+                    value="${Math.round((movie.vote_average / 2) * 10) / 10}"
+                    readonly
+                    id="movie_poster"
+                  />
+                </div>
+
+                <div class="mb-3 no-view">
                   <label for="movie_name">Movie name</label>
                   <input
                     class="form-control"
@@ -516,6 +528,13 @@ document.addEventListener("DOMContentLoaded", function () {
                   name="Poster_path"
                   id=""
                   value="${movie.poster_path}"
+                />
+                <input
+                  type="text"
+                  class="d-none"
+                  name="Tmdb_rating"
+                  id=""
+                  value="${Math.round((movie.vote_average / 2) * 10) / 10}"
                 />
                 <button class="fw-bolder d-flex justify-content-center card-wishlist-btn">
                   <span class="material-symbols-outlined"> add </span>

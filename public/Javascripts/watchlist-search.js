@@ -105,7 +105,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title fw-bolder" id="watchlist-info-label">${movie.Movie_name} Info</h5>
+                  <h5 class="modal-title fw-bolder" id="watchlist-info-label">${
+                    movie.Movie_name
+                  } Info</h5>
                   <button
                     type="button"
                     class="btn-close"
@@ -134,10 +136,20 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="card-body">
                       <h5 class="card-title">${movie.Movie_name}</h5>
                       <p class="card-text">${movie.Movie_description}</p>
+                      <p class="card-text">${movie.Movie_description}</p>
+                          <p class="d-flex align-items-center">
+                            <i class="gold material-symbols-outlined"> stars </i>
+                            <span class="gold mx-2">
+                              ${movie.Tmdb_rating}/5
+                            </span>
+                          on TMDB
+                        </p>
                       <small class="text-muted">
                       <a
                         class="button-trailer"
-                        href="https://www.youtube.com/results?search_query=${movie.Movie_name}+trailer"
+                        href="https://www.youtube.com/results?search_query=${
+                          movie.Movie_name
+                        }+trailer"
                         target="_blank"
                         >Watch trailer</a
                       >

@@ -56,6 +56,20 @@
               id=""
               value="<%= data1[i].poster_path%>"
             />
+            <input
+              type="text"
+              class="d-none"
+              name="Movie_description"
+              id=""
+              value="<%= data1[i].overview%>"
+            />
+            <input
+              type="text"
+              class="d-none"
+              name="Tmdb_rating"
+              id=""
+              value="<%= Math.round(data1[i].vote_average / 2 * 10) / 10 %>"
+            />
             <button class="button fw-bolder d-flex">
               <span class="material-symbols-outlined"> add </span>
               Wishlist
@@ -137,6 +151,7 @@
                           id="movie_description"
                         />
                       </div>
+
                       <div class="mb-3 d-none">
                         <label for="movie_poster">Movie poster</label>
                         <input
@@ -146,6 +161,18 @@
                           value="<%= data1[i].poster_path %>"
                           readonly
                           id="movie_poster"
+                        />
+                      </div>
+
+                      <div class="mb-3 d-none">
+                        <label for="tmdb_ratings">Tmdb rating</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="Tmdb_rating"
+                          value="<%= Math.round(data1[i].vote_average / 2 * 10) / 10 %>"
+                          readonly
+                          id="tmdb_ratings"
                         />
                       </div>
 
@@ -604,6 +631,18 @@
                   </div>
 
                   <div class="mb-3 no-view">
+                    <label for="tmdb_ratings">Tmdb rating</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="Tmdb_rating"
+                      value="<%= Math.round(data2[i].vote_average / 2 * 10) / 10 %>"
+                      readonly
+                      id="tmdb_ratings"
+                    />
+                  </div>
+
+                  <div class="mb-3 no-view">
                     <label for="movie_name">Movie name</label>
                     <input
                       class="form-control"
@@ -735,6 +774,13 @@
             name="Poster_path"
             id=""
             value="<%= data2[i].poster_path%>"
+          />
+          <input
+            type="text"
+            class="d-none"
+            name="Tmdb_rating"
+            id=""
+            value="<%= Math.round(data2[i].vote_average / 2 * 10) / 10 %>"
           />
           <button
             class="fw-bolder d-flex justify-content-center card-wishlist-btn"

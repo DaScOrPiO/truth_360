@@ -27,6 +27,11 @@ const movieWatchlistSchema = new Schema({
     required: true,
   },
 
+  Tmdb_rating: {
+    type: Number,
+    required: true,
+  },
+
   Ratings: {
     type: Schema.Types.ObjectId,
     ref: "MovieReview",

@@ -124,6 +124,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         movie.MovieName
                       }</h5>
                       <p class="card-text">${movie.Movie_description}</p>
+                      <p class="d-flex align-items-center">
+                        <i class="gold material-symbols-outlined"> stars </i>
+                          <span class="gold mx-2">
+                          ${movie.Tmdb_rating}/5
+                          </span>
+                        on TMDB
+                    </p>
                       <small class="text-muted">
                       <a
                         class="button-trailer"
@@ -216,6 +223,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         <input class="form-control" type="text" name="Movie_poster" value="${
                           movie.Poster_path
                         }" readonly id="movie_poster" />
+                      </div>
+
+                      <div class="mb-3 no-view">
+                        <label for="tmdb_ratings">Tmdb rating</label>
+                        <input class="form-control" type="text" name="Tmdb_rating" value="${
+                          movie.Tmdb_rating
+                        }" readonly id="tmdb_rating" />
                       </div>
     
                       <div class="mb-3 no-view">
