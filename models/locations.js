@@ -61,6 +61,26 @@ campgroundSchema.virtual("properties.popMarkup").get(function () {
   </strong>`;
 });
 
+campgroundSchema.pre("save", async function (next) {
+  const maxFileSize = 10 * 1024 * 1024;
+  let totalSize = 0;
+
+  for (let image of this.images) {
+    const imageSize = Buffer.byteLength(image.url, "utf-8");
+    totalSize += imageSize;
+    console.log(totalSize);
+  }
+
+  if (totalSize > maxFileSize) {
+    req.flash("error", "Total image files too large");
+    return next(
+      new Error("Total image file size exceeds the maximum allowed size.")
+    );
+  }
+
+  next();
+});
+
 campgroundSchema.post("findOneAndRemove", async function (item) {
   try {
     if (item) {
