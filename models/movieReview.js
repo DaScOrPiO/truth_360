@@ -31,6 +31,10 @@ const MovieReviewSchema = new Schema({
     type: String,
     required: true,
   },
+  Tmdb_rating: {
+    type: Number,
+    required: true,
+  },
   Movie_poster: {
     type: String,
     required: true,
@@ -57,6 +61,7 @@ MovieReviewSchema.post("save", async function () {
       Movie_name: this.Movie_name,
       Movie_description: this.Movie_description,
       Movie_poster: this.Movie_poster,
+      Tmdb_rating: Number(this.Tmdb_rating),
       Ratings: this._id,
     });
     await new_watchList.save();

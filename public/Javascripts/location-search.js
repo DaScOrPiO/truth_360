@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
       const closeButton = document.createElement("button");
-      closeButton.classList.add("close-btn", "btn-danger");
+      closeButton.classList.add("close-btn", "btn-danger", "my-3");
       closeButtonContainer.appendChild(closeButton);
       closeButton.innerHTML =
         '<span class="material-symbols-outlined"> close </span>';

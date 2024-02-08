@@ -295,7 +295,9 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title fw-bolder" id="wishlist-info-label"><%= initialData[i].MovieName %> Info</h5>
+              <h5 class="modal-title fw-bolder" id="wishlist-info-label">
+                <%= initialData[i].MovieName %> Info
+              </h5>
               <button
                 type="button"
                 class="btn-close"
@@ -320,9 +322,18 @@
                   />
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title fw-bolder fs-2"><%= initialData[i].MovieName %></h5>
+                  <h5 class="card-title fw-bolder fs-2">
+                    <%= initialData[i].MovieName %>
+                  </h5>
                   <p class="card-text">
                     <%= initialData[i].Movie_description %>
+                  </p>
+                  <p class="d-flex align-items-center">
+                    <i class="gold material-symbols-outlined"> stars </i>
+                    <span class="gold mx-2">
+                      <%= initialData[i].Tmdb_rating %>
+                    </span>
+                    on TMDB
                   </p>
                   <small class="text-muted">
                     <a

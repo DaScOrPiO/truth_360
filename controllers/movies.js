@@ -232,6 +232,7 @@ module.exports.addReview = async (req, res, next) => {
       Movie_poster,
       Movie_name,
       Movie_description,
+      Tmdb_rating,
     } = req.body;
     const userId = req.user._id;
 
@@ -243,6 +244,7 @@ module.exports.addReview = async (req, res, next) => {
       Movie_name: Movie_name,
       Movie_description: Movie_description,
       Movie_poster: Movie_poster,
+      Tmdb_rating: Tmdb_rating,
     });
     await review.save();
     req.flash("success", "Action successful");
