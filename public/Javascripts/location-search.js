@@ -49,10 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  console.log(searchButton);
   searchButton.addEventListener("click", () => {
     const location_name = searchInput.value;
-    console.log("working");
 
     if (location_name === "" || !location_name) {
       Swal.fire({

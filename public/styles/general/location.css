@@ -96,7 +96,7 @@ body {
     transition: all .8s ease;
 }
 
-.no-view {
+.no-view, .no-view1{
     display: none;
 }
 
