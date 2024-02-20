@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener("keypress", (e) => {
     const location_name = searchInput.value;
     if (e.key === "Enter" && document.activeElement === searchInput) {
+      searchInput.value = "";
       if (!location_name || location_name === "") {
         Swal.fire({
           icon: "info",
@@ -134,6 +135,17 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       closeButton.addEventListener("click", () => {
         searchSection.classList.add("d-none");
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Location with that keyword not on list, Please help by adding a new location with that keyword",
+        customClass: {
+          confirmButton: "sweet-alert-btn",
+        },
+        showConfirmButton: true,
+        confirmButtonText: "OK",
       });
     }
   };

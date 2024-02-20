@@ -45,13 +45,11 @@
       </div>
 
       <div class="mb-3 custom-file">
-        <label for="formFileMultiple" class="form-label custom-file-label"
-          >Upload more images</label
-        >
+        <label class="form-label" for="image">Upload more images</label>
         <input
           class="form-control custom-file-input no-text-desc"
           type="file"
-          id="images"
+          id="image"
           name="image"
           multiple
         />
@@ -118,7 +116,7 @@
       </div>
 
       <div class="mb-3">
-        <button class="btn btn-info">Update Campground</button>
+        <button class="btn btn-info" id="submit">Update Campground</button>
       </div>
     </form>
     <div class="d-flex justify-content-center">
@@ -133,3 +131,4 @@
   </div>
 </div>
 <script src="/Javascripts/show-message.js"></script>
+<script src="/Javascripts/validateImage-size.js"></script>
