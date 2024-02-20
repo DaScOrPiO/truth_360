@@ -54,7 +54,6 @@ module.exports.redirectUrl = async (req, res, next) => {
 
 module.exports.itemIsReviewed = async (req, res, next) => {
   const { Movie_id } = req.body;
-  console.log("item is reviewed ran");
   const refererUrl = new URL(req.headers.referer);
   const redirectTo = refererUrl.pathname.split("/").pop();
   const hasReview = await movieReview.findOne({
@@ -97,13 +96,16 @@ module.exports.presentInWishlistsOrWatchlists = async (req, res, next) => {
 };
 
 module.exports.presentinWatchlist = async (req, res, next) => {
+  const refererUrl = new URL(req.headers.referer);
+  const redirectTo = refererUrl.pathname.split("/").pop();
+
   const items = await movieWatchlist
     .find({ Owner: req.user._id })
     .populate("Ratings");
 
   if (!items || items.length === 0) {
     req.flash("error", "No items to display");
-    res.redirect(res.locals.redirect);
+    res.redirect(redirectTo);
   } else {
     next();
   }
