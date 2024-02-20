@@ -12,7 +12,12 @@
     data-bs-pause="false"
   >
     <div class="carousel-inner">
-      <h1 class="top">Currently Playing</h1>
+      <h1 class="top d-flex align-items-center">
+        Currently Playing
+        <i class="material-symbols-outlined fs-1 mx-2">
+          local_fire_department
+        </i>
+      </h1>
       <% for (let i = 0; i < data1.length; i++) { %>
       <div
         class="carousel-item <%= i === 0 ? 'active' : '' %>"
@@ -300,7 +305,9 @@
 </header>
 
 <section class="top-rated py-2 px-2">
-  <h1>Top Rated</h1>
+  <h1 class="d-flex align-items-center">
+    Top Rated <i class="material-symbols-outlined mx-2 fs-1"> hotel_class </i>
+  </h1>
   <div class="content-container d-flex flex-wrap" id="content-container">
     <% for(let i = 0; i < topRated.length; i++) {%>
     <div class="card mx-auto my-4 px-4 py-2" style="width: 16rem">
@@ -793,7 +800,9 @@
   </div>
 
   <div class="d-flex justify-content-center align-items-center w-100">
-    <button class="button shadow fw-bolder" id="load-more">Load More</button>
+    <button class="button shadow fw-bolder d-flex align-items-center" id="load-more">
+      Load More <i class="material-symbols-outlined fs-1"> expand_more </i>
+    </button>
   </div>
 </section>
 
