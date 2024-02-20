@@ -1,3 +1,7 @@
+body {
+    font-family: "Playfair Display", serif;
+}
+
 .main-body {
     width: 100vw;
     height: 100vh;
@@ -139,4 +143,16 @@
         width: 50%;
     }
 
+}
+
+@font-face {
+    font-family: "Playfair Display";
+    src: url("../../fonts/PlayfairDisplay-VariableFont_wght.ttf");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Playfair Display";
+    src: url("../../fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");
+    font-style: italic;
 }

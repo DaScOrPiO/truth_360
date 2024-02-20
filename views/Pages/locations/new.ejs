@@ -1,11 +1,12 @@
 <% layout("layouts/boilerplate") %>
 
 <div class="row">
-  <div class="d-flex flex-column justify-content-center align-items-center px-5 py-3">
+  <div
+    class="d-flex flex-column justify-content-center align-items-center px-5 py-3"
+  >
     <h1 class="text-center">Add New Location</h1>
     <small class="text-muted text-center"
-      >Ensure location address and description are descriptive as possible to
-      help others</small
+      >Add new details about a location</small
     >
   </div>
   <hr />
@@ -20,7 +21,7 @@
       <div class="mb-3">
         <label class="form-label" for="title">Title</label>
         <input
-          class="form-control"
+          class="form-control no-text-desc"
           type="text"
           id="title"
           name="item[title]"
@@ -30,17 +31,20 @@
       <div class="mb-3">
         <label class="form-label" for="location">Location</label>
         <input
-          class="form-control"
+          class="form-control text-input"
           type="text"
           id="location"
           name="item[location]"
           required
         />
+        <small class="text-success fs-6 no-view1 fst-italic"
+          >Make sure this field is descriptive as possible</small
+        >
       </div>
       <div class="mb-3">
         <label class="form-label" for="image">Image Url</label>
         <input
-          class="form-control"
+          class="form-control no-text-desc"
           type="file"
           id="image"
           name="image"
@@ -49,12 +53,12 @@
         />
       </div>
       <div class="mb-3">
-        <label class="form-label" for="price">Campground Price</label>
+        <label class="form-label" for="price">Location Price</label>
         <div class="input-group">
           <span class="input-group-text" id="price-label">$</span>
           <input
             type="text"
-            class="form-control"
+            class="form-control no-text-desc"
             id="price"
             placeholder="0.00"
             aria-label="price"
@@ -68,15 +72,18 @@
       <div class="mb-3">
         <label class="form-label" for="description">Description</label>
         <textarea
-          class="form-control"
+          class="form-control text-input"
           type="text"
           id="description"
           name="item[description]"
           required
         ></textarea>
+        <small class="text-success fs-6 no-view1 fst-italic"
+          >Make sure this field is descriptive as possible</small
+        >
       </div>
       <div class="mb-3">
-        <button class="btn btn-success">Add Campground</button>
+        <button class="btn btn-success" id="submit">Add Location</button>
       </div>
     </form>
     <div class="d-flex justify-content-center">
@@ -90,3 +97,5 @@
     </div>
   </div>
 </div>
+<script src="/Javascripts/show-message.js"></script>
+<script src="/Javascripts/validateImage-size.js"></script>
