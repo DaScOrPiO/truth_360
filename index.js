@@ -34,7 +34,8 @@ async function main() {
 main();
 mongoose.connection.on("error", (err) => console.log(err));
 
-app.listen(3000, () => {
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
   console.log("Server Started at port: 3000");
 });
 
