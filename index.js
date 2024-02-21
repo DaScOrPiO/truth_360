@@ -18,11 +18,14 @@ const locationRoutes = require("./views/routes/location_routes");
 const reviewRoutes = require("./views/routes/review_routes");
 const movieRoutes = require("./views/routes/movie_route");
 const session = require("express-session");
+const mongoStore = require("connect-mongo");
 const mongoSanitize = require("express-mongo-sanitize");
 
+const serverConnect = process.env.Prod_db_url;
+// "mongodb://127.0.0.1:27017/truth_360"
 async function main() {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/truth_360");
+    await mongoose.connect(serverConnect);
     console.log("Mongoose Connection Success");
   } catch (err) {
     console.log("Seomething Went Wrong", err);
@@ -31,11 +34,24 @@ async function main() {
 main();
 mongoose.connection.on("error", (err) => console.log(err));
 
-app.listen(3000, () => {
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
   console.log("Server Started at port: 3000");
 });
 
+const store = mongoStore.create({
+  mongoUrl: serverConnect,
+  secret: "Thisisasecret",
+  touchAfter: 24 * 60 * 60,
+});
+
+store.on("error", function (e) {
+  console.log("Session error", e);
+});
+
 const sessionParams = {
+  store,
+  name: "session",
   secret: "Thisisasecret",
   resave: false,
   saveUninitialized: true,
