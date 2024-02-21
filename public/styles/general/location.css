@@ -15,7 +15,7 @@ body {
 }
 
 .button{
-    width: 80%;
+    width: auto;
     display: inline-block;
 }
 
@@ -173,5 +173,9 @@ body {
         height: 95vh;
         top: 2%;
         transform: translate(2%);
+    }
+
+    .button{
+        width: 80%;
     }
 }
