@@ -3,7 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Movies</title>
+    <meta
+      name="description"
+      content="Explore Flicks - Your ultimate companion for discovering new movies and exciting locations. 
+      Dive into a world of cinematic adventures and hidden gems waiting to be explored."
+    />
+    <link rel="icon" href="/images/face-search.png" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="/images/face-search.png"
+      type="image/x-icon"
+    />
+    <title>Explore Flicks</title>
     <link rel="stylesheet" href="/styles/general/sidebar.css" />
     <link rel="stylesheet" href="/styles/general/filter-search.css" />
     <link
@@ -26,8 +37,8 @@
   </head>
   <body>
     <div class="body-items" id="body">
-      <%- include("../partials/sidebar") %>
-      <%- include("../partials/filter-movies-search") %>
+      <%- include("../partials/sidebar") %> <%-
+      include("../partials/filter-movies-search") %>
       <main class="main-content">
         <%- include("../partials/flash") %> <%- body %>
       </main>
