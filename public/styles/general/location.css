@@ -14,6 +14,11 @@ body {
     border-radius: 0.8rem;
 }
 
+.button{
+    width: 80%;
+    display: inline-block;
+}
+
 .button:hover {
     color: #fff;
     transform: translateY(10%) !important;
@@ -126,6 +131,10 @@ body {
 
 .mapboxgl-popup-close-button:active {
     background-color: #f70c0c;
+}
+
+.row{
+    margin: 2% 0 !important;
 }
 
 
