@@ -134,9 +134,23 @@ body {
     width: 20%;
 }
 
+@media screen and (max-width: 1023px) {
+    .screen-message{
+        width: 80%;
+    }
+
+    .screen-message>h1{
+        font-size: 2.5rem;
+    }
+}
+
 @media screen and (max-width: 767px) {
     .screen-message {
         width: 100%;
+    }
+
+    .screen-message>h1 {
+        font-size: 2rem;
     }
 
     .custom-alert {
