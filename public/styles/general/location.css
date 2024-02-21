@@ -144,12 +144,22 @@ body {
         height: 150vh;
         overflow-y: auto;
     }
+
+    .search-icon{
+        position: fixed;
+        right: 5%;
+    }
 }
 
 @media screen and (max-width: 1023px) {
     .review-container {
         height: 60vh;
         overflow-y: auto;
+    }
+
+    .search-icon{
+        position: fixed;
+        right: 8%;
     }
 
     .search-container {
@@ -165,7 +175,12 @@ body {
 
     .search-container {
         width: 60%;
-        left: 42%;
+        left: 32%;
+    }
+
+    .search-icon{
+        position: fixed;
+        right: 10%;
     }
 
     .search-section {
