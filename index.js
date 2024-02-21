@@ -72,8 +72,8 @@ app.use((req, res, next) => {
 
 // app.use("/", campgroundRoutes);
 app.use("/", userRoutes);
-app.use("/locations", locationRoutes);
-app.use("/locations", reviewRoutes);
+app.use("/", locationRoutes);
+app.use("/", reviewRoutes);
 app.use("/", movieRoutes);
 
 app.get("/", (req, res) => res.render("index", { currentPage: req.path }));

@@ -11,7 +11,7 @@ const {
 
 // Show all campgrounds & Add new campground
 router
-  .route("/")
+  .route("/locations")
   .get(locationController.displayallLocation)
   .post(
     isLoggedIn,
@@ -21,17 +21,17 @@ router
   );
 
 // Render for for creating new campground
-router.get("/new", isLoggedIn, locationController.displayNewLocationPage);
+router.get("/locations/new", isLoggedIn, locationController.displayNewLocationPage);
 
 // Show one campground
-router.get("/:id/show", locationController.displayOneLocation);
+router.get("/locations/:id/show", locationController.displayOneLocation);
 
 // Search locations
-router.get("/search_locations", locationController.searchLocation);
+router.get("/locations/search_locations", locationController.searchLocation);
 
 // Edit campground
 router.get(
-  "/:id/edit",
+  "/locations/:id/edit",
   isLoggedIn,
   isAuthor,
   locationController.editLocation
@@ -39,7 +39,7 @@ router.get(
 
 // Update Campground & delete
 router
-  .route("/:id")
+  .route("/locations/:id")
   .patch(
     isLoggedIn,
     isAuthor,
