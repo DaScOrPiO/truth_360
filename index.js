@@ -20,9 +20,11 @@ const movieRoutes = require("./views/routes/movie_route");
 const session = require("express-session");
 const mongoSanitize = require("express-mongo-sanitize");
 
+const prodConnect = process.env.Prod_db_url
+// "mongodb://127.0.0.1:27017/truth_360"
 async function main() {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/truth_360");
+    await mongoose.connect(prodConnect);
     console.log("Mongoose Connection Success");
   } catch (err) {
     console.log("Seomething Went Wrong", err);
