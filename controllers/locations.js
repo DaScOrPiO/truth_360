@@ -17,7 +17,7 @@ module.exports.displayallLocation = async (req, res) => {
     .map((el) => el);
 
   const currentIndex = 0;
-  res.render("pages/locations/index", {
+  res.render("Pages/locations/index", {
     locations,
     currentPage: req.path,
     currentIndex,
@@ -28,7 +28,7 @@ module.exports.displayallLocation = async (req, res) => {
 };
 
 module.exports.displayNewLocationPage = async (req, res) => {
-  res.render("pages/locations/new", { currentPage: req.path });
+  res.render("Pages/locations/new", { currentPage: req.path });
 };
 
 module.exports.addNewLocation = async (req, res, next) => {
@@ -67,7 +67,7 @@ module.exports.displayOneLocation = async (req, res, next) => {
       })
       .populate("author");
     if (!item) return req.flash("error", "Cannot find page");
-    res.render("pages/locations/show", { item, currentPage: req.path });
+    res.render("Pages/locations/show", { item, currentPage: req.path });
   } catch (err) {
     next(err);
   }
@@ -80,7 +80,7 @@ module.exports.editLocation = async (req, res, next) => {
       req.flash("error", "Cannot find page");
     } else {
       req.flash("success", "Location edit successful");
-      res.render("pages/locations/edit", { item, currentPage: req.path });
+      res.render("Pages/locations/edit", { item, currentPage: req.path });
     }
   } catch (err) {
     next(err);
