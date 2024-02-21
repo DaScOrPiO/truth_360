@@ -52,6 +52,7 @@ module.exports.addNewLocation = async (req, res, next) => {
     req.flash("success", "Addition Successful");
     res.redirect("/locations");
   } catch (err) {
+    console.log(err);
     next(err);
   }
 };
