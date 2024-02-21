@@ -6,8 +6,8 @@
 
 <h1 class="px-5 py-3"><%= item.title %></h1>
 <hr />
-<div class="row">
-  <div class="col-6">
+<div class="items-container">
+  <div class="wrapper-1">
     <div
       id="carouselExampleInterval"
       class="carousel slide slide-container"
@@ -19,7 +19,7 @@
           class="carousel-item <%= i === 0 ? 'active' : '' %>"
           data-bs-interval="5000"
         >
-          <img src="<%= images.url %>" class="image d-block mw-100" alt="" />
+          <img src="<%= images.url %>" class="image d-block w-100" alt="location-image" />
         </div>
         <% }) %>
       </div>
@@ -81,11 +81,10 @@
         </form>
       </div>
       <%} %>
-      <div class="card-footer text-muted">2 days ago</div>
     </div>
   </div>
 
-  <div class="col-6 review-container">
+  <div class="wrapper-2">
     <%if(currentUser) {%>
     <h1>Leave a review</h1>
     <form

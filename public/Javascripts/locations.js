@@ -49,6 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         currentPage++;
+      } else {
+        isDataAvailable = false;
       }
     } catch (error) {
       console.error("Error fetching data:", error);

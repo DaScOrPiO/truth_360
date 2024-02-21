@@ -2,6 +2,22 @@ html{
     overflow-x: hidden;
 }
 
+.items-container{
+    width: 100vw;
+    display: flex;
+    padding: 0 4%;
+}
+
+.wrapper-1, .wrapper-2{
+    width: 50%;
+    margin: 0 2%;
+}
+
+.wrapper-2{
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
 .login, .register {
     min-height: 100vh;
     background: url("../../images/world.jpg");
@@ -53,16 +69,39 @@ html{
     .customized-card {
         width: 500px;
     }
+
+    .wrapper-2{
+        max-height: 120vh;
+        overflow-y: auto;
+    }
 }
 
 @media screen and (max-width: 1023px) {
     .items {
         width: 500px;
     }
+
+    .wrapper-2{
+        max-height: 65vh;
+        overflow-y: auto;
+    }
 }
 
 @media screen and (max-width: 767px) {
     .items {
         width: 400px;
+    }
+
+    .items-container{
+        flex-direction: column;
+    }
+
+    .wrapper-1, .wrapper-2{
+        width: 100%;
+    }
+
+    .wrapper-2{
+        max-height: 100vh;
+        overflow-y: auto;
     }
 }
