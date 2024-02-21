@@ -373,9 +373,9 @@ document.addEventListener("DOMContentLoaded", function () {
           id=""
           value="${movie.Poster_path}"
         />
-        <button class="card-wishlist-btn d-flex justify-content-center">
+        <button class="card-wishlist-btn d-flex justify-content-center align-items-center">
           <span class="material-symbols-outlined mx-2">delete</span>
-          Remove Item
+          Delete
         </button>
       </form>
             `;
