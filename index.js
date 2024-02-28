@@ -22,6 +22,7 @@ const mongoStore = require("connect-mongo");
 const mongoSanitize = require("express-mongo-sanitize");
 
 const serverConnect = process.env.Prod_db_url;
+// process.env.Prod_db_url;
 // "mongodb://127.0.0.1:27017/truth_360"
 async function main() {
   try {
