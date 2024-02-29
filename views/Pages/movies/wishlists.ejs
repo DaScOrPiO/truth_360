@@ -147,6 +147,18 @@
                         />
                       </div>
 
+                      <div class="mb-3 no-view">
+                        <label for="tmdb_ratings">Tmdb rating</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="Tmdb_rating"
+                          value=" <%= Math.round(data1.Tmdb_rating / 2 * 10) / 10 %>"
+                          readonly
+                          id="tmdb_ratings"
+                        />
+                      </div>
+
                       <div class="mb-3">
                         <fieldset class="starability-grow">
                           <legend>rating:</legend>
@@ -480,6 +492,18 @@
                     />
                   </div>
 
+                  <div class="mb-3 no-view">
+                    <label for="tmdb_ratings">Tmdb rating</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="Tmdb_rating"
+                      value=" <%= Math.round(initialData[i].Tmdb_rating / 2 * 10) / 10 %>"
+                      readonly
+                      id="tmdb_ratings"
+                    />
+                  </div>
+
                   <div class="mb-3">
                     <fieldset class="starability-grow">
                       <legend>rating:</legend>
@@ -593,7 +617,9 @@
           id=""
           value="<%= initialData[i].Poster_path %>"
         />
-        <button class="card-wishlist-btn d-flex justify-content-center align-items-center">
+        <button
+          class="card-wishlist-btn d-flex justify-content-center align-items-center"
+        >
           <span class="material-symbols-outlined mx-2">delete</span>
           Delete
         </button>
@@ -603,7 +629,10 @@
   </div>
 
   <div class="d-flex justify-content-center align-items-center w-100">
-    <button class="button shadow fw-bolder d-flex align-items-center" id="load-more">
+    <button
+      class="button shadow fw-bolder d-flex align-items-center"
+      id="load-more"
+    >
       Load More <i class="material-symbols-outlined fs-1"> expand_more </i>
     </button>
   </div>
