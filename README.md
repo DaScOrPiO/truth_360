@@ -7,4 +7,4 @@ A web application to review movies and locations
 - Edit wishlists
 - Comment on Locations
 
-Visit: explore-flicks.onrender.com
+Visit: [project url](explore-flicks.onrender.com) 
